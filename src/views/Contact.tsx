@@ -39,15 +39,18 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Request failed");
+        const payload = (await response.json().catch(() => null)) as
+          | { message?: string }
+          | null;
+        throw new Error(payload?.message || "Request failed");
       }
 
       toast({ title: "Message Sent", description: "We will respond within 1–2 business days." });
       form.reset();
-    } catch {
+    } catch (error) {
       toast({
         title: "Submission Failed",
-        description: "Please try again in a moment.",
+        description: error instanceof Error ? error.message : "Please try again in a moment.",
         variant: "destructive",
       });
     } finally {

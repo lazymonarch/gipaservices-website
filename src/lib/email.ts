@@ -8,11 +8,33 @@ export type ContactNotificationData = {
   message: string;
 };
 
+export type DriverNotificationData = {
+  fullName: string;
+  address: string;
+  phone: string;
+  email: string;
+  licenceType: string;
+  experienceYears: number;
+  rightToWork: boolean;
+  cpcStatus?: string;
+  hgvCategory?: string;
+  availability?: string;
+  cvFileUrl: string;
+};
+
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 const sender = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
-const recipients = (process.env.CONTACT_NOTIFICATION_TO ?? "lakshan.s1705@gmail.com")
+const contactRecipients = (process.env.CONTACT_NOTIFICATION_TO ?? "lakshan.s1705@gmail.com")
+  .split(",")
+  .map((value) => value.trim())
+  .filter(Boolean);
+const driverRecipients = (
+  process.env.DRIVER_NOTIFICATION_TO ||
+  process.env.CONTACT_NOTIFICATION_TO ||
+  "lakshan.s1705@gmail.com"
+)
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
@@ -31,14 +53,14 @@ export async function sendContactNotification(data: ContactNotificationData) {
     return;
   }
 
-  if (recipients.length === 0) {
+  if (contactRecipients.length === 0) {
     console.warn("CONTACT_NOTIFICATION_TO is empty. Skipping contact notification email.");
     return;
   }
 
   const { error } = await resend.emails.send({
     from: `GIPA Website <${sender}>`,
-    to: recipients,
+    to: contactRecipients,
     subject: "New Contact Form Submission",
     html: `
       <h2>New Contact Submission</h2>
@@ -48,6 +70,43 @@ export async function sendContactNotification(data: ContactNotificationData) {
       <p><strong>Phone:</strong> ${escapeHtml(data.phone ?? "N/A")}</p>
       <p><strong>Message:</strong></p>
       <p>${escapeHtml(data.message)}</p>
+    `,
+  });
+
+  if (error) {
+    throw new Error(error.message || "Unknown Resend error");
+  }
+}
+
+export async function sendDriverApplicationNotification(data: DriverNotificationData) {
+  if (!resend) {
+    console.warn("RESEND_API_KEY is not set. Skipping driver application email.");
+    return;
+  }
+
+  if (driverRecipients.length === 0) {
+    console.warn("DRIVER_NOTIFICATION_TO is empty. Skipping driver application email.");
+    return;
+  }
+
+  const rightToWorkText = data.rightToWork ? "Yes" : "No";
+  const { error } = await resend.emails.send({
+    from: `GIPA Website <${sender}>`,
+    to: driverRecipients,
+    subject: "New Driver Application Submission",
+    html: `
+      <h2>New Driver Application</h2>
+      <p><strong>Name:</strong> ${escapeHtml(data.fullName)}</p>
+      <p><strong>Address:</strong> ${escapeHtml(data.address)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Licence Type:</strong> ${escapeHtml(data.licenceType)}</p>
+      <p><strong>Experience (years):</strong> ${data.experienceYears}</p>
+      <p><strong>Right to Work (UK):</strong> ${rightToWorkText}</p>
+      <p><strong>CPC Status:</strong> ${escapeHtml(data.cpcStatus ?? "N/A")}</p>
+      <p><strong>HGV Category:</strong> ${escapeHtml(data.hgvCategory ?? "N/A")}</p>
+      <p><strong>Availability:</strong> ${escapeHtml(data.availability ?? "N/A")}</p>
+      <p><strong>CV:</strong> <a href="${escapeHtml(data.cvFileUrl)}">View CV</a></p>
     `,
   });
 

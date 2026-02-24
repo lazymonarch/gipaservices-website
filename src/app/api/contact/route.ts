@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { sendContactNotification } from "@/lib/email";
+import { contactLimiter, getIP } from "@/lib/rate-limit";
 
 const schema = z.object({
   fullName: z.string().trim().min(2),
@@ -13,10 +14,17 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    const ipAddress = getIP(req);
+    const { success } = await contactLimiter.limit(`contact:${ipAddress}`);
+    if (!success) {
+      return NextResponse.json(
+        { success: false, message: "Too many requests. Please try again later." },
+        { status: 429 },
+      );
+    }
+
     const body = await req.json();
     const data = schema.parse(body);
-    const forwardedFor = req.headers.get("x-forwarded-for");
-    const ipAddress = forwardedFor?.split(",")[0]?.trim() || "unknown";
 
     await prisma.contact.create({
       data: {

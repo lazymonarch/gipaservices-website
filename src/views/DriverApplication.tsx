@@ -32,21 +32,42 @@ const DriverApplication = () => {
     setFile(f);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     if (!file) {
       toast({ title: "CV Required", description: "Please upload your CV.", variant: "destructive" });
       return;
     }
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/driver-application", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as
+          | { message?: string }
+          | null;
+        throw new Error(payload?.message || "Request failed");
+      }
+
       toast({ title: "Application Submitted", description: "Thank you. We will review your application and be in touch." });
-      (e.target as HTMLFormElement).reset();
+      form.reset();
       setFile(null);
       setRightToWork("");
       setLicenceType("");
-    }, 1200);
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: error instanceof Error ? error.message : "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -66,21 +87,21 @@ const DriverApplication = () => {
             <div className="space-y-5">
               <h2 className="text-lg font-semibold text-foreground">Personal Details</h2>
               <div>
-                <Label htmlFor="driverName">Full Name *</Label>
-                <Input id="driverName" name="driverName" required className="mt-1.5" placeholder="Your full name" />
+                <Label htmlFor="fullName">Full Name *</Label>
+                <Input id="fullName" name="fullName" required className="mt-1.5" placeholder="Your full name" />
               </div>
               <div>
-                <Label htmlFor="driverAddress">Full Address *</Label>
-                <Input id="driverAddress" name="driverAddress" required className="mt-1.5" placeholder="Your full address" />
+                <Label htmlFor="address">Full Address *</Label>
+                <Input id="address" name="address" required className="mt-1.5" placeholder="Your full address" />
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <Label htmlFor="driverPhone">Phone Number *</Label>
-                  <Input id="driverPhone" name="driverPhone" type="tel" required className="mt-1.5" placeholder="+44" />
+                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Input id="phone" name="phone" type="tel" required className="mt-1.5" placeholder="+44" />
                 </div>
                 <div>
-                  <Label htmlFor="driverEmail">Email Address *</Label>
-                  <Input id="driverEmail" name="driverEmail" type="email" required className="mt-1.5" placeholder="you@email.com" />
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input id="email" name="email" type="email" required className="mt-1.5" placeholder="you@email.com" />
                 </div>
               </div>
             </div>
@@ -102,10 +123,11 @@ const DriverApplication = () => {
                       <SelectItem value="C1+E">Category C1+E</SelectItem>
                     </SelectContent>
                   </Select>
+                  <input type="hidden" name="licenceType" value={licenceType} />
                 </div>
                 <div>
-                  <Label htmlFor="experience">Years of Driving Experience *</Label>
-                  <Input id="experience" name="experience" type="number" min="0" required className="mt-1.5" placeholder="e.g. 5" />
+                  <Label htmlFor="experienceYears">Years of Driving Experience *</Label>
+                  <Input id="experienceYears" name="experienceYears" type="number" min="0" required className="mt-1.5" placeholder="e.g. 5" />
                 </div>
               </div>
               <div>
@@ -119,6 +141,7 @@ const DriverApplication = () => {
                     <SelectItem value="no">No</SelectItem>
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="rightToWork" value={rightToWork} />
               </div>
             </div>
 
@@ -148,6 +171,7 @@ const DriverApplication = () => {
               <input
                 ref={fileInputRef}
                 type="file"
+                name="cvFile"
                 accept=".pdf,.doc,.docx"
                 onChange={handleFileChange}
                 className="hidden"
