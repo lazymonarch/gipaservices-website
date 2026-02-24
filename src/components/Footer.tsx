@@ -26,7 +26,7 @@ const Footer = () => {
               <Link href="/our-story" className="text-sm opacity-80 hover:opacity-100 transition-opacity">Our Story</Link>
               <Link href="/contact" className="text-sm opacity-80 hover:opacity-100 transition-opacity">Contact</Link>
               <Link href="/driver-application" className="text-sm opacity-80 hover:opacity-100 transition-opacity">Driver Application</Link>
-              <span className="text-sm opacity-80">Privacy Policy</span>
+              <Link href="/privacy-policy" className="text-sm opacity-80 hover:opacity-100 transition-opacity">Privacy Policy</Link>
             </nav>
           </div>
 
