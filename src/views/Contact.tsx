@@ -13,14 +13,46 @@ const Contact = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const fullName = String(formData.get("fullName") ?? "");
+    const companyName = String(formData.get("companyName") ?? "").trim();
+    const email = String(formData.get("email") ?? "");
+    const phone = String(formData.get("phone") ?? "").trim();
+    const message = String(formData.get("message") ?? "");
+
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          companyName: companyName || undefined,
+          email,
+          phone: phone || undefined,
+          message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
       toast({ title: "Message Sent", description: "We will respond within 1–2 business days." });
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+    } catch {
+      toast({
+        title: "Submission Failed",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
