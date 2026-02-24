@@ -32,6 +32,8 @@ model DriverApplication {
   licenceType      String
   experienceYears  Int
   rightToWork      Boolean
+  gdprConsent      Boolean  @default(false)
+  consentTimestamp DateTime @default(now())
   cpcStatus        String?
   hgvCategory      String?
   availability     String?

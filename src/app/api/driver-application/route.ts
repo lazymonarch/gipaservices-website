@@ -20,6 +20,7 @@ const schema = z.object({
   licenceType: z.string().trim().min(1),
   experienceYears: z.coerce.number().int().min(0),
   rightToWork: z.enum(["yes", "no"]),
+  gdprConsent: z.literal("on"),
   cpcStatus: z.string().trim().optional(),
   hgvCategory: z.string().trim().optional(),
   availability: z.string().trim().optional(),
@@ -40,6 +41,13 @@ export async function POST(req: NextRequest) {
     }
 
     const formData = await req.formData();
+    const gdprConsent = formData.get("gdprConsent");
+    if (gdprConsent !== "on") {
+      return NextResponse.json(
+        { success: false, message: "Consent is required." },
+        { status: 400 },
+      );
+    }
 
     const cvFile = formData.get("cvFile");
     if (!(cvFile instanceof File) || cvFile.size === 0) {
@@ -69,6 +77,7 @@ export async function POST(req: NextRequest) {
       licenceType: formData.get("licenceType"),
       experienceYears: formData.get("experienceYears"),
       rightToWork: formData.get("rightToWork"),
+      gdprConsent,
       cpcStatus: formData.get("cpcStatus") || undefined,
       hgvCategory: formData.get("hgvCategory") || undefined,
       availability: formData.get("availability") || undefined,
@@ -87,6 +96,8 @@ export async function POST(req: NextRequest) {
         licenceType: data.licenceType,
         experienceYears: data.experienceYears,
         rightToWork,
+        gdprConsent: true,
+        consentTimestamp: new Date(),
         cpcStatus: data.cpcStatus,
         hgvCategory: data.hgvCategory,
         availability: data.availability,

@@ -198,6 +198,18 @@ const DriverApplication = () => {
             </div>
 
             <div className="pt-4">
+              <div className="flex items-start gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="gdprConsent"
+                  name="gdprConsent"
+                  required
+                  className="mt-1"
+                />
+                <label htmlFor="gdprConsent" className="text-sm text-muted-foreground">
+                  I consent to GIPA Services Limited storing and processing my personal data for recruitment purposes in accordance with UK GDPR.
+                </label>
+              </div>
               <p className="text-xs text-muted-foreground mb-4">
                 All applications are handled securely and in compliance with UK data protection standards.
               </p>
