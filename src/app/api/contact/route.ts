@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { sendContactNotification } from "@/lib/email";
 
 const schema = z.object({
   fullName: z.string().trim().min(2),
@@ -27,6 +28,18 @@ export async function POST(req: NextRequest) {
         ipAddress,
       },
     });
+
+    try {
+      await sendContactNotification({
+        fullName: data.fullName,
+        companyName: data.companyName,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+      });
+    } catch (error) {
+      console.error("Contact notification email failed:", error);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
