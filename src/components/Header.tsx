@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -15,78 +15,201 @@ const navLinks = [
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const lastScrollY = useRef(0);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement | null>(null);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (mobileOpen) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 120) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+
+      if (isHome) {
+        setScrolled(currentScrollY > window.innerHeight * 0.7);
+      } else {
+        setScrolled(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHome, mobileOpen]);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const clickedOutsideMenu = !mobileMenuRef.current?.contains(target);
+      const clickedOutsideButton = !mobileButtonRef.current?.contains(target);
+
+      if (clickedOutsideMenu && clickedOutsideButton) {
+        setMobileOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="container-narrow flex h-16 items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded bg-primary font-bold text-primary-foreground text-sm">
-            G
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-foreground">
-            GIPA Services
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                pathname === link.path
-                  ? "bg-primary/15 text-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    <header
+      className={`
+        fixed top-0 left-0 right-0 z-50
+        transition-all duration-300 ease-in-out
+        ${visible ? "translate-y-0" : "-translate-y-full"}
+        ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm"
+            : "bg-slate-900/60 backdrop-blur-md"
+        }
+      `}
+    >
+      <nav className="relative w-full max-w-6xl mx-auto px-6">
+        <div id="main-navbar" className="flex items-center justify-between py-3">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-yellow-400 rounded-md flex items-center justify-center text-slate-900 font-semibold">
+              G
+            </div>
+            <span
+              className={`font-semibold text-lg tracking-tight ${
+                scrolled ? "text-slate-900" : "text-white"
               }`}
             >
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/contact" className="ml-2">
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Get in Touch
-            </Button>
+              GIPA Services
+            </span>
           </Link>
-        </nav>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden p-2 text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
-
-      {/* Mobile nav */}
-      {mobileOpen && (
-        <div className="md:hidden border-t bg-background">
-          <nav className="flex flex-col p-4 gap-1">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
-                onClick={() => setMobileOpen(false)}
-                className={`px-3 py-2.5 text-sm font-medium rounded-md transition-colors ${
+                className={cn(
+                  "text-sm font-medium transition-colors duration-200",
+                  scrolled
+                    ? "text-slate-700 hover:text-slate-900"
+                    : "text-white hover:text-yellow-300",
                   pathname === link.path
-                    ? "bg-primary/15 text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                    ? isHome
+                      ? "border-b-2 border-yellow-400 pb-1 font-medium"
+                      : "border-b-2 border-slate-900 pb-1 font-medium text-slate-900"
+                    : "",
+                )}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" onClick={() => setMobileOpen(false)} className="mt-2">
-              <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                Get in Touch
-              </Button>
-            </Link>
-          </nav>
+            <Button
+              asChild
+              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 bg-[length:200%_100%] hover:bg-[position:100%_0] text-slate-900 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ease-in-out shadow-sm h-auto"
+            >
+              <Link href="/contact">Get in Touch</Link>
+            </Button>
+          </div>
+
+          <div className="md:hidden flex items-center gap-2">
+            <div
+              id="mobile-nav-menu"
+              ref={mobileMenuRef}
+              className={cn(
+                "relative h-10 overflow-hidden transition-all duration-300 ease-out",
+                mobileOpen
+                  ? "w-[min(72vw,22rem)] opacity-100 pointer-events-auto"
+                  : "w-0 opacity-0 pointer-events-none",
+              )}
+              aria-hidden={!mobileOpen}
+            >
+              <div
+                className={cn(
+                  "flex h-full items-center gap-1.5 px-2 transition-all duration-300 ease-out whitespace-nowrap",
+                  mobileOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
+                )}
+              >
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "px-2 py-1 text-xs font-medium transition-colors duration-200",
+                  scrolled
+                    ? "text-slate-700 hover:text-slate-900"
+                    : "text-white hover:text-yellow-300",
+                  pathname === link.path
+                    ? isHome
+                      ? "text-yellow-300 border-b-2 border-yellow-400"
+                      : "text-slate-900 border-b-2 border-slate-900"
+                    : "",
+                )}
+              >
+                {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <button
+              ref={mobileButtonRef}
+              type="button"
+              className={cn(
+                "relative inline-flex h-10 w-10 items-center justify-center transition-colors duration-200",
+                scrolled
+                  ? "text-slate-900 hover:text-slate-700"
+                  : "text-white hover:text-yellow-300",
+              )}
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              <span className="relative block h-4 w-5">
+                <span
+                  className={cn(
+                    "absolute left-0 h-[2px] w-5 rounded-full bg-current transition-all duration-200 ease-out",
+                    mobileOpen ? "top-[7px] rotate-45" : "top-[3px] rotate-0",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute left-0 h-[2px] w-5 rounded-full bg-current transition-all duration-200 ease-out",
+                    mobileOpen ? "top-[7px] -rotate-45" : "top-[11px] rotate-0",
+                  )}
+                />
+              </span>
+            </button>
+          </div>
         </div>
-      )}
+      </nav>
     </header>
   );
 };

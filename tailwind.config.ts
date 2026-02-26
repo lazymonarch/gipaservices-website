@@ -6,6 +6,13 @@ export default {
   content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+    screens: {
+      sm: "640px",
+      md: "990px",
+      lg: "1200px",
+      xl: "1440px",
+      "2xl": "1920px",
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -15,7 +22,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['TildaSans', 'sans-serif'],
+        display: ['Space Grotesk', 'TildaSans', 'sans-serif'],
+        body: ['DM Sans', 'TildaSans', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

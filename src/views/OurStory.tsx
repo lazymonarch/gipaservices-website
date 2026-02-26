@@ -1,94 +1,180 @@
 import Layout from "@/components/Layout";
 import Image from "next/image";
-import { Target, Eye, Heart, Shield, Award, Users, Handshake } from "lucide-react";
-
-const values = [
-  { icon: Heart, label: "Reliability" },
-  { icon: Shield, label: "Safety" },
-  { icon: Award, label: "Professionalism" },
-  { icon: Handshake, label: "Long-term Partnerships" },
-  { icon: Users, label: "Operational Excellence" },
-];
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { FadeUp } from "@/components/motion/Reveal";
 
 const OurStory = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/warehouse-logistics.jpg"
-            alt="Warehouse logistics operations"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-accent/80" />
-        </div>
-        <div className="relative container-narrow section-padding py-20 md:py-28 px-4 md:px-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-accent-foreground mb-4">Our Story</h1>
-          <p className="text-lg text-accent-foreground/80 max-w-xl">
-            Building a trusted name in UK logistics, one delivery at a time.
-          </p>
-        </div>
-      </section>
+      <section className="pt-32 pb-20 bg-[#F5F3F0]">
+        <FadeUp mode="mount">
+          <div className="max-w-4xl mx-auto px-6">
+            <p className="text-sm uppercase tracking-widest text-amber-500 mb-6">
+              Our Story
+            </p>
 
-      {/* Company Background */}
-      <section className="section-padding">
-        <div className="container-narrow max-w-3xl">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Company Background</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            GIPA Services Limited is a UK-registered logistics company established in October 2025, providing professional HGV delivery services nationwide. Founded with a commitment to reliability and safety, we serve businesses across England, Scotland, Wales, and Northern Ireland with dedicated transport solutions.
-          </p>
-        </div>
-      </section>
+            <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-6">
+              Built on real operations, real drivers, and structured logistics
+              discipline.
+            </h1>
 
-      {/* Mission & Vision */}
-      <section className="section-padding bg-muted">
-        <div className="container-narrow grid gap-10 md:grid-cols-2">
-          <div className="p-8 rounded-lg border bg-card">
-            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-primary/20 mb-4">
-              <Target className="h-5 w-5 text-secondary" />
-            </div>
-            <h2 className="text-xl font-bold text-foreground mb-3">Our Mission</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Deliver reliable, efficient, and professional nationwide transport solutions that meet the highest standards of safety and service excellence.
+            <p className="text-lg text-slate-600 leading-relaxed">
+              GIPA Services Limited was founded with a clear mission: to
+              provide dependable, professional nationwide HGV transport services
+              across the United Kingdom. Our foundation is built on operational
+              clarity, regulatory compliance, and disciplined execution at every
+              stage of the logistics process.
             </p>
           </div>
-          <div className="p-8 rounded-lg border bg-card">
-            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-primary/20 mb-4">
-              <Eye className="h-5 w-5 text-secondary" />
-            </div>
-            <h2 className="text-xl font-bold text-foreground mb-3">Our Vision</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Become a trusted and recognised logistics partner across the United Kingdom, known for dependability, compliance, and long-term business relationships.
+        </FadeUp>
+      </section>
+
+      <section className="py-16 bg-[#F5F3F0]">
+        <FadeUp>
+          <div className="max-w-6xl mx-auto px-6">
+            <Image
+              src="/assets/warehouse-real-1.jpeg"
+              alt="Warehouse operations at GIPA Services"
+              width={1600}
+              height={900}
+              className="rounded-2xl w-full h-[500px] object-cover"
+            />
+            <p className="text-sm text-slate-500 mt-4">
+              Our operational environment supporting structured dispatch and
+              fleet coordination.
             </p>
           </div>
+        </FadeUp>
+      </section>
+
+      <section className="py-24 bg-[#F5F3F0]">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+          <FadeUp>
+            <div>
+              <h2 className="text-3xl font-semibold text-slate-900 mb-6">
+                Operational clarity at every stage.
+              </h2>
+
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Every delivery reflects our commitment to structured planning,
+                compliance with UK transport regulations, and professional fleet
+                coordination.
+              </p>
+
+              <p className="text-slate-600 leading-relaxed">
+                From route allocation to final delivery confirmation, our
+                approach ensures predictable performance, safe handling, and
+                consistent service standards.
+              </p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <div>
+              <Image
+                src="/assets/forklift-operator.jpeg"
+                alt="Forklift operator within GIPA warehouse"
+                width={1200}
+                height={900}
+                className="rounded-2xl w-full object-cover"
+              />
+            </div>
+          </FadeUp>
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="section-padding">
-        <div className="container-narrow">
-          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Core Values</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {values.map((v) => (
-              <div key={v.label} className="flex flex-col items-center text-center p-6 rounded-lg border bg-card">
-                <v.icon className="h-6 w-6 text-secondary mb-3" />
-                <span className="text-sm font-semibold text-foreground">{v.label}</span>
-              </div>
-            ))}
+      <section className="py-24 bg-[#F5F3F0]">
+        <FadeUp>
+          <div className="max-w-6xl mx-auto px-6">
+            <Image
+              src="/assets/workers-loading.jpg"
+              alt="Logistics team loading goods into vehicle"
+              width={1600}
+              height={900}
+              className="rounded-2xl w-full h-[450px] object-cover mb-12"
+            />
+
+            <h2 className="text-3xl font-semibold text-slate-900 mb-6">
+              From warehouse floor to nationwide delivery.
+            </h2>
+
+            <p className="text-slate-600 leading-relaxed mb-6">
+              Our logistics process begins within structured warehouse
+              environments, where goods are handled with care, accuracy, and
+              safety controls.
+            </p>
+
+            <p className="text-slate-600 leading-relaxed">
+              Through coordinated dispatch systems and experienced drivers, we
+              extend this structured approach across transport routes
+              nationwide.
+            </p>
           </div>
+        </FadeUp>
+      </section>
+
+      <section className="py-24 bg-[#F5F3F0]">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+          <FadeUp>
+            <div>
+              <h2 className="text-3xl font-semibold text-slate-900 mb-6">
+                Expanding capability across the United Kingdom.
+              </h2>
+
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Our long-term objective is to strengthen our logistics
+                capacity, expand service coverage, and build enduring
+                partnerships with businesses across the UK.
+              </p>
+
+              <p className="text-slate-600 leading-relaxed">
+                With professional drivers, structured fleet operations, and
+                compliance-first systems, we continue to scale responsibly.
+              </p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <div>
+              <Image
+                src="/assets/fleet-lineup.jpg"
+                alt="Fleet lineup representing GIPA logistics capability"
+                width={1200}
+                height={900}
+                className="rounded-2xl w-full object-cover"
+              />
+            </div>
+          </FadeUp>
         </div>
       </section>
 
-      {/* Commitment */}
-      <section className="section-padding bg-accent">
-        <div className="container-narrow max-w-3xl text-center">
-          <h2 className="text-2xl font-bold text-accent-foreground mb-4">Our Commitment</h2>
-          <p className="text-accent-foreground/80 leading-relaxed">
-            At GIPA Services Limited, we are committed to full compliance with UK transport regulations, maintaining the highest safety standards, and building long-term partnerships with our clients. Every delivery reflects our dedication to professionalism and operational excellence.
+      <section className="relative py-24">
+        <Image
+          src="/assets/aerial-yard.jpg"
+          alt="Aerial view of logistics yard operations"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+
+        <div className="relative max-w-4xl mx-auto px-6 text-center text-white">
+          <h2 className="text-3xl font-semibold mb-6">
+            Committed to dependable nationwide logistics.
+          </h2>
+
+          <p className="text-slate-200 mb-8">
+            Built on operational discipline, professional drivers, and
+            structured logistics planning across every transport route.
           </p>
+
+          <Button
+            asChild
+            className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-medium h-auto"
+          >
+            <Link href="/contact">Contact Our Team</Link>
+          </Button>
         </div>
       </section>
     </Layout>
