@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { ENV } from "@/lib/env";
 
 export type ContactNotificationData = {
   fullName: string;
@@ -22,19 +23,14 @@ export type DriverNotificationData = {
   cvFileUrl: string;
 };
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const resend = new Resend(ENV.RESEND_API_KEY);
 
-const sender = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
-const contactRecipients = (process.env.CONTACT_NOTIFICATION_TO ?? "lakshan.s1705@gmail.com")
+const sender = ENV.RESEND_FROM_EMAIL;
+const contactRecipients = ENV.CONTACT_NOTIFICATION_TO
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
-const driverRecipients = (
-  process.env.DRIVER_NOTIFICATION_TO ||
-  process.env.CONTACT_NOTIFICATION_TO ||
-  "lakshan.s1705@gmail.com"
-)
+const driverRecipients = ENV.DRIVER_NOTIFICATION_TO
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
@@ -48,13 +44,8 @@ const escapeHtml = (value: string) =>
     .replaceAll("'", "&#039;");
 
 export async function sendContactNotification(data: ContactNotificationData) {
-  if (!resend) {
-    console.warn("RESEND_API_KEY is not set. Skipping contact notification email.");
-    return;
-  }
-
   if (contactRecipients.length === 0) {
-    console.warn("CONTACT_NOTIFICATION_TO is empty. Skipping contact notification email.");
+    console.error("CONTACT_NOTIFICATION_TO is empty. Contact email was not sent.");
     return;
   }
 
@@ -79,13 +70,8 @@ export async function sendContactNotification(data: ContactNotificationData) {
 }
 
 export async function sendDriverApplicationNotification(data: DriverNotificationData) {
-  if (!resend) {
-    console.warn("RESEND_API_KEY is not set. Skipping driver application email.");
-    return;
-  }
-
   if (driverRecipients.length === 0) {
-    console.warn("DRIVER_NOTIFICATION_TO is empty. Skipping driver application email.");
+    console.error("DRIVER_NOTIFICATION_TO is empty. Driver email was not sent.");
     return;
   }
 

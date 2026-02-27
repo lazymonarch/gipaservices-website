@@ -1,5 +1,6 @@
 import { Readable } from "node:stream";
 import { google } from "googleapis";
+import { ENV } from "@/lib/env";
 
 const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive";
 
@@ -27,8 +28,8 @@ function parseFolderId(value: string) {
 }
 
 function getDriveClient() {
-  const clientEmail = normalizeEnvValue(process.env.GOOGLE_CLIENT_EMAIL);
-  const privateKey = normalizeEnvValue(process.env.GOOGLE_PRIVATE_KEY)?.replace(
+  const clientEmail = normalizeEnvValue(ENV.GOOGLE_CLIENT_EMAIL);
+  const privateKey = normalizeEnvValue(ENV.GOOGLE_PRIVATE_KEY)?.replace(
     /\\n/g,
     "\n",
   );
@@ -62,7 +63,7 @@ function getDriveClient() {
 }
 
 export async function uploadToDrive(file: File) {
-  const folderIdValue = normalizeEnvValue(process.env.GOOGLE_DRIVE_FOLDER_ID);
+  const folderIdValue = normalizeEnvValue(ENV.GOOGLE_DRIVE_FOLDER_ID);
   const folderId = folderIdValue ? parseFolderId(folderIdValue) : undefined;
   if (!folderId) {
     throw new Error("GOOGLE_DRIVE_FOLDER_ID is not configured.");
