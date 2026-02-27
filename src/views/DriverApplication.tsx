@@ -286,7 +286,7 @@ const DriverApplication = () => {
 
   return (
     <Layout>
-      <section className="bg-[#F5F3F0] pt-[5rem] md:pt-[5rem] pb-6 border-b border-slate-200">
+      <section className="bg-[#F5F3F0] pt-4 md:pt-4 pb-6 border-b border-slate-200">
         <div className="max-w-[1200px] mx-auto px-6">
           <motion.div
             variants={revealVariant}
@@ -427,7 +427,7 @@ const DriverApplication = () => {
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>HGV Licence Category <span className="text-red-500">*</span></Label>
+                    <Label className={labelClassName}>HGV Licence Category</Label>
                     <FieldHint
                       title="HGV Licence Category"
                       description="Choose the HGV class you are qualified to operate."
@@ -448,7 +448,7 @@ const DriverApplication = () => {
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>Driver CPC Status <span className="text-red-500">*</span></Label>
+                    <Label className={labelClassName}>Driver CPC Status</Label>
                     <FieldHint
                       title="Driver CPC Status"
                       description="A valid CPC is required for professional HGV driving in the UK."
@@ -480,11 +480,8 @@ const DriverApplication = () => {
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="UK Citizen">UK Citizen</SelectItem>
-                      <SelectItem value="Settled Status">Settled Status</SelectItem>
-                      <SelectItem value="Pre-Settled Status">Pre-Settled Status</SelectItem>
-                      <SelectItem value="Skilled Worker Visa">Skilled Worker Visa</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectItem value="yes">Yes</SelectItem>
+                      <SelectItem value="no">No</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

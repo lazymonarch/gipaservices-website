@@ -3,7 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { uploadToDrive } from "@/lib/google-drive";
 import { sendDriverApplicationNotification } from "@/lib/email";
-import { driverLimiter, getIP } from "@/lib/rate-limit";
+import { getIP } from "@/lib/rate-limit";
 
 const MAX_CV_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_CV_MIME_TYPES = [
@@ -29,16 +29,6 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const ipAddress = getIP(req);
-    const { success } = await driverLimiter.limit(`driver:${ipAddress}`);
-    if (!success) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Too many submissions. Please try again later.",
-        },
-        { status: 429 },
-      );
-    }
 
     const formData = await req.formData();
     const gdprConsent = formData.get("gdprConsent");
@@ -132,13 +122,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { success: false, message: "Invalid request payload" },
         { status: 400 },
-      );
-    }
-
-    if (error instanceof Error) {
-      return NextResponse.json(
-        { success: false, message: error.message },
-        { status: 500 },
       );
     }
 
