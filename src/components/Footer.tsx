@@ -1,54 +1,99 @@
 import Link from "next/link";
+import { Mail, MapPin, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { plusJakarta } from "@/lib/fonts";
 
 const Footer = () => {
-  return (
-    <footer className="border-t border-slate-200 bg-[#F5F3F0] text-slate-900">
-      <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-yellow-400 font-bold text-slate-900 text-xs">
-                G
-              </div>
-              <span className="text-lg font-semibold text-slate-900">GIPA Services</span>
-            </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              GIPA Services Limited is a UK-registered company providing professional HGV logistics and transport services nationwide.
-            </p>
-          </div>
+  const currentYear = new Date().getFullYear();
+  const renderBrandColumn = () => (
+    <div>
+      <div className="flex items-center">
+        <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#F5C518] text-sm font-bold text-[#2C2C2C]">
+          G
+        </div>
+        <span className={cn("ml-2 text-base font-semibold text-white", plusJakarta.className)}>
+          GIPA Services
+        </span>
+      </div>
+      <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
+        GIPA Services Limited is a UK-registered company providing professional HGV logistics and transport services nationwide.
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">
+          <MapPin className="h-3 w-3" />
+          Leicester, UK
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">
+          <Shield className="h-3 w-3" />
+          UK GDPR Compliant
+        </span>
+      </div>
+    </div>
+  );
 
-          {/* Quick Links */}
+  return (
+    <footer className="border-t-4 border-[#F5C518] bg-[#1C1C1C] text-white">
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="mb-10 lg:hidden">
+          {renderBrandColumn()}
+        </div>
+
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-3 lg:gap-12">
+          <div className="hidden lg:block">
+            {renderBrandColumn()}
+          </div>
           <div>
-            <h4 className="text-sm font-semibold text-slate-900 mb-2.5">Menue</h4>
-            <nav className="flex flex-col gap-1">
-              <Link href="/" className="text-sm text-slate-600 hover:text-amber-600 transition">Home</Link>
-              <Link href="/our-story" className="text-sm text-slate-600 hover:text-amber-600 transition">Our Story</Link>
-              <Link href="/contact" className="text-sm text-slate-600 hover:text-amber-600 transition">Contact</Link>
-              <Link href="/driver-application" className="text-sm text-slate-600 hover:text-amber-600 transition">Driver Application</Link>
-              <Link href="/privacy-policy" className="text-sm text-slate-600 hover:text-amber-600 transition">Privacy Policy</Link>
+            <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
+              NAVIGATION
+            </h4>
+            <nav className="flex flex-col gap-2 lg:gap-3">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Our Story", href: "/our-story" },
+                { label: "Contact", href: "/contact" },
+                { label: "Driver Application", href: "/driver-application" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+              ].map((item) => (
+                <Link key={item.href} href={item.href} className="group inline-flex items-center gap-2 text-xs text-white/60 transition-colors duration-200 hover:text-[#F5C518] lg:text-sm">
+                  <span>{item.label}</span>
+                  <span className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">→</span>
+                </Link>
+              ))}
             </nav>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold text-slate-900 mb-2.5">Contact</h4>
-            <div className="text-sm text-slate-600 space-y-0.5 leading-relaxed">
-              <p>6 Glen Way, Oadby</p>
-              <p>Leicester, LE2 5YE</p>
-              <p>United Kingdom</p>
-              <p className="pt-1">
-                <a href="mailto:info@gipaservices.com" className="text-sm text-slate-600 hover:text-amber-600 transition">
+            <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
+              CONTACT US
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-2 text-xs leading-relaxed text-white/60 lg:text-sm">
+                <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#F5C518] lg:h-4 lg:w-4" />
+                <div>
+                  <p>6 Glen Way, Oadby</p>
+                  <p>Leicester, LE2 5YE</p>
+                  <p>United Kingdom</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-white/60 lg:text-sm">
+                <Mail className="h-3 w-3 shrink-0 text-[#F5C518] lg:h-4 lg:w-4" />
+                <a href="mailto:info@gipaservices.com" className="transition-colors hover:text-[#F5C518]">
                   info@gipaservices.com
                 </a>
-              </p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-slate-200 mt-4 pt-2.5 flex flex-col md:flex-row justify-between items-center gap-2">
-          <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} GIPA Services Limited.
+      <div className="border-t border-white/5 bg-[#111111] px-6 py-5">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 sm:flex-row">
+          <p className="text-xs text-white/30">
+            &copy; {currentYear} GIPA Services Limited. All rights reserved.
+          </p>
+          <p className="text-xs text-white/30">
+            Registered in England & Wales
           </p>
         </div>
       </div>
