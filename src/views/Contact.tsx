@@ -122,7 +122,7 @@ const Contact = () => {
 
   return (
     <Layout>
-      <section className="bg-[#F5F3F0] pt-[4.5rem] md:pt-[4.75rem] pb-2 px-4">
+      <section className="bg-[#F5F3F0] pt-0 pb-2 px-4">
         <div className="mx-0">
           <div className="relative h-[320px] md:h-[380px] overflow-hidden rounded-[4px]">
             <Image
@@ -155,7 +155,7 @@ const Contact = () => {
 
       <section
         id="contact-form-section"
-        className="bg-[#F5F3F0] pt-12 pb-16 md:pt-[5.4rem] md:pb-24 scroll-mt-24 md:scroll-mt-28"
+        className="bg-[#F5F3F0] pt-16 pb-16 md:pt-16 md:pb-16 scroll-mt-24 md:scroll-mt-28"
       >
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
@@ -242,27 +242,20 @@ const Contact = () => {
               <motion.div
                 variants={slowRevealVariant}
                 custom={0.25}
-                className="relative z-20 order-1 md:order-2"
+                className="relative z-20 order-3 md:order-2 md:h-full"
               >
-                <div className="relative h-full min-h-[420px] md:min-h-[620px] rounded-[4px] overflow-hidden isolate border border-slate-200/70">
-                  <Image
-                    src="/assets/contact-professional.jpg?v=20260225-1513"
-                    alt="GIPA logistics professional"
-                    width={6377}
-                    height={5326}
-                    sizes="(min-width: 768px) 45vw, 100vw"
-                    className="w-full h-full object-cover object-[25%_center]"
+                <div className="relative rounded-xl overflow-hidden min-h-[300px] md:min-h-full w-full h-full">
+                  <iframe
+                    title="GIPA Services Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2422.2!2d-1.0756!3d52.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877612!2sOadby%2C+Leicester!5e0!3m2!1sen!2suk!4v1"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, minHeight: "300px" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-xl w-full h-full block"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/35 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                    <h3 className="text-[1.625rem] md:text-[1.95rem] font-semibold text-white leading-tight">
-                      Get in Touch with GIPA
-                    </h3>
-                    <p className="text-[1.15rem] font-semibold text-slate-200 mt-2 max-w-md leading-snug">
-                      Reach our team for route planning, delivery support, and
-                      transport coordination across the UK.
-                    </p>
-                  </div>
                 </div>
               </motion.div>
             </div>
@@ -270,20 +263,20 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="bg-[#F5F3F0]">
+      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-8 md:pb-12">
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
             variants={infoCardsStagger}
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
-            className="grid grid-cols-2 md:grid-cols-3 gap-6 items-stretch"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto"
           >
             <motion.div
               variants={slowCardReveal}
               className="h-full min-h-[220px] bg-white rounded-[4px] p-7 md:p-8 shadow-sm border border-slate-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl text-center flex flex-col items-center justify-center"
             >
-              <h3 className="text-base font-semibold text-slate-900 mb-3">
+              <h3 className="text-lg md:text-xl font-semibold text-slate-900 mb-3">
                 Office Address
               </h3>
               <div className="text-base text-slate-600 leading-relaxed space-y-0.5">
@@ -298,7 +291,7 @@ const Contact = () => {
               variants={slowCardReveal}
               className="h-full min-h-[220px] bg-white rounded-[4px] p-7 md:p-8 shadow-sm border border-slate-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl text-center flex flex-col items-center justify-center"
             >
-              <h3 className="text-base font-semibold text-slate-900 mb-3">
+              <h3 className="text-lg md:text-xl font-semibold text-slate-900 mb-3">
                 Phone Number
               </h3>
               <p className="text-base text-slate-600 leading-relaxed">
@@ -310,7 +303,7 @@ const Contact = () => {
               variants={slowCardReveal}
               className="h-full min-h-[220px] bg-white rounded-[4px] p-7 md:p-8 shadow-sm border border-slate-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl text-center flex flex-col items-center justify-center"
             >
-              <h3 className="text-base font-semibold text-slate-900 mb-3">
+              <h3 className="text-lg md:text-xl font-semibold text-slate-900 mb-3">
                 Email Us
               </h3>
               <div className="space-y-0.5">
@@ -338,41 +331,17 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="bg-[#F5F3F0] pt-[5.4rem] pb-12 md:pb-24">
+      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-12 md:pb-24">
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
             variants={slowRevealVariant}
             initial="hidden"
             whileInView="visible"
-            viewport={sectionViewport}
-            custom={0.15}
-            className="rounded-[4px] overflow-hidden shadow-lg border border-slate-200 h-[350px] md:h-[450px]"
-          >
-            <iframe
-              title="GIPA Services Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2422.2!2d-1.0756!3d52.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877612!2sOadby%2C+Leicester!5e0!3m2!1sen!2suk!4v1"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="bg-[#F5F3F0] pt-0 pb-12 md:pb-24">
-        <div className="max-w-[1920px] mx-auto px-4">
-          <motion.div
-            variants={slowRevealVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            custom={0.15}
+            viewport={{ once: true, amount: 0.2 }}
+            custom={0.05}
             className="relative z-10 rounded-[4px] border border-slate-200 bg-white shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-0 items-stretch"
           >
-            <motion.div variants={slowRevealVariant} custom={0.25} className="p-6 md:p-8">
+            <motion.div variants={slowRevealVariant} custom={0.1} className="p-6 md:p-8">
               <h2 className="text-3xl md:text-4xl font-semibold text-slate-900">
                 Ready to plan your next UK delivery movement?
               </h2>
@@ -391,14 +360,14 @@ const Contact = () => {
 
             <motion.div
               variants={slowRevealVariant}
-              custom={0.35}
+              custom={0.15}
               className="relative w-full h-[300px] md:h-full md:min-h-[400px] overflow-hidden"
             >
               <Image
                 src="/assets/contact-truck-cta.jpg"
                 alt="HGV truck"
                 fill
-                className="object-cover object-[center_40%]"
+                className="object-cover object-center"
               />
               <div className="hidden md:block absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white to-transparent pointer-events-none" />
             </motion.div>

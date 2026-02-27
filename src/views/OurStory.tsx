@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/motion/Reveal";
+import { ClipboardCheck, MapPin, Shield } from "lucide-react";
 
 const OurStory = () => {
   return (
     <Layout>
-      <section className="pt-32 pb-20 bg-[#F5F3F0]">
+      <section className="pt-4 pb-0 bg-[#F5F3F0]">
         <FadeUp mode="mount">
           <div className="max-w-4xl mx-auto px-6">
             <p className="text-sm uppercase tracking-widest text-amber-500 mb-6">
@@ -30,151 +31,143 @@ const OurStory = () => {
         </FadeUp>
       </section>
 
-      <section className="py-16 bg-[#F5F3F0]">
+      <section className="pt-0 pb-16 mt-0 bg-[#F5F3F0]">
         <FadeUp>
-          <div className="max-w-6xl mx-auto px-6">
-            <Image
-              src="/assets/warehouse-real-1.jpeg"
-              alt="Warehouse operations at GIPA Services"
-              width={1600}
-              height={900}
-              className="rounded-2xl w-full h-[500px] object-cover"
-            />
-            <p className="text-sm text-slate-500 mt-4">
-              Our operational environment supporting structured dispatch and
-              fleet coordination.
+          <div className="w-full max-w-5xl mx-auto px-4 mt-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative h-[240px] md:h-[380px] w-full rounded-xl overflow-hidden">
+                <Image
+                  src="/assets/warehouse-real-1.jpeg"
+                  alt="Warehouse operations at GIPA Services"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="relative h-[240px] md:h-[380px] w-full rounded-xl overflow-hidden">
+                <Image
+                  src="/assets/forklift-operator.jpeg"
+                  alt="Forklift crane operating inside a structured warehouse environment"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-500 mt-3 text-center">
+              Our operational environment — structured dispatch and fleet
+              coordination.
             </p>
           </div>
         </FadeUp>
       </section>
 
-      <section className="py-24 bg-[#F5F3F0]">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-20 mt-4 bg-[#FAF9F6]">
+        <div className="max-w-6xl mx-auto px-6">
           <FadeUp>
-            <div>
-              <h2 className="text-3xl font-semibold text-slate-900 mb-6">
-                Operational clarity at every stage.
+            <div className="mb-10">
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#2D2D2D] mb-3">
+                What We Stand For
               </h2>
-
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Every delivery reflects our commitment to structured planning,
-                compliance with UK transport regulations, and professional fleet
-                coordination.
-              </p>
-
-              <p className="text-slate-600 leading-relaxed">
-                From route allocation to final delivery confirmation, our
-                approach ensures predictable performance, safe handling, and
-                consistent service standards.
-              </p>
             </div>
           </FadeUp>
 
-          <FadeUp delay={0.1}>
-            <div>
-              <Image
-                src="/assets/forklift-operator.jpeg"
-                alt="Forklift operator within GIPA warehouse"
-                width={1200}
-                height={900}
-                className="rounded-2xl w-full object-cover"
-              />
-            </div>
-          </FadeUp>
+          <div className="grid gap-6 md:grid-cols-3">
+            <FadeUp>
+              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
+                <Shield className="h-6 w-6 text-[#F5C518] mb-4" />
+                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
+                  Safety First
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Every route is planned with compliance, driver welfare, and
+                  cargo security at the centre.
+                </p>
+              </article>
+            </FadeUp>
+
+            <FadeUp delay={0.1}>
+              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
+                <ClipboardCheck className="h-6 w-6 text-[#F5C518] mb-4" />
+                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
+                  Compliance-Led Operations
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  We operate in full alignment with UK transport regulations
+                  and DVSA standards.
+                </p>
+              </article>
+            </FadeUp>
+
+            <FadeUp delay={0.2}>
+              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
+                <MapPin className="h-6 w-6 text-[#F5C518] mb-4" />
+                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
+                  Nationwide Reach
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Covering England, Scotland, Wales, and Northern Ireland with
+                  structured HGV logistics.
+                </p>
+              </article>
+            </FadeUp>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-[#F5F3F0]">
-        <FadeUp>
-          <div className="max-w-6xl mx-auto px-6">
+      <section className="py-20 mt-4 bg-[#FAF9F6]">
+        <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-2 items-center">
+          <FadeUp>
             <Image
-              src="/assets/workers-loading.jpg"
-              alt="Logistics team loading goods into vehicle"
+              src="/assets/fleet-lineup.jpg"
+              alt="Fleet of GIPA Services HGV trucks ready for nationwide UK deployment"
               width={1600}
               height={900}
-              className="rounded-2xl w-full h-[450px] object-cover mb-12"
+              className="rounded-2xl w-full h-[300px] sm:h-[380px] lg:h-[420px] object-cover"
             />
-
-            <h2 className="text-3xl font-semibold text-slate-900 mb-6">
-              From warehouse floor to nationwide delivery.
-            </h2>
-
-            <p className="text-slate-600 leading-relaxed mb-6">
-              Our logistics process begins within structured warehouse
-              environments, where goods are handled with care, accuracy, and
-              safety controls.
-            </p>
-
-            <p className="text-slate-600 leading-relaxed">
-              Through coordinated dispatch systems and experienced drivers, we
-              extend this structured approach across transport routes
-              nationwide.
-            </p>
-          </div>
-        </FadeUp>
-      </section>
-
-      <section className="py-24 bg-[#F5F3F0]">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-          <FadeUp>
-            <div>
-              <h2 className="text-3xl font-semibold text-slate-900 mb-6">
-                Expanding capability across the United Kingdom.
-              </h2>
-
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Our long-term objective is to strengthen our logistics
-                capacity, expand service coverage, and build enduring
-                partnerships with businesses across the UK.
-              </p>
-
-              <p className="text-slate-600 leading-relaxed">
-                With professional drivers, structured fleet operations, and
-                compliance-first systems, we continue to scale responsibly.
-              </p>
-            </div>
           </FadeUp>
 
           <FadeUp delay={0.1}>
             <div>
-              <Image
-                src="/assets/fleet-lineup.jpg"
-                alt="Fleet lineup representing GIPA logistics capability"
-                width={1200}
-                height={900}
-                className="rounded-2xl w-full object-cover"
-              />
+              <h2 className="text-3xl md:text-4xl font-semibold text-[#2D2D2D] mb-6">
+                How We Operate
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                From the moment a route is confirmed, GIPA Services applies a
+                structured approach to every delivery. Our drivers are
+                experienced, compliance-checked, and supported by clear
+                dispatch coordination. We do not cut corners on safety, timing,
+                or communication. Every client receives the same standard:
+                professional, punctual, and accountable.
+              </p>
             </div>
           </FadeUp>
         </div>
       </section>
 
-      <section className="relative py-24">
-        <Image
-          src="/assets/aerial-yard.jpg"
-          alt="Aerial view of logistics yard operations"
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-
-        <div className="relative max-w-4xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl font-semibold mb-6">
-            Committed to dependable nationwide logistics.
+      <section className="bg-[#2D2D2D] py-14 md:py-16">
+        <div className="mx-auto max-w-6xl px-6 text-center md:text-left">
+          <h2 className="text-3xl font-semibold leading-tight text-white">
+            Ready to work with a logistics team that delivers?
           </h2>
-
-          <p className="text-slate-200 mb-8">
-            Built on operational discipline, professional drivers, and
-            structured logistics planning across every transport route.
+          <p className="mt-3 text-white/75">
+            Contact our team to discuss your UK transport requirements.
           </p>
 
-          <Button
-            asChild
-            className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-medium h-auto"
-          >
-            <Link href="/contact">Contact Our Team</Link>
-          </Button>
+          <div className="mt-7 flex flex-col items-center gap-4 md:flex-row md:items-center">
+            <Button
+              asChild
+              className="bg-[#F5C518] hover:bg-yellow-400 text-[#2D2D2D] px-6 py-3 rounded-lg font-semibold h-auto"
+            >
+              <Link href="/contact">Get In Touch</Link>
+            </Button>
+            <Link
+              href="/driver-application"
+              className="text-sm font-medium text-white underline underline-offset-4 transition-colors duration-200 hover:text-[#C8A96E]"
+            >
+              Apply as a Driver
+            </Link>
+          </div>
         </div>
       </section>
     </Layout>
