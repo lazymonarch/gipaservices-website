@@ -264,7 +264,7 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="mt-12">
+            <div className="mt-10 flex justify-center md:mt-12">
               <UKMap />
             </div>
 
