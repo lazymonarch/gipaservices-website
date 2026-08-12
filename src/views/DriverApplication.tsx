@@ -45,10 +45,10 @@ const revealVariant = {
 };
 
 const formFieldClassName =
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:border-yellow-400";
+  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C518] focus-visible:border-[#F5C518]";
 
 const selectTriggerClassName =
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-0";
+  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:ring-2 focus:ring-[#F5C518] focus:ring-offset-0";
 
 const labelClassName = "text-base font-medium text-slate-900";
 
@@ -264,6 +264,7 @@ const DriverApplication = () => {
 
       form.reset();
       setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
       setLicenceType("");
       setHgvCategory("");
       setCpcStatus("");
@@ -310,7 +311,7 @@ const DriverApplication = () => {
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
-            className="bg-white border-2 border-slate-200 rounded-[14px] p-6 sm:p-8 lg:p-10"
+            className="bg-white border border-slate-200 rounded-[4px] p-6 sm:p-8 lg:p-10"
             noValidate
           >
             <fieldset>
@@ -405,14 +406,14 @@ const DriverApplication = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>Driving Licence Type <span className="text-red-500">*</span></Label>
+                    <Label htmlFor="licenceType" className={labelClassName}>Driving Licence Type <span className="text-red-500">*</span></Label>
                     <FieldHint
                       title="Driving Licence Type"
                       description="Select your current DVLA licence category from your valid UK licence."
                     />
                   </div>
                   <Select value={licenceType} onValueChange={setLicenceType}>
-                    <SelectTrigger className={selectTriggerClassName}>
+                    <SelectTrigger id="licenceType" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select licence type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -427,14 +428,14 @@ const DriverApplication = () => {
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>HGV Licence Category</Label>
+                    <Label htmlFor="hgvCategory" className={labelClassName}>HGV Licence Category</Label>
                     <FieldHint
                       title="HGV Licence Category"
                       description="Choose the HGV class you are qualified to operate."
                     />
                   </div>
                   <Select value={hgvCategory} onValueChange={setHgvCategory}>
-                    <SelectTrigger className={selectTriggerClassName}>
+                    <SelectTrigger id="hgvCategory" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select HGV category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -448,14 +449,14 @@ const DriverApplication = () => {
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>Driver CPC Status</Label>
+                    <Label htmlFor="cpcStatus" className={labelClassName}>Driver CPC Status</Label>
                     <FieldHint
                       title="Driver CPC Status"
                       description="A valid CPC is required for professional HGV driving in the UK."
                     />
                   </div>
                   <Select value={cpcStatus} onValueChange={setCpcStatus}>
-                    <SelectTrigger className={selectTriggerClassName}>
+                    <SelectTrigger id="cpcStatus" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select CPC status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -469,14 +470,14 @@ const DriverApplication = () => {
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <Label className={labelClassName}>Right to Work in UK <span className="text-red-500">*</span></Label>
+                    <Label htmlFor="rightToWork" className={labelClassName}>Right to Work in UK <span className="text-red-500">*</span></Label>
                     <FieldHint
                       title="Right to Work"
                       description="Applicants must have legal permission to work in the United Kingdom."
                     />
                   </div>
                   <Select value={rightToWork} onValueChange={setRightToWork}>
-                    <SelectTrigger className={selectTriggerClassName}>
+                    <SelectTrigger id="rightToWork" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -526,17 +527,17 @@ const DriverApplication = () => {
                     className={cn(
                       "inline-flex items-center gap-2 border rounded-[4px] px-4 py-2.5 text-base transition",
                       availabilityMode === value
-                        ? "border-yellow-500 text-slate-900 bg-yellow-50"
+                        ? "border-[#F5C518] text-slate-900 bg-[#F5C518]/10"
                         : "border-slate-300 text-slate-600 bg-white hover:border-slate-400",
                     )}
                   >
                     <span
                       className={cn(
                         "h-4 w-4 rounded-full border-2 flex items-center justify-center",
-                        availabilityMode === value ? "border-yellow-500" : "border-slate-400",
+                        availabilityMode === value ? "border-[#F5C518]" : "border-slate-400",
                       )}
                     >
-                      {availabilityMode === value && <span className="h-2 w-2 rounded-full bg-yellow-500" />}
+                      {availabilityMode === value && <span className="h-2 w-2 rounded-full bg-[#F5C518]" />}
                     </span>
                     {label}
                   </button>
@@ -578,10 +579,10 @@ const DriverApplication = () => {
                         className="w-[288px]"
                         classNames={{
                           cell: "h-9 w-9 p-0 text-center text-sm",
-                          day: "h-9 w-9 rounded-[4px] p-0 text-sm font-normal text-slate-900 hover:bg-yellow-100",
-                          day_today: "bg-yellow-100 text-slate-900",
+                          day: "h-9 w-9 rounded-[4px] p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
+                          day_today: "bg-[#F5C518]/20 text-slate-900",
                           day_selected:
-                            "bg-yellow-400 text-slate-900 hover:bg-yellow-500 hover:text-slate-900 focus:bg-yellow-500 focus:text-slate-900",
+                            "bg-[#F5C518] text-slate-900 hover:bg-[#F5C518]/90 hover:text-slate-900 focus:bg-[#F5C518]/90 focus:text-slate-900",
                         }}
                         disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
                         initialFocus
@@ -621,7 +622,10 @@ const DriverApplication = () => {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setFile(null)}
+                    onClick={() => {
+                      setFile(null);
+                      if (fileInputRef.current) fileInputRef.current.value = "";
+                    }}
                     className="rounded p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                   >
                     <X className="h-4 w-4" />
@@ -634,7 +638,7 @@ const DriverApplication = () => {
                   className="w-full rounded-[4px] border-2 border-dashed border-slate-300 p-8 text-center transition hover:bg-slate-50"
                 >
                   <Upload className="mx-auto h-8 w-8 text-slate-500" />
-                  <p className="mt-2 text-base font-medium text-slate-900">Drag &amp; drop your CV here</p>
+                  <p className="mt-2 text-base font-medium text-slate-900">Click to upload your CV</p>
                   <p className="mt-1 text-sm text-slate-500">PDF, DOC, DOCX — Max 5MB</p>
                 </button>
               )}
@@ -647,7 +651,7 @@ const DriverApplication = () => {
                   id="gdprConsent"
                   name="gdprConsent"
                   required
-                  className="mt-1 h-4 w-4 accent-yellow-500"
+                  className="mt-1 h-4 w-4 accent-[#F5C518]"
                 />
                 <span>
                   I consent to GIPA Services Limited storing and processing my data in
@@ -658,7 +662,7 @@ const DriverApplication = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-6 inline-flex items-center justify-center bg-yellow-400 text-slate-900 px-8 py-3 text-base font-semibold rounded-[2px] transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-70"
+                className="mt-6 inline-flex items-center justify-center bg-[#F5C518] text-slate-900 px-8 py-3 text-base font-semibold rounded-[4px] transition hover:bg-[#F5C518]/90 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {submitting ? "Submitting..." : "Submit Application"}
               </button>

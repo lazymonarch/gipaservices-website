@@ -15,10 +15,10 @@ const Footer = () => {
           GIPA Services
         </span>
       </div>
-      <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
+      <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/50">
         GIPA Services Limited is a UK-registered company providing professional HGV logistics and transport services nationwide.
       </p>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-2">
         <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">
           <MapPin className="h-3 w-3" />
           Leicester, UK
@@ -33,20 +33,20 @@ const Footer = () => {
 
   return (
     <footer className="border-t-4 border-[#F5C518] bg-[#1C1C1C] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="mb-10 lg:hidden">
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        <div className="mb-6 lg:hidden">
           {renderBrandColumn()}
         </div>
 
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-3 lg:gap-12">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 lg:gap-10">
           <div className="hidden lg:block">
             {renderBrandColumn()}
           </div>
           <div>
-            <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
               NAVIGATION
             </h4>
-            <nav className="flex flex-col gap-2 lg:gap-3">
+            <nav className="flex flex-col gap-2 lg:gap-2.5">
               {[
                 { label: "Home", href: "/" },
                 { label: "Our Story", href: "/our-story" },
@@ -63,10 +63,10 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
               CONTACT US
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-start gap-2 text-xs leading-relaxed text-white/60 lg:text-sm">
                 <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#F5C518] lg:h-4 lg:w-4" />
                 <div>
@@ -87,7 +87,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-white/5 bg-[#111111] px-6 py-5">
+      <div className="border-t border-white/5 bg-[#111111] px-6 py-4">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 sm:flex-row">
           <p className="text-xs text-white/30">
             &copy; {currentYear} GIPA Services Limited. All rights reserved.

@@ -25,10 +25,10 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <section className="bg-[#F5F3F0] border-b border-slate-200 pt-28 pb-14 md:pt-32 md:pb-16">
+      <section className="bg-[#F5F3F0] border-b border-slate-200 pt-4 pb-10 md:pt-6 md:pb-12">
         <div className="max-w-[1920px] mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-widest text-amber-500 font-semibold">
+            <p className="text-xs uppercase tracking-widest text-[#F5C518] font-semibold">
               Legal
             </p>
             <h1 className="mt-4 font-display text-4xl md:text-6xl font-bold text-slate-900 leading-tight">

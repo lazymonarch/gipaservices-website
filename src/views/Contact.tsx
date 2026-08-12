@@ -12,7 +12,9 @@ import {
 } from "@/lib/animations";
 
 const inputClassName =
-  "w-full border border-white bg-white text-black placeholder:text-black rounded-[4px] px-5 py-[10px] text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400";
+  "w-full border border-slate-300 bg-white text-black placeholder:text-slate-400 rounded-[4px] px-5 py-[10px] text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F5C518]";
+
+const labelClassName = "mb-1.5 block text-sm font-medium text-slate-700";
 
 const formWrapperReveal = {
   hidden: { opacity: 0, y: 24 },
@@ -50,7 +52,7 @@ const slowCardReveal = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.15,
+      duration: 0.7,
       ease: REVEAL_EASE,
       delay,
     },
@@ -61,8 +63,8 @@ const infoCardsStagger = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: 0.7,
-      staggerChildren: 0.7,
+      delayChildren: 0.15,
+      staggerChildren: 0.15,
     },
   },
 };
@@ -154,75 +156,85 @@ const Contact = () => {
       </section>
 
       <section
-        id="contact-form-section"
-        className="bg-[#F5F3F0] pt-16 pb-16 md:pt-16 md:pb-16 scroll-mt-24 md:scroll-mt-28"
+        className="bg-[#F5F3F0] pt-12 pb-12 md:pt-12 md:pb-12"
       >
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
+            id="contact-form-section"
             variants={formWrapperReveal}
             initial="hidden"
             whileInView="visible"
             viewport={formSectionViewport}
-            className="relative z-10 rounded-[4px] border border-slate-200 bg-white shadow-lg p-4 md:p-5"
+            className="relative z-10 scroll-mt-20 rounded-[4px] border border-slate-200 bg-white shadow-lg p-3 md:p-4 md:max-h-[calc(100svh-5.5rem)]"
           >
-            <div className="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-4 items-stretch">
+            <div className="grid h-full grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-4 items-stretch md:min-h-[min(calc(24rem+0.5*(100svh-34rem)),calc(100svh-7rem))] md:max-h-full">
               <motion.div
                 variants={slowRevealVariant}
                 custom={0.1}
-                className="relative z-20 order-2 md:order-1 bg-[#F5F3F0] rounded-[4px] border border-[#F5F3F0] p-6 md:p-8"
+                className="relative z-20 order-2 md:order-1 flex h-full flex-col bg-[#F5F3F0] rounded-[4px] border border-[#F5F3F0] p-5 md:p-6"
               >
-                <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
+                <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4">
                   Send a Message
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="flex flex-1 flex-col space-y-4">
                   <div>
+                    <label htmlFor="fullName" className={labelClassName}>
+                      Your Name *
+                    </label>
                     <input
                       id="fullName"
                       name="fullName"
                       required
-                      placeholder="Your Name *"
                       className={inputClassName}
                     />
                   </div>
 
                   <div>
+                    <label htmlFor="companyName" className={labelClassName}>
+                      Company
+                    </label>
                     <input
                       id="companyName"
                       name="companyName"
-                      placeholder="Company"
                       className={inputClassName}
                     />
                   </div>
 
                   <div>
+                    <label htmlFor="email" className={labelClassName}>
+                      Your Email *
+                    </label>
                     <input
                       id="email"
                       name="email"
                       type="email"
                       required
-                      placeholder="Your Email *"
                       className={inputClassName}
                     />
                   </div>
 
                   <div>
+                    <label htmlFor="phone" className={labelClassName}>
+                      Phone
+                    </label>
                     <input
                       id="phone"
                       name="phone"
                       type="tel"
-                      placeholder="Phone"
                       className={inputClassName}
                     />
                   </div>
 
-                  <div>
+                  <div className="flex min-h-[100px] flex-1 flex-col">
+                    <label htmlFor="message" className={labelClassName}>
+                      Type Your Message *
+                    </label>
                     <textarea
                       id="message"
                       name="message"
                       required
-                      placeholder="Type Your Message *"
-                      className={`${inputClassName} min-h-[120px] resize-none`}
+                      className={`${inputClassName} min-h-[100px] flex-1 resize-none`}
                     />
                     <p className="text-xs text-black mt-2">
                       We will respond within 1–2 business days.
@@ -232,7 +244,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-medium px-6 py-3 rounded-[4px] transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="inline-flex w-auto self-start items-center gap-2 bg-[#F5C518] hover:bg-[#F5C518]/90 text-slate-900 font-medium px-6 py-3 rounded-[4px] transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {submitting ? "Sending..." : "Send Message"}
                   </button>
@@ -242,19 +254,19 @@ const Contact = () => {
               <motion.div
                 variants={slowRevealVariant}
                 custom={0.25}
-                className="relative z-20 order-3 md:order-2 md:h-full"
+                className="relative z-20 order-3 md:order-2 h-full min-h-[280px] md:min-h-0"
               >
-                <div className="relative rounded-xl overflow-hidden min-h-[300px] md:min-h-full w-full h-full">
+                <div className="relative h-full min-h-[280px] w-full overflow-hidden rounded-xl md:min-h-full">
                   <iframe
                     title="GIPA Services Location"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2422.2!2d-1.0756!3d52.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877612!2sOadby%2C+Leicester!5e0!3m2!1sen!2suk!4v1"
                     width="100%"
                     height="100%"
-                    style={{ border: 0, minHeight: "300px" }}
+                    style={{ border: 0, minHeight: "280px" }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="rounded-xl w-full h-full block"
+                    className="absolute inset-0 h-full w-full rounded-xl"
                   />
                 </div>
               </motion.div>
@@ -263,7 +275,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-8 md:pb-12">
+      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-8 md:pb-10">
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
             variants={infoCardsStagger}
@@ -309,19 +321,19 @@ const Contact = () => {
               <div className="space-y-0.5">
                 <a
                   href="mailto:info@gipaservices.com"
-                  className="block text-base text-slate-600 hover:text-yellow-500 transition"
+                  className="block text-base text-slate-600 hover:text-[#F5C518] transition"
                 >
                   info@gipaservices.com
                 </a>
                 <a
                   href="mailto:manvi@gipaservices.com"
-                  className="block text-base text-slate-600 hover:text-yellow-500 transition"
+                  className="block text-base text-slate-600 hover:text-[#F5C518] transition"
                 >
                   manvi@gipaservices.com
                 </a>
                 <a
                   href="mailto:akam@gipaservices.com"
-                  className="block text-base text-slate-600 hover:text-yellow-500 transition"
+                  className="block text-base text-slate-600 hover:text-[#F5C518] transition"
                 >
                   akam@gipaservices.com
                 </a>
@@ -331,7 +343,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-12 md:pb-24">
+      <section className="bg-[#F5F3F0] pt-2 md:pt-4 pb-12 md:pb-16">
         <div className="max-w-[1920px] mx-auto px-4">
           <motion.div
             variants={slowRevealVariant}
@@ -351,8 +363,14 @@ const Contact = () => {
               </p>
 
               <Link
-                href="#contact-form-section"
-                className="mt-8 inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-medium px-6 py-3 rounded-[4px] transition duration-300"
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("contact-form-section")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="mt-8 inline-flex items-center gap-2 bg-[#F5C518] hover:bg-[#F5C518]/90 text-slate-900 font-medium px-6 py-3 rounded-[4px] transition duration-300"
               >
                 Start Your Enquiry
               </Link>

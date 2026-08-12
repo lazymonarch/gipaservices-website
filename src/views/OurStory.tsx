@@ -11,11 +11,11 @@ const OurStory = () => {
       <section className="pt-4 pb-0 bg-[#F5F3F0]">
         <FadeUp mode="mount">
           <div className="max-w-4xl mx-auto px-6">
-            <p className="text-sm uppercase tracking-widest text-amber-500 mb-6">
+            <p className="text-sm uppercase tracking-widest text-[#F5C518] mb-6">
               Our Story
             </p>
 
-            <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-6">
+            <h1 className="text-4xl leading-snug md:text-5xl md:leading-[1.15] font-semibold text-slate-900 mb-6">
               Built on real operations, real drivers, and structured logistics
               discipline.
             </h1>
@@ -33,7 +33,7 @@ const OurStory = () => {
 
       <section className="pt-0 pb-16 mt-0 bg-[#F5F3F0]">
         <FadeUp>
-          <div className="w-full max-w-5xl mx-auto px-4 mt-8 mb-16">
+          <div className="w-full max-w-5xl mx-auto px-4 mt-8 mb-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative h-[240px] md:h-[380px] w-full rounded-xl overflow-hidden">
                 <Image
@@ -55,14 +55,13 @@ const OurStory = () => {
             </div>
 
             <p className="text-sm text-gray-500 mt-3 text-center">
-              Our operational environment — structured dispatch and fleet
-              coordination.
+              Warehouse operations — staff and forklift activity on site.
             </p>
           </div>
         </FadeUp>
       </section>
 
-      <section className="py-20 mt-4 bg-[#FAF9F6]">
+      <section className="py-20 bg-[#FAF9F6]">
         <div className="max-w-6xl mx-auto px-6">
           <FadeUp>
             <div className="mb-10">
@@ -115,7 +114,7 @@ const OurStory = () => {
         </div>
       </section>
 
-      <section className="py-20 mt-4 bg-[#FAF9F6]">
+      <section className="pb-20 bg-[#FAF9F6]">
         <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-2 items-center">
           <FadeUp>
             <Image
@@ -145,7 +144,7 @@ const OurStory = () => {
         </div>
       </section>
 
-      <section className="bg-[#2D2D2D] py-14 md:py-16">
+      <section className="bg-[#2D2D2D] pt-14 pb-10 md:pt-16 md:pb-12">
         <div className="mx-auto max-w-6xl px-6 text-center md:text-left">
           <h2 className="text-3xl font-semibold leading-tight text-white">
             Ready to work with a logistics team that delivers?
@@ -157,13 +156,13 @@ const OurStory = () => {
           <div className="mt-7 flex flex-col items-center gap-4 md:flex-row md:items-center">
             <Button
               asChild
-              className="bg-[#F5C518] hover:bg-yellow-400 text-[#2D2D2D] px-6 py-3 rounded-lg font-semibold h-auto"
+              className="bg-[#F5C518] hover:bg-yellow-400 text-[#2D2D2D] px-6 py-3 rounded-[4px] font-semibold h-auto"
             >
               <Link href="/contact">Get In Touch</Link>
             </Button>
             <Link
               href="/driver-application"
-              className="text-sm font-medium text-white underline underline-offset-4 transition-colors duration-200 hover:text-[#C8A96E]"
+              className="text-sm font-medium text-white underline underline-offset-4 transition-colors duration-200 hover:text-[#F5C518]"
             >
               Apply as a Driver
             </Link>

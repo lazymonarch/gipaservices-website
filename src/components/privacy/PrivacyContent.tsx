@@ -35,7 +35,7 @@ const PrivacyContent = () => {
           individuals who contact us or apply for employment opportunities.
           This information is voluntarily provided and may include:
         </p>
-        <ul className="space-y-2 text-sm md:text-[15px] text-slate-600 list-none font-body">
+        <ul className="list-disc space-y-2 pl-5 text-sm md:text-[15px] text-slate-600 font-body">
           {[
             "Name and residential address",
             "Email address and telephone number",
@@ -70,7 +70,7 @@ const PrivacyContent = () => {
         <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed mb-4 font-body">
           We process personal data in accordance with Article 6 of the UK GDPR:
         </p>
-        <ul className="space-y-2 text-sm md:text-[15px] text-slate-600 list-none font-body">
+        <ul className="list-disc space-y-2 pl-5 text-sm md:text-[15px] text-slate-600 font-body">
           <li>
             Recruitment applications are processed on the basis of your consent
             and our legitimate interest in assessing suitability for employment.
@@ -88,7 +88,7 @@ const PrivacyContent = () => {
 
       <section id="how-we-use" className="scroll-mt-32">
         <SectionHeading title="How We Use Personal Data" />
-        <ul className="space-y-2 text-sm md:text-[15px] text-slate-600 list-none font-body">
+        <ul className="list-disc space-y-2 pl-5 text-sm md:text-[15px] text-slate-600 font-body">
           {[
             "Responding to enquiries",
             "Assessing and processing driver applications",
@@ -111,7 +111,7 @@ const PrivacyContent = () => {
           safeguard personal data against unauthorised access, alteration,
           disclosure, or loss.
         </p>
-        <ul className="space-y-2 text-sm md:text-[15px] text-slate-600 list-none font-body">
+        <ul className="list-disc space-y-2 pl-5 text-sm md:text-[15px] text-slate-600 font-body">
           {[
             "Encrypted HTTPS data transmission",
             "Secure cloud-based database systems",
@@ -141,7 +141,7 @@ const PrivacyContent = () => {
 
       <section id="your-rights" className="scroll-mt-32">
         <SectionHeading title="Your Rights" />
-        <ul className="space-y-2 text-sm md:text-[15px] text-slate-600 list-none font-body">
+        <ul className="list-disc space-y-2 pl-5 text-sm md:text-[15px] text-slate-600 font-body">
           {[
             "Request access to your personal data",
             "Request correction of inaccurate data",
@@ -159,7 +159,7 @@ const PrivacyContent = () => {
             href="https://www.ico.org.uk"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-amber-600 underline underline-offset-2 hover:text-amber-500 transition-colors"
+            className="text-[#F5C518] underline underline-offset-2 hover:text-[#F5C518]/90 transition-colors"
           >
             www.ico.org.uk
           </a>
@@ -190,7 +190,7 @@ const PrivacyContent = () => {
           <p className="mt-3">
             <a
               href="mailto:info@gipaservices.com"
-              className="text-amber-600 underline underline-offset-2 hover:text-amber-500 transition-colors"
+              className="text-[#F5C518] underline underline-offset-2 hover:text-[#F5C518]/90 transition-colors"
             >
               info@gipaservices.com
             </a>

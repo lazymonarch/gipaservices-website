@@ -18,9 +18,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
  * Source: https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-details/
  * Local asset: /geo/uk-nations.json (England, Scotland, Wales, Northern Ireland only)
  *
+ * City context: /geo/uk-cities.json — curated points for geographic recognition only.
  * Capital coordinates are representative coverage anchors only — not company locations.
  */
 const GEO_URL = "/geo/uk-nations.json";
+const CITIES_URL = "/geo/uk-cities.json";
 
 type NationId = "england" | "scotland" | "wales" | "northern-ireland";
 
@@ -34,9 +36,10 @@ type Phase =
 const EASE: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
 
 const COLORS = {
+  sea: "#E8ECF2",
   land: "#E8E2D9",
   landStroke: "#C8A96E",
-  cityDot: "#C4B8A8",
+  cityDot: "#B7AEA0",
   marker: "#F5C518",
   markerRing: "#C8A96E",
   leader: "#C8A96E",
@@ -44,19 +47,26 @@ const COLORS = {
   network: "#F5C518",
 } as const;
 
-const MAP_WIDTH = 640;
-const MAP_HEIGHT = 520;
+/** Desktop viewBox: wide stage for callout gutters; height kept compact for viewport fit.
+ * Same SVG stage is used at all breakpoints so Annotation callouts stay marker-attached when scaled.
+ */
+const MAP_WIDTH = 620;
+const MAP_HEIGHT = 420;
 const DESKTOP_PROJECTION = {
-  center: [-3.2, 55.5] as [number, number],
-  scale: 1290,
-};
-/** Tighter fit for mobile — callouts render outside the SVG. */
-const MOBILE_PROJECTION = {
   center: [-3.2, 55.8] as [number, number],
-  scale: 1340,
+  scale: 1210,
 };
-const MOBILE_MAP_WIDTH = 360;
-const MOBILE_MAP_HEIGHT = 480;
+
+/** Slightly tighter callout offsets for narrow viewports so labels stay inside the stage. */
+const MOBILE_CALLOUT: Record<
+  NationId,
+  { dx: number; dy: number; textAnchor: "start" | "end" }
+> = {
+  england: { dx: 30, dy: 6, textAnchor: "start" },
+  scotland: { dx: 28, dy: -18, textAnchor: "start" },
+  wales: { dx: -30, dy: 8, textAnchor: "end" },
+  "northern-ireland": { dx: -34, dy: -12, textAnchor: "end" },
+};
 
 const NATIONS: {
   id: NationId;
@@ -70,32 +80,32 @@ const NATIONS: {
     id: "england",
     name: "England",
     coordinates: [-0.1278, 51.5074],
-    dx: 52,
-    dy: 8,
+    dx: 36,
+    dy: 4,
     textAnchor: "start",
   },
   {
     id: "scotland",
     name: "Scotland",
     coordinates: [-3.1883, 55.9533],
-    dx: 48,
-    dy: -28,
+    dx: 34,
+    dy: -20,
     textAnchor: "start",
   },
   {
     id: "wales",
     name: "Wales",
     coordinates: [-3.1791, 51.4816],
-    dx: -52,
-    dy: 10,
+    dx: -36,
+    dy: 6,
     textAnchor: "end",
   },
   {
     id: "northern-ireland",
     name: "Northern Ireland",
     coordinates: [-5.9301, 54.5973],
-    dx: -58,
-    dy: -18,
+    dx: -42,
+    dy: -10,
     textAnchor: "end",
   },
 ];
@@ -115,24 +125,14 @@ const NETWORK_LINKS: { from: NationId; to: NationId }[] = [
   { from: "wales", to: "england" },
 ];
 
-/** Unlabelled major-city context dots only. */
-const CONTEXT_CITIES: [number, number][] = [
-  [-1.8904, 52.4862], // Birmingham
-  [-2.2426, 53.4808], // Manchester
-  [-4.2518, 55.8642], // Glasgow
-  [-1.5491, 53.8008], // Leeds
-  [-2.5879, 51.4545], // Bristol
-  [-1.6178, 54.9783], // Newcastle
-];
-
 const TIMING = {
-  settle: 800,
-  markerEntrance: 700,
-  markerHold: 2200,
-  northernIrelandHold: 2500,
-  network: 3500,
+  settle: 500,
+  markerEntrance: 500,
+  markerHold: 1400,
+  northernIrelandHold: 1600,
+  network: 2400,
   complete: 42900,
-  reset: 1200,
+  reset: 900,
 } as const;
 
 const MotionLine = motion.create(Line);
@@ -171,6 +171,37 @@ export default function UKMap() {
   const [phase, setPhase] = useState<Phase>(
     prefersReducedMotion ? "complete" : "settle",
   );
+  const [cityPoints, setCityPoints] = useState<[number, number][]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch(CITIES_URL)
+      .then((response) => response.json())
+      .then((data: { features?: { geometry?: { coordinates?: number[] } }[] }) => {
+        if (cancelled || !Array.isArray(data.features)) return;
+
+        const points = data.features
+          .map((feature) => feature.geometry?.coordinates)
+          .filter(
+            (coordinates): coordinates is [number, number] =>
+              Array.isArray(coordinates) &&
+              coordinates.length >= 2 &&
+              typeof coordinates[0] === "number" &&
+              typeof coordinates[1] === "number",
+          )
+          .map(([lon, lat]) => [lon, lat] as [number, number]);
+
+        setCityPoints(points);
+      })
+      .catch(() => {
+        if (!cancelled) setCityPoints([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -223,9 +254,9 @@ export default function UKMap() {
   const shouldPulse =
     !prefersReducedMotion && phase === "complete" && showNetwork;
 
-  const mapWidth = isMobile ? MOBILE_MAP_WIDTH : MAP_WIDTH;
-  const mapHeight = isMobile ? MOBILE_MAP_HEIGHT : MAP_HEIGHT;
-  const projectionConfig = isMobile ? MOBILE_PROJECTION : DESKTOP_PROJECTION;
+  const mapWidth = MAP_WIDTH;
+  const mapHeight = MAP_HEIGHT;
+  const projectionConfig = DESKTOP_PROJECTION;
 
   const ariaLabel =
     "Map of the United Kingdom showing nationwide delivery coverage across England, Scotland, Wales and Northern Ireland";
@@ -233,11 +264,11 @@ export default function UKMap() {
   const overlayOpacity = isResetting ? 0 : 1;
 
   return (
-    <div className="relative mx-auto w-full max-w-[720px]">
+    <div className="relative mx-auto w-full min-w-0 max-w-[820px] overflow-x-hidden">
       <motion.div
         role="img"
         aria-label={ariaLabel}
-        className="w-full"
+        className="w-full overflow-hidden rounded-md"
         animate={{ opacity: prefersReducedMotion || !isResetting ? 1 : 1 }}
       >
         <ComposableMap
@@ -251,8 +282,29 @@ export default function UKMap() {
           <desc>
             Geographic coverage illustration of England, Scotland, Wales and
             Northern Ireland. Markers indicate national coverage areas only and
-            do not represent company offices, depots or delivery routes.
+            do not represent company offices, depots or delivery routes. City
+            points are geographic context only.
           </desc>
+
+          {/* Soft sea / map-stage plate — no external dataset */}
+          <defs>
+            <radialGradient
+              id="coverage-sea-plate"
+              cx="50%"
+              cy="48%"
+              r="68%"
+            >
+              <stop offset="0%" stopColor="#EEF1F5" />
+              <stop offset="100%" stopColor={COLORS.sea} />
+            </radialGradient>
+          </defs>
+          <rect
+            x={0}
+            y={0}
+            width={mapWidth}
+            height={mapHeight}
+            fill="url(#coverage-sea-plate)"
+          />
 
           <Geographies geography={GEO_URL}>
             {({ geographies }) =>
@@ -262,7 +314,7 @@ export default function UKMap() {
                   geography={geo}
                   fill={COLORS.land}
                   stroke={COLORS.landStroke}
-                  strokeWidth={1.1}
+                  strokeWidth={1.15}
                   style={{
                     default: { outline: "none" },
                     hover: { outline: "none", fill: COLORS.land },
@@ -273,9 +325,9 @@ export default function UKMap() {
             }
           </Geographies>
 
-          {CONTEXT_CITIES.map((coordinates) => (
+          {cityPoints.map((coordinates) => (
             <Marker key={coordinates.join(",")} coordinates={coordinates}>
-              <circle r={1.75} fill={COLORS.cityDot} opacity={0.55} />
+              <circle r={1.6} fill={COLORS.cityDot} opacity={0.45} />
             </Marker>
           ))}
 
@@ -360,6 +412,13 @@ export default function UKMap() {
               const entrance = prefersReducedMotion
                 ? { duration: 0 }
                 : { duration: TIMING.markerEntrance / 1000, ease: EASE };
+              const callout = isMobile
+                ? MOBILE_CALLOUT[nation.id]
+                : {
+                    dx: nation.dx,
+                    dy: nation.dy,
+                    textAnchor: nation.textAnchor,
+                  };
 
               return (
                 <g key={nation.id}>
@@ -388,72 +447,37 @@ export default function UKMap() {
                     </motion.g>
                   </Marker>
 
-                  {!isMobile && (
-                    <Annotation
-                      subject={nation.coordinates}
-                      dx={nation.dx}
-                      dy={nation.dy}
-                      curve={0.15}
-                      connectorProps={{
-                        stroke: COLORS.leader,
-                        strokeWidth: 1,
-                        strokeOpacity: isShown ? 0.9 : 0,
-                      }}
+                  <Annotation
+                    subject={nation.coordinates}
+                    dx={callout.dx}
+                    dy={callout.dy}
+                    curve={0.15}
+                    connectorProps={{
+                      stroke: COLORS.leader,
+                      strokeWidth: 1,
+                      strokeOpacity: isShown ? 0.9 : 0,
+                    }}
+                  >
+                    <motion.text
+                      x={callout.textAnchor === "start" ? 4 : -4}
+                      y={4}
+                      textAnchor={callout.textAnchor}
+                      fill={COLORS.label}
+                      fontSize={isMobile ? 12 : 13}
+                      fontWeight={600}
+                      initial={false}
+                      animate={{ opacity: isShown ? 1 : 0 }}
+                      transition={entrance}
                     >
-                      <motion.text
-                        x={nation.textAnchor === "start" ? 4 : -4}
-                        y={4}
-                        textAnchor={nation.textAnchor}
-                        fill={COLORS.label}
-                        fontSize={13}
-                        fontWeight={600}
-                        initial={false}
-                        animate={{ opacity: isShown ? 1 : 0 }}
-                        transition={entrance}
-                      >
-                        {nation.name}
-                      </motion.text>
-                    </Annotation>
-                  )}
+                      {nation.name}
+                    </motion.text>
+                  </Annotation>
                 </g>
               );
             })}
           </motion.g>
         </ComposableMap>
       </motion.div>
-
-      {isMobile && (
-        <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 px-1 sm:px-2">
-          {NATIONS.map((nation) => {
-            const isShown =
-              prefersReducedMotion || shown.has(nation.id);
-
-            return (
-              <li key={nation.id}>
-                <motion.div
-                  className="flex items-center gap-2 text-sm font-semibold text-[#2C2C2C]"
-                  initial={false}
-                  animate={{ opacity: isShown ? 1 : 0.2 }}
-                  transition={
-                    prefersReducedMotion
-                      ? { duration: 0 }
-                      : {
-                          duration: TIMING.markerEntrance / 1000,
-                          ease: EASE,
-                        }
-                  }
-                >
-                  <span
-                    className="inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[#F5C518] ring-1 ring-[#C8A96E]"
-                    aria-hidden="true"
-                  />
-                  {nation.name}
-                </motion.div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
     </div>
   );
 }

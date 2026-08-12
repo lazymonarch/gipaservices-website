@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "name": "uk-cities",
+  "comment": "Curated major UK city points for Coverage map context only. Not GIPA locations. Coordinates WGS84.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "London" },
+      "geometry": { "type": "Point", "coordinates": [-0.1278, 51.5074] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Birmingham" },
+      "geometry": { "type": "Point", "coordinates": [-1.8904, 52.4862] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Manchester" },
+      "geometry": { "type": "Point", "coordinates": [-2.2426, 53.4808] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Liverpool" },
+      "geometry": { "type": "Point", "coordinates": [-2.9916, 53.4084] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Leeds" },
+      "geometry": { "type": "Point", "coordinates": [-1.5491, 53.8008] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Bristol" },
+      "geometry": { "type": "Point", "coordinates": [-2.5879, 51.4545] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Cardiff" },
+      "geometry": { "type": "Point", "coordinates": [-3.1791, 51.4816] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Edinburgh" },
+      "geometry": { "type": "Point", "coordinates": [-3.1883, 55.9533] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Glasgow" },
+      "geometry": { "type": "Point", "coordinates": [-4.2518, 55.8642] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Belfast" },
+      "geometry": { "type": "Point", "coordinates": [-5.9301, 54.5973] }
+    }
+  ]
+}

@@ -111,7 +111,7 @@ const Index = () => {
     <Layout>
       <div className={inter.className}>
         <section
-          className="relative min-h-screen flex items-center"
+          className="relative flex min-h-[calc(100svh-4rem)] items-center"
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1800&q=80')",
@@ -138,14 +138,14 @@ const Index = () => {
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-start">
                 <Link
                   href="/contact"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-yellow-400 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-[#F5C518]/90 sm:w-auto"
                 >
                   Contact Us
                   <ChevronRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/driver-application"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border-2 border-white px-8 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-[#2C2C2C] sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border-2 border-white px-8 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-[#2C2C2C] sm:w-auto"
                 >
                   Apply as Driver
                   <ChevronRight className="h-4 w-4" />
@@ -198,7 +198,7 @@ const Index = () => {
         </section>
 
         <section className={`bg-white ${sectionPadding}`}>
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[45%_55%] md:px-6 lg:gap-16">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] md:px-6 lg:gap-16">
             <div>
               <Image
                 src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80"
@@ -249,45 +249,45 @@ const Index = () => {
           </div>
         </section>
 
-        <section className={`bg-[#FAF8F4] ${sectionPadding}`}>
+        <section className="bg-[#FAF8F4] py-10 md:py-12 lg:py-12">
           <div className="mx-auto max-w-7xl px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <p className={overlineClass}>COVERAGE</p>
               <h2
-                className={`mt-3 text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
+                className={`mt-2 text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
               >
                 Nationwide UK Delivery Coverage
               </h2>
-              <p className="mt-3 text-base text-[#6B7280]">
+              <p className="mt-2 text-base text-[#6B7280]">
                 Operating HGV routes across England, Scotland, Wales, and
                 Northern Ireland.
               </p>
             </div>
 
-            <div className="mt-10 flex justify-center md:mt-12">
+            <div className="mt-5 flex justify-center overflow-x-hidden md:mt-6">
               <UKMap />
             </div>
 
-            <div className="mt-12 grid w-full grid-cols-3 gap-3">
-              <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+            <div className="mt-5 grid w-full grid-cols-3 gap-3 md:mt-6">
+              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
                 <p
-                  className={`text-lg font-bold text-[#2C2C2C] ${plusJakarta.className}`}
+                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
                 >
                   UK-Wide Routes
                 </p>
                 <p className="mt-1 text-xs text-[#6B7280]">Nationwide</p>
               </div>
-              <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
                 <p
-                  className={`text-lg font-bold text-[#2C2C2C] ${plusJakarta.className}`}
+                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
                 >
                   Compliance-Led
                 </p>
                 <p className="mt-1 text-xs text-[#6B7280]">Every Delivery</p>
               </div>
-              <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
                 <p
-                  className={`text-lg font-bold text-[#2C2C2C] ${plusJakarta.className}`}
+                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
                 >
                   HGV Specialist
                 </p>
@@ -380,7 +380,7 @@ const Index = () => {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-md bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-yellow-400"
+                  className="inline-flex items-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-[#F5C518]/90"
                 >
                   Contact Us
                   <ChevronRight className="h-4 w-4" />
@@ -400,7 +400,7 @@ const Index = () => {
                 alt="HGV truck on a UK motorway route"
                 width={900}
                 height={600}
-                className="h-[300px] w-full rounded-xl object-cover opacity-80"
+                className="h-[300px] w-full rounded-xl object-cover object-[20%_42%] opacity-80 md:object-[center_40%]"
               />
             </div>
           </div>
