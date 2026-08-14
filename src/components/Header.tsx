@@ -14,7 +14,7 @@ const navLinks = [
   { label: "Driver Application", path: "/driver-application" },
 ];
 
-const HERO_ROUTES = new Set(["/", "/contact"]);
+const HERO_ROUTES = new Set(["/", "/contact", "/driver-application"]);
 const HEADER_HEIGHT_CLASS = "h-16";
 
 type HeaderSurface = "hero" | "light" | "dark";

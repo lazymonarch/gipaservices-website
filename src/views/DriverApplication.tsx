@@ -289,7 +289,7 @@ const DriverApplication = () => {
     <Layout>
       {/* Hero Section */}
       <section
-        className="relative min-h-[220px] md:min-h-[280px] flex items-end pb-10 md:pb-14"
+        className="relative min-h-[284px] md:min-h-[344px] flex items-end pb-10 md:pb-14 pt-16"
         style={{
           backgroundImage: "url('/assets/hero-truck.jpg')",
           backgroundSize: "cover",
