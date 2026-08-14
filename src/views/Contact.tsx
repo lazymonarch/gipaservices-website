@@ -91,7 +91,7 @@ const Contact = () => {
           priority
         />
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center">
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-8">
           <motion.p
             variants={revealUp}
             initial="hidden"
@@ -302,7 +302,7 @@ const Contact = () => {
       </section>
 
       {/* ── Map / Location Section ── */}
-      <section className="bg-[#ECEAE6] py-14 md:py-20">
+      <section className="bg-[#ECEAE6] py-8 md:py-12">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <motion.div
             variants={revealUp}

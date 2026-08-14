@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { plusJakarta } from "@/lib/fonts";
 
@@ -30,10 +30,6 @@ const Footer = () => {
                 GIPA Services
               </span>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-[color:var(--gipa-cream)]/55">
-              GIPA Services Limited is a UK-registered company providing
-              professional HGV logistics and transport services nationwide.
-            </p>
           </div>
 
           <nav
@@ -51,25 +47,6 @@ const Footer = () => {
             ))}
           </nav>
 
-          <div className="space-y-3 text-sm text-[color:var(--gipa-cream)]/55 lg:max-w-xs lg:text-right">
-            <div className="flex items-start gap-2 lg:justify-end">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#F5C518] lg:order-2" />
-              <div className="leading-relaxed">
-                <p>6 Glen Way, Oadby</p>
-                <p>Leicester, LE2 5YE</p>
-                <p>United Kingdom</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 lg:justify-end">
-              <Mail className="h-4 w-4 shrink-0 text-[#F5C518] lg:order-2" />
-              <a
-                href="mailto:info@gipaservices.com"
-                className="hover:text-[#F5C518]"
-              >
-                info@gipaservices.com
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </footer>
