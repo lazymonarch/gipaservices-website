@@ -40,6 +40,7 @@ const OurStory = () => {
           sizes="100vw"
           className="object-cover object-center" />
         
+        <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/86 via-black/62 to-black/36" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/16 to-black/34" />
 
