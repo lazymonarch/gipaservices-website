@@ -163,39 +163,14 @@ function networkVisible(phase: Phase) {
 export default function UKMap() {
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
   const [phase, setPhase] = useState<Phase>(
     prefersReducedMotion ? "complete" : "settle",
   );
   const [cityPoints, setCityPoints] = useState<[number, number][]>([]);
 
   useEffect(() => {
-    let cancelled = false;
-
-    fetch(CITIES_URL)
-      .then((response) => response.json())
-      .then((data: { features?: { geometry?: { coordinates?: number[] } }[] }) => {
-        if (cancelled || !Array.isArray(data.features)) return;
-
-        const points = data.features
-          .map((feature) => feature.geometry?.coordinates)
-          .filter(
-            (coordinates): coordinates is [number, number] =>
-              Array.isArray(coordinates) &&
-              coordinates.length >= 2 &&
-              typeof coordinates[0] === "number" &&
-              typeof coordinates[1] === "number",
-          )
-          .map(([lon, lat]) => [lon, lat] as [number, number]);
-
-        setCityPoints(points);
-      })
-      .catch(() => {
-        if (!cancelled) setCityPoints([]);
-      });
-
-    return () => {
-      cancelled = true;
-    };
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -260,6 +235,13 @@ export default function UKMap() {
 
   return (
     <div className="relative mx-auto w-full min-w-0 max-w-[820px] overflow-x-hidden">
+      {!mounted ? (
+        <div
+          style={{ width: "100%", paddingBottom: `${(MAP_HEIGHT / MAP_WIDTH) * 100}%` }}
+          className="rounded-md bg-[#E8ECF2]"
+          aria-hidden="true"
+        />
+      ) : (
       <motion.div
         role="img"
         aria-label={ariaLabel}
@@ -473,6 +455,7 @@ export default function UKMap() {
           </motion.g>
         </ComposableMap>
       </motion.div>
+      )}
     </div>
   );
 }
