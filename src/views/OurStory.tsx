@@ -192,7 +192,9 @@ const OurStory = () => {
           className="absolute inset-0 h-full w-full object-cover object-center"
           loading="lazy" />
         
-        <div className="absolute inset-0 bg-black/76" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/86 via-black/62 to-black/36" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/16 to-black/34" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
           <FadeUp>
