@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import {
   ChevronRight,
   Route,
@@ -86,10 +87,88 @@ const whyGipaFeatures = [
 
 
 const Index = () => {
+  const sectionHeadingRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const imageWipeRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const imageScaleRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Section heading observer — 20% threshold, 800ms ease
+    const headingObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+            headingObserver.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionHeadingRef.current) {
+      headingObserver.observe(sectionHeadingRef.current);
+    }
+
+    // Card observer — 10% threshold, staggered delays
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+            cardObserver.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) cardObserver.observe(card);
+    });
+
+    // Image wipe observer — triggers wipe + scale reveal
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = parseInt((entry.target as HTMLElement).dataset.idx || "0");
+            const wipe = imageWipeRefs.current[idx];
+            const scale = imageScaleRefs.current[idx];
+
+            if (wipe) {
+              wipe.style.transform = "translateX(101%)";
+            }
+            if (scale) {
+              scale.style.transform = "scale(1)";
+            }
+
+            imageObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    imageScaleRefs.current.forEach((el) => {
+      if (el) imageObserver.observe(el);
+    });
+
+    return () => {
+      headingObserver.disconnect();
+      cardObserver.disconnect();
+      imageObserver.disconnect();
+    };
+  }, []);
 
   return (
     <Layout>
       <div className="font-sans">
+        {/* Hero section */}
         <section
           className="relative flex min-h-[calc(100svh-4rem)] items-center"
           style={{
@@ -133,13 +212,22 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Services section */}
         <section
           id="services"
           className="overflow-hidden bg-[#111111] py-20 lg:py-32"
           aria-labelledby="services-heading">
           
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-24">
+            {/* Section heading — fade + upward reveal */}
+            <div
+              ref={sectionHeadingRef}
+              className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-24"
+              style={{
+                opacity: 0,
+                transform: "translateY(28px)",
+                transition: "opacity 800ms ease, transform 800ms ease"
+              }}>
               <div>
                 <div className="mb-4 flex items-center gap-3">
                   <div className="h-[2px] w-8 bg-[#F5C518]" />
@@ -162,74 +250,104 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-12 lg:gap-5">
-              {services?.map((service) =>
-              <article
-                key={service?.name}
-                className={`group relative overflow-hidden rounded bg-[#1A1A1A] ${
-                service?.wide ? "md:col-span-7" : "md:col-span-5"}`
-                }>
-                
-                  <div
-                  className="relative overflow-hidden"
-                  style={{
-                    height: service?.wide ?
-                    "clamp(260px, 35vw, 420px)" :
-                    "clamp(220px, 28vw, 340px)"
-                  }}>
-                  
-                    <Image
-                    src={service?.image}
-                    alt={service?.alt}
-                    fill
-                    sizes={
-                    service?.wide ?
-                    "(max-width: 768px) 100vw, 58vw" :
-                    "(max-width: 768px) 100vw, 42vw"
-                    }
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                  
-                    <div
-                    className="absolute inset-0 z-[1]"
+              {services?.map((service, index) => {
+                const staggerDelay = index * 100;
+                return (
+                  <article
+                    key={service?.name}
+                    ref={(el) => { cardRefs.current[index] = el; }}
+                    className={`group relative overflow-hidden rounded bg-[#1A1A1A] ${
+                    service?.wide ? "md:col-span-7" : "md:col-span-5"}`}
                     style={{
-                      background:
-                      "linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.3) 55%, transparent 100%)"
-                    }} />
-                  
-                    <div className="absolute left-5 top-5 z-10">
-                      <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
-                        {service?.tag}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-5 right-5 z-10 font-display text-[4rem] font-bold leading-none text-white/20">
-                      {service?.number}
-                    </div>
-                  </div>
-                  <div className="p-7 lg:p-8">
-                    <span
-                    className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
-                    aria-hidden="true" />
-                  
-                    <h3
-                    className={`mb-3 font-bold leading-snug tracking-tight text-white ${
-                    service?.wide ?
-                    "text-xl lg:text-2xl" : "text-xl"}`
-                    }>
+                      opacity: 0,
+                      transform: "translateY(32px)",
+                      transition: `opacity 700ms ease ${staggerDelay}ms, transform 700ms ease ${staggerDelay}ms`
+                    }}>
                     
-                      {service?.name}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-white/55">
-                      {service?.description}
-                    </p>
-                    <Link
-                    href={service?.href}
-                    className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#F5C518] transition-[gap] duration-300 group-hover:gap-4">
+                    {/* Image container with wipe reveal */}
+                    <div
+                      className="relative overflow-hidden"
+                      style={{
+                        height: service?.wide ?
+                        "clamp(260px, 35vw, 420px)" :
+                        "clamp(220px, 28vw, 340px)"
+                      }}>
+                      
+                      {/* Image wrapper — starts scaled up, scales to 1 on reveal */}
+                      <div
+                        ref={(el) => { imageScaleRefs.current[index] = el; }}
+                        data-idx={index}
+                        className="absolute inset-0"
+                        style={{
+                          transform: "scale(1.12)",
+                          transition: "transform 1600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                        }}>
+                        <Image
+                          src={service?.image}
+                          alt={service?.alt}
+                          fill
+                          sizes={
+                          service?.wide ?
+                          "(max-width: 768px) 100vw, 58vw" :
+                          "(max-width: 768px) 100vw, 42vw"
+                          }
+                          className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.06]" />
+                      </div>
+
+                      {/* Dark wipe overlay — slides out to the left on reveal */}
+                      <div
+                        ref={(el) => { imageWipeRefs.current[index] = el; }}
+                        className="absolute inset-0 z-20 bg-[#111111]"
+                        style={{
+                          transform: "translateX(0)",
+                          transition: "transform 1200ms cubic-bezier(0.77, 0, 0.175, 1)"
+                        }} />
+
+                      {/* Gradient overlay */}
+                      <div
+                        className="absolute inset-0 z-[1]"
+                        style={{
+                          background:
+                          "linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.3) 55%, transparent 100%)"
+                        }} />
                     
-                      Learn More
-                      <ChevronRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                </article>
-              )}
+                      <div className="absolute left-5 top-5 z-10">
+                        <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
+                          {service?.tag}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-5 right-5 z-10 font-display text-[4rem] font-bold leading-none text-white/20">
+                        {service?.number}
+                      </div>
+                    </div>
+
+                    <div className="p-7 lg:p-8">
+                      <span
+                        className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
+                        aria-hidden="true" />
+                    
+                      <h3
+                        className={`mb-3 font-bold leading-snug tracking-tight text-white ${
+                        service?.wide ?
+                        "text-xl lg:text-2xl" : "text-xl"}`}>
+                        
+                        {service?.name}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-white/55">
+                        {service?.description}
+                      </p>
+                      {/* Learn More — hover gap expands from 2 to 4 */}
+                      <Link
+                        href={service?.href}
+                        className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#F5C518] transition-[gap] duration-300 hover:gap-4">
+                        
+                        Learn More
+                        <ChevronRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
