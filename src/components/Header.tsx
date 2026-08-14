@@ -112,12 +112,9 @@ const Header = () => {
         ref={headerRef}
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
-          surface === "hero" &&
-            "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
-          surface === "dark" &&
-            "border-white/10 bg-[color:var(--gipa-charcoal)]/70 shadow-[0_8px_32px_rgba(28,28,28,0.18)] backdrop-blur-xl backdrop-saturate-150",
-          surface === "light" &&
-            "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
+          surface === "hero"&& "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
+          surface === "dark"&& "border-white/10 bg-[color:var(--gipa-charcoal)]/70 shadow-[0_8px_32px_rgba(28,28,28,0.18)] backdrop-blur-xl backdrop-saturate-150",
+          surface === "light"&& "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
         )}
       >
         <nav className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
@@ -217,8 +214,7 @@ const Header = () => {
                     isActive
                       ? "text-[#F5C518]"
                       : onDark
-                        ? "text-white"
-                        : "text-[color:var(--gipa-charcoal)]",
+                        ? "text-white" :"text-[color:var(--gipa-charcoal)]",
                   )}
                 >
                   <span

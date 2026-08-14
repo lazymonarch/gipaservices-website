@@ -29,9 +29,7 @@ type NationId = "england" | "scotland" | "wales" | "northern-ireland";
 type Phase =
   | "settle"
   | NationId
-  | "network"
-  | "complete"
-  | "reset";
+  | "network" |"complete" |"reset";
 
 const EASE: [number, number, number, number] = [0.25, 0.8, 0.25, 1];
 
@@ -143,8 +141,7 @@ function nationById(id: NationId) {
 
 function visibleNationIds(phase: Phase): NationId[] {
   switch (phase) {
-    case "settle":
-    case "reset":
+    case "settle": case"reset":
       return [];
     case "england":
       return ["england"];
@@ -152,9 +149,7 @@ function visibleNationIds(phase: Phase): NationId[] {
       return ["england", "scotland"];
     case "wales":
       return ["england", "scotland", "wales"];
-    case "northern-ireland":
-    case "network":
-    case "complete":
+    case "northern-ireland": case"network": case"complete":
       return MARKER_ORDER;
     default:
       return [];

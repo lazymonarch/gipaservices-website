@@ -37,8 +37,7 @@ const ContactButton = ({
       <ArrowRight
         className={`absolute right-4 h-4 w-4 transition-all duration-300 ease-out ${
           clicked
-            ? "translate-x-6 opacity-0"
-            : "translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+            ? "translate-x-6 opacity-0" :"translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
         }`}
         strokeWidth={2}
       />

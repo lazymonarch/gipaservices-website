@@ -20,7 +20,7 @@ const sections = [
 ];
 
 const PrivacyPolicy = () => {
-  const sectionIds = useMemo(() => sections.map((section) => section.id), []);
+  const sectionIds = useMemo(() => sections?.map((section) => section?.id), []);
   const activeId = useScrollSpy(sectionIds);
 
   return (

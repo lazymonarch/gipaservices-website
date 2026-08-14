@@ -5,41 +5,41 @@ import { FadeUp } from "@/components/motion/Reveal";
 import { ChevronRight, ClipboardCheck, MapPin, Shield } from "lucide-react";
 
 const valueCards = [
-  {
-    title: "Safety First",
-    description:
-      "Every route is planned with compliance, driver welfare, and cargo security at the centre.",
-    icon: Shield,
-  },
-  {
-    title: "Compliance-Led Operations",
-    description:
-      "We operate in full alignment with UK transport regulations and DVSA standards.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Nationwide Reach",
-    description:
-      "Covering England, Scotland, Wales, and Northern Ireland with structured HGV logistics.",
-    icon: MapPin,
-  },
-];
+{
+  title: "Safety First",
+  description:
+  "Every route is planned with compliance, driver welfare, and cargo security at the centre.",
+  icon: Shield
+},
+{
+  title: "Compliance-Led Operations",
+  description:
+  "We operate in full alignment with UK transport regulations and DVSA standards.",
+  icon: ClipboardCheck
+},
+{
+  title: "Nationwide Reach",
+  description:
+  "Covering England, Scotland, Wales, and Northern Ireland with structured HGV logistics.",
+  icon: MapPin
+}];
+
 
 const OurStory = () => {
   return (
     <Layout>
       <section
         className="relative -mt-16 flex min-h-[clamp(34rem,70vw,45rem)] items-center overflow-hidden bg-[color:var(--gipa-charcoal)] pt-16"
-        aria-label="Our Story hero"
-      >
+        aria-label="Our Story hero">
+        
         <Image
           src="https://images.unsplash.com/photo-1596475522275-4c86d9dd84d3"
           alt="Professional HGV truck travelling on a UK motorway at dusk"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
-        />
+          className="object-cover object-center" />
+        
         <div className="absolute inset-0 bg-gradient-to-r from-black/86 via-black/62 to-black/36" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/16 to-black/34" />
 
@@ -69,7 +69,6 @@ const OurStory = () => {
           </FadeUp>
         </div>
       </section>
-
       <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
@@ -100,15 +99,14 @@ const OurStory = () => {
                   alt="Warehouse operations at GIPA Services"
                   fill
                   sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover object-center"
-                />
+                  className="object-cover object-center" />
+                
                 <span className="absolute bottom-0 left-0 h-1 w-20 bg-[#F5C518]" aria-hidden="true" />
               </div>
             </FadeUp>
           </div>
         </div>
       </section>
-
       <section className="bg-[color:var(--gipa-charcoal)] py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
@@ -127,27 +125,26 @@ const OurStory = () => {
           </FadeUp>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {valueCards.map((card, index) => {
-              const Icon = card.icon;
+            {valueCards?.map((card, index) => {
+              const Icon = card?.icon;
 
               return (
-                <FadeUp key={card.title} delay={index * 0.1}>
+                <FadeUp key={card?.title} delay={index * 0.1}>
                   <article className="h-full rounded-[4px] border border-white/10 border-t-[3px] border-t-[#F5C518] bg-[#242424] p-7 transition duration-300 hover:-translate-y-1 hover:bg-[#2E2E2E] lg:p-8">
                     <Icon className="mb-6 h-7 w-7 text-[#F5C518]" strokeWidth={1.8} />
                     <h3 className="mb-3 text-xl font-bold tracking-tight text-white">
-                      {card.title}
+                      {card?.title}
                     </h3>
                     <p className="text-base leading-relaxed text-white/70">
-                      {card.description}
+                      {card?.description}
                     </p>
                   </article>
-                </FadeUp>
-              );
+                </FadeUp>);
+
             })}
           </div>
         </div>
       </section>
-
       <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-20 lg:px-8">
           <FadeUp className="lg:col-span-6">
@@ -157,8 +154,8 @@ const OurStory = () => {
                 src="https://img.rocket.new/generatedImages/rocket_gen_img_145accce3-1772852165930.png"
                 alt="Forklift operator working efficiently in a professional UK warehouse distribution centre"
                 className="h-[300px] w-full object-cover sm:h-[380px] lg:h-[460px]"
-                loading="lazy"
-              />
+                loading="lazy" />
+              
               <span className="absolute left-0 top-0 h-1 w-20 bg-[#F5C518]" />
             </div>
           </FadeUp>
@@ -186,15 +183,14 @@ const OurStory = () => {
           </FadeUp>
         </div>
       </section>
-
       <section className="relative overflow-hidden bg-[color:var(--gipa-charcoal)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://img.rocket.new/generatedImages/rocket_gen_img_10b00c406-1767774070711.png"
           alt="Fleet of professional HGV trucks lined up in a UK logistics yard"
           className="absolute inset-0 h-full w-full object-cover object-center"
-          loading="lazy"
-        />
+          loading="lazy" />
+        
         <div className="absolute inset-0 bg-black/76" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
@@ -216,15 +212,15 @@ const OurStory = () => {
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#E0B400] hover:shadow-[0_6px_20px_rgba(245,197,24,0.35)] sm:w-auto"
-              >
+                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#E0B400] hover:shadow-[0_6px_20px_rgba(245,197,24,0.35)] sm:w-auto">
+                
                 Get In Touch
                 <ChevronRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/driver-application"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-white/40 px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:border-[#F5C518] hover:text-[#F5C518] sm:w-auto"
-              >
+                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-white/40 px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:border-[#F5C518] hover:text-[#F5C518] sm:w-auto">
+                
                 Apply as a Driver
                 <ChevronRight className="h-4 w-4" />
               </Link>
@@ -232,8 +228,8 @@ const OurStory = () => {
           </FadeUp>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>);
+
 };
 
 export default OurStory;

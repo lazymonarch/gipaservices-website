@@ -24,7 +24,7 @@ const Footer = () => {
               <span
                 className={cn(
                   "ml-2 text-base font-semibold text-[color:var(--gipa-cream)]",
-                  plusJakarta.className,
+                  plusJakarta?.className,
                 )}
               >
                 GIPA Services
@@ -40,13 +40,13 @@ const Footer = () => {
             className="flex flex-wrap gap-x-6 gap-y-3 lg:justify-center"
             aria-label="Footer navigation"
           >
-            {navLinks.map((item) => (
+            {navLinks?.map((item) => (
               <Link
-                key={item.href}
-                href={item.href}
+                key={item?.href}
+                href={item?.href}
                 className="inline-flex min-h-[44px] items-center text-sm font-medium text-[color:var(--gipa-cream)]/55 hover:text-[#F5C518]"
               >
-                {item.label}
+                {item?.label}
               </Link>
             ))}
           </nav>

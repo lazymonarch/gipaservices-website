@@ -83,8 +83,7 @@ export default function Testimonials() {
           className={cn(
             "grid gap-5",
             count === 1
-              ? "mx-auto max-w-2xl grid-cols-1"
-              : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
+              ? "mx-auto max-w-2xl grid-cols-1" :"grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
           )}
         >
           {testimonials.map((testimonial) => (
