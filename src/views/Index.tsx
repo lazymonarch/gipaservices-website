@@ -467,8 +467,8 @@ const Index = () => {
 
             <div className="relative min-h-[280px] w-full overflow-hidden lg:min-h-0 lg:w-1/2">
               <Image
-                src="/assets/images/Screenshot_2026-08-14_at_11.14.47_PM-1786729678036.png"
-                alt="Truck driving on a mountain road"
+                src="https://images.unsplash.com/photo-1652081439602-b917d33f794b"
+                alt="HGV truck driving on a UK motorway at dusk"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-[center_55%]" />
