@@ -142,13 +142,21 @@ const Header = () => {
                   key={link.path}
                   href={link.path}
                   className={cn(
-                    "border-b-2 border-transparent pb-1 text-[15px] font-medium tracking-wide transition-[color,border-color] duration-200 hover:border-[#F5C518] hover:text-[#F5C518]",
-                    isActive && "border-[#F5C518] text-[#F5C518]",
-                    !isActive && onDark && "text-white",
-                    !isActive && !onDark && "text-[color:var(--gipa-charcoal)]",
+                    "group relative pb-1 text-[15px] font-medium tracking-wide transition-colors duration-200",
+                    isActive && "text-[#F5C518]",
+                    !isActive && onDark && "text-white hover:text-[#F5C518]",
+                    !isActive && !onDark && "text-[color:var(--gipa-charcoal)] hover:text-[#F5C518]",
                   )}
                 >
                   {link.label}
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute bottom-0 left-0 h-[2px] bg-[#F5C518] transition-[width] duration-300",
+                      isActive ? "w-full" : "w-0 group-hover:w-full",
+                    )}
+                    style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)", bottom: "-3px" }}
+                  />
                 </Link>
               );
             })}
