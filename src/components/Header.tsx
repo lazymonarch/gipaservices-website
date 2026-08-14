@@ -143,18 +143,13 @@ const Header = () => {
                   href={link.path}
                   className={cn(
                     "group relative pb-1 text-[15px] font-medium tracking-wide transition-colors duration-200",
-                    isActive && "text-[#F5C518]",
-                    !isActive && onDark && "text-white hover:text-[#F5C518]",
-                    !isActive && !onDark && "text-[color:var(--gipa-charcoal)] hover:text-[#F5C518]",
+                    onDark ? "text-white hover:text-[#F5C518]" : "text-[color:var(--gipa-charcoal)] hover:text-[#F5C518]",
                   )}
                 >
                   {link.label}
                   <span
                     aria-hidden="true"
-                    className={cn(
-                      "absolute bottom-0 left-0 h-[2px] bg-[#F5C518] transition-[width] duration-300",
-                      isActive ? "w-full" : "w-0 group-hover:w-full",
-                    )}
+                    className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#F5C518] transition-[width] duration-300 group-hover:w-full"
                     style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)", bottom: "-3px" }}
                   />
                 </Link>
@@ -219,18 +214,10 @@ const Header = () => {
                     onDark ? "hover:bg-white/5" : "hover:bg-[color:var(--gipa-cream)]",
                     idx !== navLinks.length - 1 &&
                       (onDark ? "border-b border-white/10" : "border-b border-gray-50"),
-                    isActive
-                      ? "text-[#F5C518]"
-                      : onDark
-                        ? "text-white" :"text-[color:var(--gipa-charcoal)]",
+                    onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "block border-l-[3px] border-transparent pl-3",
-                      isActive && "border-[#F5C518]",
-                    )}
-                  >
+                  <span className="block border-l-[3px] border-transparent pl-3">
                     {link.label}
                   </span>
                 </Link>
