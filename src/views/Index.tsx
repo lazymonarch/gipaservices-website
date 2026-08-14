@@ -291,7 +291,7 @@ const Index = () => {
                           "(max-width: 768px) 100vw, 58vw" :
                           "(max-width: 768px) 100vw, 42vw"
                           }
-                          className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.06]" />
+                          className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
                       </div>
 
                       {/* Dark wipe overlay — slides out to the left on reveal */}
@@ -336,14 +336,16 @@ const Index = () => {
                       <p className="text-sm leading-relaxed text-white/55">
                         {service?.description}
                       </p>
-                      {/* Learn More — hover gap expands from 2 to 4 */}
-                      <Link
-                        href={service?.href}
-                        className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#F5C518] transition-[gap] duration-300 hover:gap-4">
-                        
-                        Learn More
-                        <ChevronRight className="h-3.5 w-3.5" />
-                      </Link>
+                      {/* Learn More — hidden by default, slides in on card hover */}
+                      <div className="mt-5 overflow-hidden">
+                        <Link
+                          href={service?.href}
+                          className="inline-flex translate-x-[-110%] items-center gap-0 text-xs font-bold uppercase tracking-widest text-[#F5C518] opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:gap-3 group-hover:opacity-100">
+                          <span className="block h-[1.5px] w-8 bg-[#F5C518] transition-all duration-500 ease-out group-hover:w-10" />
+                          Learn More
+                          <ChevronRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
                     </div>
                   </article>
                 );
