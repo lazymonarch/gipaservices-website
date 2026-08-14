@@ -50,7 +50,7 @@ const formFieldClassName =
 const selectTriggerClassName =
   "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:ring-2 focus:ring-[#F5C518] focus:ring-offset-0";
 
-const labelClassName = "text-base font-medium text-slate-900";
+const labelClassName = "text-sm font-medium text-slate-700";
 
 type AvailabilityMode = "immediate" | "within_2_weeks" | "select_date";
 
@@ -83,20 +83,20 @@ function isValidE164(phone: string) {
 const processSteps = [
   {
     number: 1,
-    title: "Submit Application",
-    description: "Complete the form and upload your CV",
+    title: "Submit Your Application",
+    description: "Complete the form below with your details and experience.",
     icon: ClipboardList,
   },
   {
     number: 2,
-    title: "Profile Review",
-    description: "Our team reviews your qualifications",
+    title: "Initial Assessment",
+    description: "Our team will review your application and contact you within 48 hours.",
     icon: UserCheck,
   },
   {
     number: 3,
-    title: "Route Assignment",
-    description: "Get matched to available HGV routes",
+    title: "Onboarding",
+    description: "Successful applicants will be guided through our onboarding process.",
     icon: Truck,
   },
 ];
@@ -287,40 +287,105 @@ const DriverApplication = () => {
 
   return (
     <Layout>
-      <section className="bg-[#F5F3F0] pt-4 md:pt-4 pb-6 border-b border-slate-200">
-        <div className="max-w-[1200px] mx-auto px-6">
+      {/* Hero Section */}
+      <section
+        className="relative min-h-[220px] md:min-h-[280px] flex items-end pb-10 md:pb-14"
+        style={{
+          backgroundImage: "url('/assets/hero-truck.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/30" />
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 w-full">
           <motion.div
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
           >
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Driver Application</h1>
-            <p className="mt-2 text-base text-slate-600 max-w-xl">
-              Submit your details and CV to apply for professional HGV routes across the UK.
+            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+              Drive With<br />GIPA Services
+            </h1>
+            <p className="mt-3 text-base text-slate-200 max-w-sm">
+              Join our team of professional HGV drivers operating across the UK.
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section id="driver-application-form" className="bg-[#F5F3F0] py-8">
+      {/* How to Apply / Process Steps Section */}
+      <section className="bg-[#F5F3F0] py-14 md:py-16">
         <div className="max-w-[1200px] mx-auto px-6">
+          <motion.div
+            className="text-center mb-12"
+            variants={revealVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={revealViewport}
+          >
+            <p className="text-xs font-semibold tracking-widest text-[#F5C518] uppercase mb-2">The Process</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">How to Apply</h2>
+          </motion.div>
+
+          {/* Steps with connecting dashed line */}
+          <div className="relative flex flex-col sm:flex-row items-start justify-center gap-0">
+            {/* Dashed connector line (desktop only) */}
+            <div className="hidden sm:block absolute top-[28px] left-1/2 -translate-x-1/2 w-[calc(100%-160px)] max-w-[520px] border-t-2 border-dashed border-slate-300 z-0" />
+
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={step.number}
+                className="relative z-10 flex flex-col items-center text-center w-full sm:w-1/3 px-4 mb-8 sm:mb-0"
+                variants={revealVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={revealViewport}
+                custom={index * 0.15}
+              >
+                <div className="w-14 h-14 rounded-full bg-[#F5C518] flex items-center justify-center mb-4 shadow-sm">
+                  <span className="text-xl font-bold text-slate-900">{step.number}</span>
+                </div>
+                <h3 className="text-base font-bold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Driver Application Form Section */}
+      <section id="driver-application-form" className="bg-white py-12 md:py-16">
+        <div className="max-w-[760px] mx-auto px-6">
+          <motion.div
+            variants={revealVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={revealViewport}
+            className="mb-8"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Driver Application Form</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Please complete all sections accurately. All fields marked <span className="text-red-500">*</span> are required.
+            </p>
+          </motion.div>
+
           <motion.form
             onSubmit={handleSubmit}
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
-            className="bg-white border border-slate-200 rounded-[4px] p-6 sm:p-8 lg:p-10"
             noValidate
           >
-            <fieldset>
-              <div className="mb-4">
-                <h2 className="text-[32px] leading-none font-semibold text-slate-900">Personal Details</h2>
-                <div className="mt-3 h-px w-28 bg-slate-300" />
+            {/* Personal Information */}
+            <fieldset className="mb-8">
+              <div className="mb-5">
+                <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Personal Information</h3>
+                <div className="mt-2 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div>
                   <Label htmlFor="fullName" className={labelClassName}>Full Name <span className="text-red-500">*</span></Label>
                   <Input
@@ -333,22 +398,20 @@ const DriverApplication = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="email" className={labelClassName}>Email <span className="text-red-500">*</span></Label>
+                  <Label htmlFor="email" className={labelClassName}>Email Address <span className="text-red-500">*</span></Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
                     required
-                    placeholder="james@example.com"
+                    placeholder="your@email.com"
                     className={formFieldClassName}
                   />
                 </div>
 
                 <div>
-                  <div className="flex min-h-[28px] items-center">
-                    <Label htmlFor="phoneLocal" className={labelClassName}>Phone <span className="text-red-500">*</span></Label>
-                  </div>
-                  <div className="mt-1.5 grid grid-cols-1 sm:grid-cols-[130px_1fr] gap-3">
+                  <Label htmlFor="phoneLocal" className={labelClassName}>Phone Number <span className="text-red-500">*</span></Label>
+                  <div className="mt-1.5 grid grid-cols-[110px_1fr] gap-2">
                     <Select value={phoneCountry} onValueChange={setPhoneCountry}>
                       <SelectTrigger className={cn(selectTriggerClassName, "mt-0")}>
                         <SelectValue placeholder="Country" />
@@ -361,49 +424,47 @@ const DriverApplication = () => {
                         ))}
                       </SelectContent>
                     </Select>
-
                     <Input
                       id="phoneLocal"
                       type="tel"
                       value={phoneLocal}
                       onChange={handlePhoneChange}
                       required
-                      placeholder="7700 900000"
+                      placeholder="+44 ..."
                       className={cn(formFieldClassName, "mt-0")}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex min-h-[28px] items-center gap-1.5">
+                  <div className="flex items-center gap-1.5">
                     <Label htmlFor="experienceYears" className={labelClassName}>Years of Driving Experience <span className="text-red-500">*</span></Label>
                     <FieldHint
                       title="Driving Experience"
                       description="Enter total years of professional HGV driving experience."
                     />
                   </div>
-                  <div className="mt-1.5">
-                    <Input
-                      id="experienceYears"
-                      name="experienceYears"
-                      type="number"
-                      min="0"
-                      required
-                      placeholder="e.g. 5"
-                      className={cn(formFieldClassName, "mt-0")}
-                    />
-                  </div>
+                  <Input
+                    id="experienceYears"
+                    name="experienceYears"
+                    type="number"
+                    min="0"
+                    required
+                    placeholder="e.g. 5"
+                    className={formFieldClassName}
+                  />
                 </div>
               </div>
             </fieldset>
 
-            <fieldset className="mt-8">
-              <div className="mb-4">
-                <h2 className="text-[32px] leading-none font-semibold text-slate-900">Driving &amp; Compliance</h2>
-                <div className="mt-3 h-px w-36 bg-slate-300" />
+            {/* Driving Qualifications */}
+            <fieldset className="mb-8">
+              <div className="mb-5">
+                <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Driving Qualifications</h3>
+                <div className="mt-2 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div>
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="licenceType" className={labelClassName}>Driving Licence Type <span className="text-red-500">*</span></Label>
@@ -414,7 +475,7 @@ const DriverApplication = () => {
                   </div>
                   <Select value={licenceType} onValueChange={setLicenceType}>
                     <SelectTrigger id="licenceType" className={selectTriggerClassName}>
-                      <SelectValue placeholder="Select licence type" />
+                      <SelectValue placeholder="Select..." />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Category B">Category B</SelectItem>
@@ -436,7 +497,7 @@ const DriverApplication = () => {
                   </div>
                   <Select value={hgvCategory} onValueChange={setHgvCategory}>
                     <SelectTrigger id="hgvCategory" className={selectTriggerClassName}>
-                      <SelectValue placeholder="Select HGV category" />
+                      <SelectValue placeholder="Select..." />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Class 2 (Category C)">Class 2 (Category C)</SelectItem>
@@ -457,7 +518,7 @@ const DriverApplication = () => {
                   </div>
                   <Select value={cpcStatus} onValueChange={setCpcStatus}>
                     <SelectTrigger id="cpcStatus" className={selectTriggerClassName}>
-                      <SelectValue placeholder="Select CPC status" />
+                      <SelectValue placeholder="Select..." />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Valid - Expires within 1 year">Valid - Expires within 1 year</SelectItem>
@@ -500,16 +561,17 @@ const DriverApplication = () => {
               </div>
             </fieldset>
 
-            <fieldset className="mt-8">
-              <div className="mb-4">
+            {/* Availability */}
+            <fieldset className="mb-8">
+              <div className="mb-5">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-[32px] leading-none font-semibold text-slate-900">Availability</h2>
+                  <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Availability</h3>
                   <FieldHint
                     title="Availability"
                     description="Select your expected start timeline. Choose date for planned start."
                   />
                 </div>
-                <div className="mt-3 h-px w-24 bg-slate-300" />
+                <div className="mt-2 h-[2px] bg-[#F5C518]" />
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -525,7 +587,7 @@ const DriverApplication = () => {
                     type="button"
                     onClick={() => setAvailabilityMode(value)}
                     className={cn(
-                      "inline-flex items-center gap-2 border rounded-[4px] px-4 py-2.5 text-base transition",
+                      "inline-flex items-center gap-2 border rounded-[4px] px-4 py-2.5 text-sm transition",
                       availabilityMode === value
                         ? "border-[#F5C518] text-slate-900 bg-[#F5C518]/10"
                         : "border-slate-300 text-slate-600 bg-white hover:border-slate-400",
@@ -558,7 +620,7 @@ const DriverApplication = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className="inline-flex w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-base text-slate-900"
+                        className="inline-flex w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900"
                       >
                         <span>{availabilityDate ? format(availabilityDate, "PPP") : "Select start date"}</span>
                         <CalendarIcon className="h-4 w-4" />
@@ -589,20 +651,21 @@ const DriverApplication = () => {
                       />
                     </PopoverContent>
                   </Popover>
-                  </div>
-                )}
+                </div>
+              )}
             </fieldset>
 
-            <fieldset className="mt-8">
-              <div className="mb-4">
+            {/* CV Upload */}
+            <fieldset className="mb-8">
+              <div className="mb-5">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-[32px] leading-none font-semibold text-slate-900">CV Upload</h2>
+                  <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">CV Upload</h3>
                   <FieldHint
                     title="CV Upload"
                     description="Upload your latest CV in PDF, DOC, or DOCX format (max 5MB)."
                   />
                 </div>
-                <div className="mt-3 h-px w-20 bg-slate-300" />
+                <div className="mt-2 h-[2px] bg-[#F5C518]" />
               </div>
 
               <input
@@ -618,7 +681,7 @@ const DriverApplication = () => {
                 <div className="flex items-center gap-3 rounded-[4px] border border-slate-300 bg-white p-3">
                   <FileText className="h-8 w-8 text-slate-900 shrink-0" />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-base font-medium text-slate-900">{file.name}</p>
+                    <p className="truncate text-sm font-medium text-slate-900">{file.name}</p>
                   </div>
                   <button
                     type="button"
@@ -637,36 +700,58 @@ const DriverApplication = () => {
                   onClick={() => fileInputRef.current?.click()}
                   className="w-full rounded-[4px] border-2 border-dashed border-slate-300 p-8 text-center transition hover:bg-slate-50"
                 >
-                  <Upload className="mx-auto h-8 w-8 text-slate-500" />
-                  <p className="mt-2 text-base font-medium text-slate-900">Click to upload your CV</p>
-                  <p className="mt-1 text-sm text-slate-500">PDF, DOC, DOCX — Max 5MB</p>
+                  <Upload className="mx-auto h-8 w-8 text-slate-400" />
+                  <p className="mt-2 text-sm font-medium text-slate-900">Click to upload your CV</p>
+                  <p className="mt-1 text-xs text-slate-500">PDF, DOC, DOCX — Max 5MB</p>
                 </button>
               )}
             </fieldset>
 
-            <div className="mt-8">
-              <label className="flex items-start gap-3 text-sm text-slate-700">
+            {/* Consent & Submit */}
+            <div className="mt-6 space-y-3">
+              <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   id="gdprConsent"
                   name="gdprConsent"
                   required
-                  className="mt-1 h-4 w-4 accent-[#F5C518]"
+                  className="mt-0.5 h-4 w-4 accent-[#F5C518] shrink-0"
                 />
                 <span>
-                  I consent to GIPA Services Limited storing and processing my data in
-                  accordance with UK GDPR.
+                  I confirm that all information provided is accurate and complete.
                 </span>
               </label>
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="mt-6 inline-flex items-center justify-center bg-[#F5C518] text-slate-900 px-8 py-3 text-base font-semibold rounded-[4px] transition hover:bg-[#F5C518]/90 disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {submitting ? "Submitting..." : "Submit Application"}
-              </button>
+              <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="privacyConsent"
+                  required
+                  className="mt-0.5 h-4 w-4 accent-[#F5C518] shrink-0"
+                />
+                <span>
+                  I consent to GIPA Services processing my personal data for recruitment purposes in accordance with the{" "}
+                  <a href="/privacy-policy" className="underline text-slate-900 hover:text-[#F5C518] transition-colors">
+                    Privacy Policy
+                  </a>
+                  .
+                </span>
+              </label>
             </div>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-[#F5C518] text-slate-900 px-8 py-3.5 text-sm font-bold uppercase tracking-widest rounded-[4px] transition hover:bg-[#F5C518]/90 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {submitting ? "Submitting..." : (
+                <>
+                  Submit Application
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </>
+              )}
+            </button>
 
             <input type="hidden" name="phone" value={e164Phone} />
             <input type="hidden" name="licenceType" value={licenceType} />
@@ -675,41 +760,6 @@ const DriverApplication = () => {
             <input type="hidden" name="rightToWork" value={rightToWork} />
             <input type="hidden" name="availability" value={availabilityValue} />
           </motion.form>
-        </div>
-      </section>
-
-      <section className="border-t border-slate-200 bg-[#F5F3F0] py-12">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <motion.div
-            variants={revealVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={revealViewport}
-          >
-            <h2 className="text-3xl font-semibold text-slate-900 text-center mb-10">Application Process</h2>
-          </motion.div>
-
-          <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-8 sm:gap-12">
-            {processSteps.map((step, index) => (
-              <div key={step.number} className="flex items-center sm:flex-col sm:items-center">
-                <motion.div
-                  className="flex flex-col items-center text-center w-44 sm:w-56"
-                  variants={revealVariant}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={revealViewport}
-                  custom={index * 0.5}
-                >
-                  <div className="w-14 h-14 rounded-full bg-[#1F1F1F] flex items-center justify-center mb-3">
-                    <step.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <span className="text-sm text-slate-600 mb-1">Step {step.number}</span>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-1">{step.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{step.description}</p>
-                </motion.div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </Layout>
