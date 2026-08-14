@@ -22,11 +22,18 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['TildaSans', 'sans-serif'],
-        display: ['Space Grotesk', 'TildaSans', 'sans-serif'],
+        sans: ['DM Sans', 'TildaSans', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
         body: ['DM Sans', 'TildaSans', 'sans-serif'],
       },
       colors: {
+        gipa: {
+          cream: "var(--gipa-cream)",
+          yellow: "var(--gipa-yellow)",
+          charcoal: "var(--gipa-charcoal)",
+          muted: "var(--gipa-muted)",
+          "muted-foreground": "var(--gipa-muted-foreground)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +82,13 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        gipa: "var(--gipa-radius)",
+      },
+      boxShadow: {
+        "gipa-card": "0 4px 24px rgba(28, 28, 28, 0.06)",
+        "gipa-card-hover": "0 12px 40px rgba(28, 28, 28, 0.12)",
+        "gipa-metric": "0 8px 32px rgba(0, 0, 0, 0.12)",
+        "gipa-yellow": "0 6px 20px rgba(245, 197, 24, 0.35)",
       },
       keyframes: {
         "accordion-down": {

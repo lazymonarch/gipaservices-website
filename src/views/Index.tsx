@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ChevronLeft,
   ChevronRight,
   Route,
   Shield,
@@ -12,104 +10,86 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import UKMap from "@/components/UKMap";
-import { inter, plusJakarta } from "@/lib/fonts";
+import Testimonials from "@/components/Testimonials";
+import HomePrimaryButton from "@/components/HomePrimaryButton";
 
 const services = [
   {
     name: "Nationwide HGV Delivery",
     description:
       "Full-load and part-load transport operations covering routes across the United Kingdom.",
+    tag: "Full-load · Part-load",
+    number: "01",
+    href: "/contact",
+    image:
+      "https://images.unsplash.com/photo-1670509295484-df0c2512fec4?w=1600&q=80",
+    alt: "HGV articulated lorry driving on a UK motorway",
+    wide: true,
   },
   {
     name: "Secure Goods Transportation",
     description:
       "Compliance-led transport handling with operational controls focused on cargo safety and traceability.",
+    tag: "Secure · Compliant",
+    number: "02",
+    href: "/contact",
+    image:
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80",
+    alt: "Logistics warehouse and loading operations",
+    wide: false,
   },
   {
     name: "Timed & Scheduled Deliveries",
     description:
       "Reliable collection and delivery windows aligned to your supply chain and warehouse operations.",
+    tag: "Timed · Scheduled",
+    number: "03",
+    href: "/contact",
+    image:
+      "https://images.unsplash.com/photo-1682285625743-24cca1c2c88b?w=1200&q=80",
+    alt: "Loading dock at night with trucks at warehouse bays",
+    wide: false,
   },
   {
     name: "Dedicated Logistics Partnerships",
     description:
       "Long-term transport planning for businesses requiring continuity, consistency, and accountability.",
+    tag: "Dedicated · Long-term",
+    number: "04",
+    href: "/contact",
+    image:
+      "https://images.unsplash.com/photo-1519003300449-424ad0405076?w=1600&q=80",
+    alt: "HGV truck on a UK motorway route",
+    wide: true,
   },
 ];
 
 const whyGipaFeatures = [
   {
-    title: "Compliance-First Operations",
+    title: "Experienced Professional Drivers",
+    description:
+      "Experienced drivers and dependable HGV capability across nationwide routes.",
+    icon: Truck,
+  },
+  {
+    title: "Compliance & Safety First",
     description:
       "Structured execution aligned with UK transport and safety standards.",
     icon: Shield,
   },
   {
-    title: "Planned Route Discipline",
+    title: "Nationwide UK Coverage",
     description:
-      "Consistent route coordination for predictable handovers and delivery timing.",
+      "Operating HGV routes across England, Scotland, Wales, and Northern Ireland.",
     icon: Route,
   },
-  {
-    title: "Professional Fleet Delivery",
-    description:
-      "Experienced drivers and dependable HGV capability across nationwide routes.",
-    icon: Truck,
-  },
 ];
-
-const testimonials = [
-  {
-    quote:
-      "Reliable and timely delivery support. GIPA has been instrumental in keeping our supply chain running smoothly.",
-    name: "Transport Manager",
-    location: "Midlands",
-  },
-  {
-    quote:
-      "Highly dependable transport company. Their professionalism and consistency set them apart.",
-    name: "Logistics Coordinator",
-    location: "London",
-  },
-  {
-    quote:
-      "Excellent safety and coordination standards. We trust GIPA with our most critical shipments.",
-    name: "Operations Director",
-    location: "Scotland",
-  },
-];
-
-const overlineClass =
-  "text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A96E]";
-
-const sectionPadding = "py-12 md:py-16 lg:py-24";
 
 const Index = () => {
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  const currentTestimonial = testimonials[activeTestimonial];
-
-  const prevTestimonial = () => {
-    setActiveTestimonial((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1,
-    );
-  };
-
-  const nextTestimonial = () => {
-    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
 
   return (
     <Layout>
-      <div className={inter.className}>
+      <div className="font-sans">
         <section
           className="relative flex min-h-[calc(100svh-4rem)] items-center"
           style={{
@@ -124,9 +104,7 @@ const Index = () => {
 
           <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-24 md:px-6 md:py-28 lg:py-32">
             <div className="mx-auto max-w-xl text-center md:mx-0 md:max-w-[55%] md:text-left">
-              <h1
-                className={`text-3xl font-bold leading-tight text-white lg:text-5xl ${plusJakarta.className}`}
-              >
+              <h1 className="font-display text-3xl font-bold leading-tight text-white lg:text-5xl">
                 A logistics partner you can trust, mile after mile.
               </h1>
               <p className="mt-4 max-w-md text-base text-white/80 lg:text-lg">
@@ -155,252 +133,346 @@ const Index = () => {
           </div>
         </section>
 
-        <section className={`bg-[#FAF8F4] ${sectionPadding}`}>
-          <div className="mx-auto max-w-7xl px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className={overlineClass}>OUR SERVICES</p>
-              <h2
-                className={`mt-3 text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
-              >
-                Services Built for UK Logistics Demands
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-base text-[#6B7280]">
+        <section
+          id="services"
+          className="overflow-hidden bg-[#111111] py-20 lg:py-32"
+          aria-labelledby="services-heading"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-24">
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="h-[2px] w-8 bg-[#F5C518]" />
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                    What We Do
+                  </span>
+                </div>
+                <h2
+                  id="services-heading"
+                  className="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white"
+                >
+                  Our Services
+                </h2>
+              </div>
+              <p className="max-w-md border-r-2 border-[#F5C518] pr-4 text-base leading-relaxed text-white/45 md:text-right">
                 Focused transport solutions designed for performance,
                 compliance, and continuity across high-volume operational
                 routes.
               </p>
             </div>
 
-            <div className="mt-10 grid gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-12 lg:gap-5">
               {services.map((service) => (
                 <article
                   key={service.name}
-                  className="group flex items-center justify-between rounded-md border-l-4 border-l-transparent bg-white p-6 shadow-sm transition-all duration-200 hover:border-l-[#F5C518] hover:shadow-md"
+                  className={`group relative overflow-hidden rounded bg-[#1A1A1A] ${
+                    service.wide ? "md:col-span-7" : "md:col-span-5"
+                  }`}
                 >
-                  <div className="flex items-stretch gap-5 pr-4">
-                    <span className="w-1 rounded-sm bg-[#F5C518]" aria-hidden="true" />
-                    <div>
-                      <h3
-                        className={`text-lg font-semibold text-[#2C2C2C] ${plusJakarta.className}`}
-                      >
-                        {service.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-[#6B7280]">
-                        {service.description}
-                      </p>
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      height: service.wide
+                        ? "clamp(260px, 35vw, 420px)"
+                        : "clamp(220px, 28vw, 340px)",
+                    }}
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.alt}
+                      fill
+                      sizes={
+                        service.wide
+                          ? "(max-width: 768px) 100vw, 58vw"
+                          : "(max-width: 768px) 100vw, 42vw"
+                      }
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div
+                      className="absolute inset-0 z-[1]"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.3) 55%, transparent 100%)",
+                      }}
+                    />
+                    <div className="absolute left-5 top-5 z-10">
+                      <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
+                        {service.tag}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-5 right-5 z-10 font-display text-[4rem] font-bold leading-none text-white/20">
+                      {service.number}
                     </div>
                   </div>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-[#C8A96E]" />
+                  <div className="p-7 lg:p-8">
+                    <span
+                      className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
+                      aria-hidden="true"
+                    />
+                    <h3
+                      className={`mb-3 font-bold leading-snug tracking-tight text-white ${
+                        service.wide
+                          ? "text-xl lg:text-2xl"
+                          : "text-xl"
+                      }`}
+                    >
+                      {service.name}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-white/55">
+                      {service.description}
+                    </p>
+                    <Link
+                      href={service.href}
+                      className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#F5C518] transition-[gap] duration-300 group-hover:gap-4"
+                    >
+                      Learn More
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className={`bg-white ${sectionPadding}`}>
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] md:px-6 lg:gap-16">
-            <div>
-              <Image
-                src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80"
-                alt="Logistics warehouse and loading operations"
-                width={900}
-                height={1200}
-                className="h-[360px] w-full rounded-xl object-cover md:h-[480px]"
-              />
-            </div>
-
-            <div>
-              <p className={overlineClass}>WHY GIPA</p>
-              <h2
-                className={`mt-3 text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
-              >
-                Operational discipline built for dependable UK-wide logistics.
-              </h2>
-              <p className="mt-4 text-base text-[#6B7280]">
-                We operate with a structured delivery philosophy: plan
-                accurately, execute safely, and maintain compliance across every
-                movement.
-              </p>
-
-              <div className="mt-8 space-y-5">
-                {whyGipaFeatures.map((feature) => {
-                  const Icon = feature.icon;
-
-                  return (
-                    <div key={feature.title} className="flex items-start gap-4">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-[#F5C518]">
-                        <Icon className="h-5 w-5 text-[#2C2C2C]" />
-                      </span>
-                      <div>
-                        <h3
-                          className={`text-base font-semibold text-[#2C2C2C] ${plusJakarta.className}`}
-                        >
-                          {feature.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-[#6B7280]">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-[#FAF8F4] py-10 md:py-12 lg:py-12">
-          <div className="mx-auto max-w-7xl px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className={overlineClass}>COVERAGE</p>
-              <h2
-                className={`mt-2 text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
-              >
-                Nationwide UK Delivery Coverage
-              </h2>
-              <p className="mt-2 text-base text-[#6B7280]">
-                Operating HGV routes across England, Scotland, Wales, and
-                Northern Ireland.
-              </p>
-            </div>
-
-            <div className="mt-5 flex justify-center overflow-x-hidden md:mt-6">
-              <UKMap />
-            </div>
-
-            <div className="mt-5 grid w-full grid-cols-3 gap-3 md:mt-6">
-              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
-                <p
-                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
-                >
-                  UK-Wide Routes
-                </p>
-                <p className="mt-1 text-xs text-[#6B7280]">Nationwide</p>
-              </div>
-              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
-                <p
-                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
-                >
-                  Compliance-Led
-                </p>
-                <p className="mt-1 text-xs text-[#6B7280]">Every Delivery</p>
-              </div>
-              <div className="rounded-xl bg-white p-3 text-center shadow-sm md:p-4">
-                <p
-                  className={`text-base font-bold text-[#2C2C2C] md:text-lg ${plusJakarta.className}`}
-                >
-                  HGV Specialist
-                </p>
-                <p className="mt-1 text-xs text-[#6B7280]">Trained Drivers</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className={`bg-white ${sectionPadding}`}>
-          <div className="mx-auto max-w-7xl px-4 text-center md:px-6">
-            <h2
-              className={`text-3xl font-bold text-[#2C2C2C] md:text-4xl ${plusJakarta.className}`}
-            >
-              Trusted by Operations Teams Across the UK
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-base text-[#6B7280]">
-              Client feedback focused on reliability, communication, and
-              delivery consistency.
-            </p>
-
-            <div className="mx-auto mt-12 flex max-w-5xl items-center justify-center gap-3 md:gap-8">
-              <button
-                type="button"
-                onClick={prevTestimonial}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-[#2C2C2C] transition-colors duration-200 hover:border-[#F5C518] hover:text-[#F5C518]"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-
-              <div className="max-w-3xl flex-1">
-                <span className="block text-8xl leading-none text-[#F5C518]">
-                  &ldquo;
+        <section
+          id="why-gipa"
+          className="overflow-hidden bg-[#0E0E0E]"
+          aria-labelledby="why-gipa-heading"
+        >
+          <div
+            className="relative w-full overflow-hidden"
+            style={{ height: "clamp(200px, 18vw, 280px)" }}
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1800&q=80"
+              alt="Logistics warehouse and loading operations"
+              fill
+              sizes="100vw"
+              className="object-cover object-[center_40%]"
+            />
+            <div
+              className="absolute inset-0 z-[1]"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(14,14,14,0.15) 0%, rgba(14,14,14,0.0) 40%, rgba(14,14,14,0.85) 100%)",
+              }}
+            />
+            <div className="absolute bottom-8 left-0 right-0 z-10 mx-auto max-w-7xl px-6 lg:px-8">
+              <div className="flex items-center gap-3">
+                <div className="h-[2px] w-8 bg-[#F5C518]" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  Why Choose GIPA
                 </span>
-                <p className="mx-auto -mt-4 max-w-2xl text-xl font-medium italic text-[#2C2C2C]">
-                  {currentTestimonial.quote}
-                </p>
-                <span className="mx-auto my-6 block h-0.5 w-16 bg-[#F5C518]" />
-                <p
-                  className={`text-base font-semibold text-[#2C2C2C] ${plusJakarta.className}`}
-                >
-                  {currentTestimonial.name}
-                </p>
-                <p className="text-sm text-[#6B7280]">{currentTestimonial.location}</p>
               </div>
-
-              <button
-                type="button"
-                onClick={nextTestimonial}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-[#2C2C2C] transition-colors duration-200 hover:border-[#F5C518] hover:text-[#F5C518]"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
             </div>
+          </div>
 
-            <div className="mt-8 flex items-center justify-center gap-2">
-              {testimonials.map((testimonial, index) => (
-                <button
-                  key={testimonial.name}
-                  type="button"
-                  onClick={() => setActiveTestimonial(index)}
-                  className={`h-3 w-3 rounded-full transition-colors duration-200 ${
-                    index === activeTestimonial
-                      ? "bg-[#F5C518]"
-                      : "border-2 border-gray-300 bg-transparent"
-                  }`}
-                  aria-label={`Show testimonial ${index + 1}`}
-                />
-              ))}
+          <div className="py-16 lg:py-24">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+                <div className="lg:col-span-5">
+                  <h2
+                    id="why-gipa-heading"
+                    className="mb-6 text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white"
+                  >
+                    <span className="font-display">Logistics you can</span>
+                    <br />
+                    <span className="font-display italic text-[#F5C518]">
+                      actually rely on
+                    </span>
+                  </h2>
+                  <p className="mb-8 max-w-md text-base leading-relaxed text-white/55">
+                    We operate with a structured delivery philosophy: plan
+                    accurately, execute safely, and maintain compliance across
+                    every movement.
+                  </p>
+                  <HomePrimaryButton href="/our-story">Our Story</HomePrimaryButton>
+                </div>
+
+                <div className="flex flex-col lg:col-span-7">
+                  {whyGipaFeatures.map((feature, index) => {
+                    const Icon = feature.icon;
+
+                    return (
+                      <div
+                        key={feature.title}
+                        className="flex items-start gap-5 py-7"
+                        style={{
+                          borderBottom:
+                            index < whyGipaFeatures.length - 1
+                              ? "1px solid rgba(255,255,255,0.08)"
+                              : "none",
+                        }}
+                      >
+                        <div
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] text-[#F5C518]"
+                          style={{
+                            background: "rgba(245,197,24,0.12)",
+                            border: "1px solid rgba(245,197,24,0.25)",
+                          }}
+                        >
+                          <Icon className="h-[22px] w-[22px]" />
+                        </div>
+                        <div>
+                          <h3 className="mb-2 text-base font-bold tracking-tight text-white">
+                            {feature.title}
+                          </h3>
+                          <p className="text-sm leading-relaxed text-white/50">
+                            {feature.description}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#1C1C1C] py-12 md:py-16 lg:py-20">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-2 md:px-6 lg:gap-12">
-            <div>
-              <h2
-                className={`text-3xl font-bold leading-tight text-white md:text-4xl ${plusJakarta.className}`}
-              >
-                Need a dependable logistics partner for nationwide HGV delivery?
-              </h2>
-              <p className="mt-4 max-w-md text-base text-white/70">
-                Tell us your route profile and delivery requirements. We will
-                design a practical transport plan aligned with your timelines
-                and operational standards.
-              </p>
+        <section
+          id="coverage"
+          className="overflow-hidden bg-[color:var(--gipa-cream)]"
+          aria-labelledby="coverage-heading"
+        >
+          <div className="h-1 w-full bg-[#F5C518]" aria-hidden="true" />
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-[#F5C518]/90"
+          <div className="pt-8 pb-16 lg:pt-10 lg:pb-20">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
+                <div>
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="h-[2px] w-8 bg-[#F5C518]" />
+                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                      Where We Operate
+                    </span>
+                  </div>
+                  <h2
+                    id="coverage-heading"
+                    className="font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[color:var(--gipa-charcoal)]"
+                  >
+                    UK-Wide
+                    <br />
+                    <span className="italic">Coverage</span>
+                  </h2>
+                </div>
+                <p className="max-w-sm border-r-2 border-[#F5C518] pr-4 text-base leading-relaxed text-[color:var(--gipa-charcoal)]/55 md:text-right">
+                  Operating HGV routes across England, Scotland, Wales, and
+                  Northern Ireland.
+                </p>
+              </div>
+
+              <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
+                <div className="min-w-0 lg:col-span-7 [&>div]:!max-w-none [&>div]:overflow-visible [&_.rounded-md]:rounded-none [&_rect]:fill-[color:var(--gipa-cream)]">
+                  <UKMap />
+                </div>
+
+                <div className="lg:col-span-5">
+                  <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {[
+                      "England",
+                      "Scotland",
+                      "Wales",
+                      "Northern Ireland",
+                    ].map((region) => (
+                      <div
+                        key={region}
+                        className="rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 border-l-[3px] border-l-[#F5C518] bg-white p-5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-[#F5C518]" />
+                          <p className="text-lg font-bold text-[color:var(--gipa-charcoal)]">
+                            {region}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border-l-4 border-[#F5C518] py-1 pl-6">
+                    <p className="text-base leading-relaxed text-[color:var(--gipa-charcoal)]/65">
+                      Our network operates across England, Scotland, Wales and
+                      Northern Ireland, providing dependable HGV transport
+                      coverage across the UK.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Testimonials />
+
+        <section
+          id="home-cta"
+          className="relative overflow-hidden bg-[color:var(--gipa-cream)]"
+          aria-labelledby="home-cta-heading"
+        >
+          <div className="absolute inset-x-0 top-0 z-10 h-1 bg-[#F5C518]" />
+
+          <div className="flex min-h-0 flex-col lg:min-h-[clamp(28rem,50vw,38rem)] lg:flex-row">
+            <div className="flex w-full items-center px-6 py-12 md:px-10 lg:w-1/2 lg:px-16 lg:py-16">
+              <div className="w-full max-w-xl">
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="h-[2px] w-8 bg-[#F5C518]" />
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                    Ready to Move?
+                  </span>
+                </div>
+                <h2
+                  id="home-cta-heading"
+                  className="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[#1C1C1C]"
                 >
-                  Contact Us
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/driver-application"
-                  className="text-sm font-medium text-white underline transition-colors duration-200 hover:text-[#F5C518]"
-                >
-                  Driver Application
-                </Link>
+                  Start a conversation
+                  <br />
+                  <span className="italic text-[#F5C518]">
+                    about your logistics
+                  </span>
+                </h2>
+                <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#1C1C1C]/65">
+                  Tell us your route profile and delivery requirements. We will
+                  design a practical transport plan aligned with your timelines
+                  and operational standards.
+                </p>
+                <div className="mb-10 mt-8 flex flex-wrap items-center gap-6">
+                  <HomePrimaryButton href="mailto:info@gipaservices.co.uk">
+                    Contact Us
+                  </HomePrimaryButton>
+                  <Link
+                    href="/driver-application"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1C1C1C] transition-colors duration-200 hover:text-[#F5C518]"
+                  >
+                    Driver Application
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-3 text-sm text-[#1C1C1C]/50 sm:flex-row sm:gap-6">
+                  <div className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F5C518]" />
+                    <a
+                      href="mailto:info@gipaservices.co.uk"
+                      className="hover:text-[#F5C518]"
+                    >
+                      info@gipaservices.co.uk
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F5C518]" />
+                    <span>Mon–Fri, 07:00–18:00 GMT</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div>
+            <div className="relative min-h-[280px] w-full overflow-hidden lg:min-h-0 lg:w-1/2">
               <Image
-                src="https://images.unsplash.com/photo-1519003300449-424ad0405076?w=900&q=80"
-                alt="HGV truck on a UK motorway route"
-                width={900}
-                height={600}
-                className="h-[300px] w-full rounded-xl object-cover object-[20%_42%] opacity-80 md:object-[center_40%]"
+                src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2000&q=80"
+                alt="HGV truck driving on a UK motorway at dusk"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-[center_55%]"
               />
             </div>
           </div>

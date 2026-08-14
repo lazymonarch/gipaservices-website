@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,44 +6,51 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
+    --background: 40 33% 96%;
+    --foreground: 0 0% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 11%;
 
-    --primary: 38 92% 50%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 47 92% 53%;
+    --primary-foreground: 0 0% 11%;
 
-    --secondary: 222 47% 11%;
-    --secondary-foreground: 212 28% 83%;
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 40 33% 96%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 42%;
 
-    --accent: 222 47% 11%;
-    --accent-foreground: 212 28% 83%;
+    --accent: 0 0% 11%;
+    --accent-foreground: 40 33% 96%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 38 92% 50%;
+    --border: 0 0% 11% / 0.1;
+    --input: 0 0% 92%;
+    --ring: 47 92% 53%;
 
     --radius: 0.5rem;
 
+    --gipa-cream: #F8F6F1;
+    --gipa-yellow: #F5C518;
+    --gipa-charcoal: #1C1C1C;
+    --gipa-muted: #EBEBEB;
+    --gipa-muted-foreground: #6B6B6B;
+    --gipa-radius: 4px;
+
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 215 16% 47%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 38 92% 50%;
+    --sidebar-foreground: 0 0% 11%;
+    --sidebar-primary: 47 92% 53%;
+    --sidebar-primary-foreground: 0 0% 11%;
+    --sidebar-accent: 40 33% 96%;
+    --sidebar-accent-foreground: 0 0% 42%;
+    --sidebar-border: 0 0% 11% / 0.1;
+    --sidebar-ring: 47 92% 53%;
   }
 
   .dark {
@@ -53,27 +60,35 @@
     --card-foreground: 210 20% 98%;
     --popover: 217 33% 17%;
     --popover-foreground: 210 20% 98%;
-    --primary: 38 92% 50%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 47 92% 53%;
+    --primary-foreground: 0 0% 11%;
     --secondary: 217 33% 17%;
-    --secondary-foreground: 212 28% 83%;
+    --secondary-foreground: 40 33% 96%;
     --muted: 215 28% 23%;
     --muted-foreground: 212 28% 83%;
     --accent: 217 33% 17%;
-    --accent-foreground: 212 28% 83%;
+    --accent-foreground: 40 33% 96%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 215 28% 23%;
     --input: 215 28% 23%;
-    --ring: 38 92% 50%;
+    --ring: 47 92% 53%;
+
+    --gipa-cream: #F8F6F1;
+    --gipa-yellow: #F5C518;
+    --gipa-charcoal: #1C1C1C;
+    --gipa-muted: #EBEBEB;
+    --gipa-muted-foreground: #6B6B6B;
+    --gipa-radius: 4px;
+
     --sidebar-background: 217 33% 17%;
     --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-primary: 47 92% 53%;
+    --sidebar-primary-foreground: 0 0% 11%;
     --sidebar-accent: 215 28% 23%;
     --sidebar-accent-foreground: 212 28% 83%;
     --sidebar-border: 215 28% 23%;
-    --sidebar-ring: 38 92% 50%;
+    --sidebar-ring: 47 92% 53%;
   }
 }
 
@@ -84,7 +99,8 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'TildaSans', sans-serif;
+    background-color: var(--gipa-cream);
+    font-family: 'DM Sans', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -99,6 +115,13 @@
 
   .container-narrow {
     @apply max-w-6xl mx-auto;
+  }
+
+  .font-display.italic,
+  .font-display .italic,
+  .font-display em {
+    font-family: Georgia, serif;
+    font-style: italic;
   }
 
   .fade-in {

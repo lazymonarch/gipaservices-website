@@ -1,137 +1,180 @@
 import Layout from "@/components/Layout";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/motion/Reveal";
-import { ClipboardCheck, MapPin, Shield } from "lucide-react";
+import { ChevronRight, ClipboardCheck, MapPin, Shield } from "lucide-react";
+
+const valueCards = [
+  {
+    title: "Safety First",
+    description:
+      "Every route is planned with compliance, driver welfare, and cargo security at the centre.",
+    icon: Shield,
+  },
+  {
+    title: "Compliance-Led Operations",
+    description:
+      "We operate in full alignment with UK transport regulations and DVSA standards.",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Nationwide Reach",
+    description:
+      "Covering England, Scotland, Wales, and Northern Ireland with structured HGV logistics.",
+    icon: MapPin,
+  },
+];
 
 const OurStory = () => {
   return (
     <Layout>
-      <section className="pt-4 pb-0 bg-[#F5F3F0]">
-        <FadeUp mode="mount">
-          <div className="max-w-4xl mx-auto px-6">
-            <p className="text-sm uppercase tracking-widest text-[#F5C518] mb-6">
-              Our Story
-            </p>
+      <section
+        className="relative -mt-16 flex min-h-[clamp(34rem,70vw,45rem)] items-center overflow-hidden bg-[color:var(--gipa-charcoal)] pt-16"
+        aria-label="Our Story hero"
+      >
+        <Image
+          src="https://images.unsplash.com/photo-1596475522275-4c86d9dd84d3"
+          alt="Professional HGV truck travelling on a UK motorway at dusk"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/86 via-black/62 to-black/36" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/16 to-black/34" />
 
-            <h1 className="text-4xl leading-snug md:text-5xl md:leading-[1.15] font-semibold text-slate-900 mb-6">
-              Built on real operations, real drivers, and structured logistics
-              discipline.
-            </h1>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+          <FadeUp mode="mount">
+            <div className="max-w-[46rem]">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-[2px] w-10 bg-[#F5C518]" aria-hidden="true" />
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  OUR STORY
+                </p>
+              </div>
 
-            <p className="text-lg text-slate-600 leading-relaxed">
-              GIPA Services Limited was founded with a clear mission: to
-              provide dependable, professional nationwide HGV transport services
-              across the United Kingdom. Our foundation is built on operational
-              clarity, regulatory compliance, and disciplined execution at every
-              stage of the logistics process.
-            </p>
-          </div>
-        </FadeUp>
+              <h1 className="font-display text-[clamp(3rem,6.25vw,5.4rem)] font-bold leading-[0.98] tracking-[-0.025em] text-white">
+                A Commitment to
+                <br />
+                <span className="italic text-[#F5C518]">Professional</span>{" "}
+                Logistics
+              </h1>
+
+              <p className="mt-7 max-w-[41rem] text-base leading-[1.75] text-white md:text-lg">
+                Trusted HGV transport across England, Scotland, Wales and
+                Northern Ireland — built on experience, compliance and
+                professional pride.
+              </p>
+            </div>
+          </FadeUp>
+        </div>
       </section>
 
-      <section className="pt-0 pb-16 mt-0 bg-[#F5F3F0]">
-        <FadeUp>
-          <div className="w-full max-w-5xl mx-auto px-4 mt-8 mb-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="relative h-[240px] md:h-[380px] w-full rounded-xl overflow-hidden">
+      <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
+            <FadeUp className="lg:col-span-5">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  WHO WE ARE
+                </p>
+              </div>
+              <h2 className="font-display text-[clamp(2rem,3.4vw,3.2rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[#1C1C1C]">
+                Built on Experience.
+                <br />
+                <span className="italic text-[#F5C518]">Driven</span> by Reliability.
+              </h2>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-[#1C1C1C]/65 md:text-lg">
+                GIPA Services Limited is a UK-based HGV logistics and transport company dedicated to delivering professional, reliable, and compliant transport solutions. Founded on the principles of operational excellence and driver professionalism, we have built a reputation for dependable service across England, Scotland, Wales, and Northern Ireland.
+              </p>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-[#1C1C1C]/65 md:text-lg">
+                Our team of experienced HGV drivers and logistics professionals work tirelessly to ensure your goods reach their destination safely, on time, and in perfect condition.
+              </p>
+            </FadeUp>
+
+            <FadeUp className="lg:col-span-7" delay={0.1}>
+              <div className="relative min-h-[300px] overflow-hidden rounded-[4px] bg-white shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:min-h-[390px] lg:min-h-[460px]">
                 <Image
                   src="/assets/warehouse-real-1.jpeg"
                   alt="Warehouse operations at GIPA Services"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="object-cover object-center"
                 />
+                <span className="absolute bottom-0 left-0 h-1 w-20 bg-[#F5C518]" aria-hidden="true" />
               </div>
-
-              <div className="relative h-[240px] md:h-[380px] w-full rounded-xl overflow-hidden">
-                <Image
-                  src="/assets/forklift-operator.jpeg"
-                  alt="Forklift crane operating inside a structured warehouse environment"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            <p className="text-sm text-gray-500 mt-3 text-center">
-              Warehouse operations — staff and forklift activity on site.
-            </p>
-          </div>
-        </FadeUp>
-      </section>
-
-      <section className="py-20 bg-[#FAF9F6]">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeUp>
-            <div className="mb-10">
-              <h2 className="text-3xl md:text-4xl font-semibold text-[#2D2D2D] mb-3">
-                What We Stand For
-              </h2>
-            </div>
-          </FadeUp>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <FadeUp>
-              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
-                <Shield className="h-6 w-6 text-[#F5C518] mb-4" />
-                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
-                  Safety First
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Every route is planned with compliance, driver welfare, and
-                  cargo security at the centre.
-                </p>
-              </article>
-            </FadeUp>
-
-            <FadeUp delay={0.1}>
-              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
-                <ClipboardCheck className="h-6 w-6 text-[#F5C518] mb-4" />
-                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
-                  Compliance-Led Operations
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  We operate in full alignment with UK transport regulations
-                  and DVSA standards.
-                </p>
-              </article>
-            </FadeUp>
-
-            <FadeUp delay={0.2}>
-              <article className="h-full rounded-xl border-l-4 border-[#F5C518] bg-white p-6 shadow-sm">
-                <MapPin className="h-6 w-6 text-[#F5C518] mb-4" />
-                <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
-                  Nationwide Reach
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Covering England, Scotland, Wales, and Northern Ireland with
-                  structured HGV logistics.
-                </p>
-              </article>
             </FadeUp>
           </div>
         </div>
       </section>
 
-      <section className="pb-20 bg-[#FAF9F6]">
-        <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-2 items-center">
+      <section className="bg-[color:var(--gipa-charcoal)] py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
-            <Image
-              src="/assets/fleet-lineup.jpg"
-              alt="Fleet of GIPA Services HGV trucks ready for nationwide UK deployment"
-              width={1600}
-              height={900}
-              className="rounded-2xl w-full h-[300px] sm:h-[380px] lg:h-[420px] object-cover"
-            />
+            <div className="mb-12 text-center lg:mb-14">
+              <div className="mb-5 flex items-center justify-center gap-3">
+                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  OUR VALUES
+                </p>
+                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              </div>
+              <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
+                What We Stand For
+              </h2>
+            </div>
           </FadeUp>
 
-          <FadeUp delay={0.1}>
-            <div>
-              <h2 className="text-3xl md:text-4xl font-semibold text-[#2D2D2D] mb-6">
+          <div className="grid gap-5 md:grid-cols-3">
+            {valueCards.map((card, index) => {
+              const Icon = card.icon;
+
+              return (
+                <FadeUp key={card.title} delay={index * 0.1}>
+                  <article className="h-full rounded-[4px] border border-white/10 border-t-[3px] border-t-[#F5C518] bg-[#242424] p-7 transition duration-300 hover:-translate-y-1 hover:bg-[#2E2E2E] lg:p-8">
+                    <Icon className="mb-6 h-7 w-7 text-[#F5C518]" strokeWidth={1.8} />
+                    <h3 className="mb-3 text-xl font-bold tracking-tight text-white">
+                      {card.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-white/70">
+                      {card.description}
+                    </p>
+                  </article>
+                </FadeUp>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-20 lg:px-8">
+          <FadeUp className="lg:col-span-6">
+            <div className="relative overflow-hidden rounded-[4px] shadow-[0_12px_40px_rgba(28,28,28,0.10)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://img.rocket.new/generatedImages/rocket_gen_img_145accce3-1772852165930.png"
+                alt="Forklift operator working efficiently in a professional UK warehouse distribution centre"
+                className="h-[300px] w-full object-cover sm:h-[380px] lg:h-[460px]"
+                loading="lazy"
+              />
+              <span className="absolute left-0 top-0 h-1 w-20 bg-[#F5C518]" />
+            </div>
+          </FadeUp>
+
+          <FadeUp className="lg:col-span-6" delay={0.1}>
+            <div className="max-w-xl">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  HOW WE WORK
+                </p>
+              </div>
+              <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[#1C1C1C]">
                 How We Operate
               </h2>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="mt-6 text-lg leading-relaxed text-[#1C1C1C]/65">
                 From the moment a route is confirmed, GIPA Services applies a
                 structured approach to every delivery. Our drivers are
                 experienced, compliance-checked, and supported by clear
@@ -144,29 +187,49 @@ const OurStory = () => {
         </div>
       </section>
 
-      <section className="bg-[#2D2D2D] pt-14 pb-10 md:pt-16 md:pb-12">
-        <div className="mx-auto max-w-6xl px-6 text-center md:text-left">
-          <h2 className="text-3xl font-semibold leading-tight text-white">
-            Ready to work with a logistics team that delivers?
-          </h2>
-          <p className="mt-3 text-white/75">
-            Contact our team to discuss your UK transport requirements.
-          </p>
+      <section className="relative overflow-hidden bg-[color:var(--gipa-charcoal)]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://img.rocket.new/generatedImages/rocket_gen_img_10b00c406-1767774070711.png"
+          alt="Fleet of professional HGV trucks lined up in a UK logistics yard"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/76" />
 
-          <div className="mt-7 flex flex-col items-center gap-4 md:flex-row md:items-center">
-            <Button
-              asChild
-              className="bg-[#F5C518] hover:bg-yellow-400 text-[#2D2D2D] px-6 py-3 rounded-[4px] font-semibold h-auto"
-            >
-              <Link href="/contact">Get In Touch</Link>
-            </Button>
-            <Link
-              href="/driver-application"
-              className="text-sm font-medium text-white underline underline-offset-4 transition-colors duration-200 hover:text-[#F5C518]"
-            >
-              Apply as a Driver
-            </Link>
-          </div>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
+          <FadeUp>
+            <div className="mb-6 flex items-center justify-center gap-3">
+              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                Get In Touch
+              </p>
+              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+            </div>
+            <h2 className="font-display text-[clamp(2.1rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
+              Ready to work with a logistics team that delivers?
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/70">
+              Contact our team to discuss your UK transport requirements.
+            </p>
+
+            <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#E0B400] hover:shadow-[0_6px_20px_rgba(245,197,24,0.35)] sm:w-auto"
+              >
+                Get In Touch
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/driver-application"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-white/40 px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:border-[#F5C518] hover:text-[#F5C518] sm:w-auto"
+              >
+                Apply as a Driver
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </FadeUp>
         </div>
       </section>
     </Layout>
