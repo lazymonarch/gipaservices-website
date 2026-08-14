@@ -436,7 +436,7 @@ const Index = () => {
                   and operational standards.
                 </p>
                 <div className="mb-10 mt-8 flex flex-wrap items-center gap-6">
-                  <HomePrimaryButton href="mailto:info@gipaservices.co.uk">
+                  <HomePrimaryButton href="/contact">
                     Contact Us
                   </HomePrimaryButton>
                   <Link
