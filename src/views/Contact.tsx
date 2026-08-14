@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { REVEAL_EASE } from "@/lib/animations";
-import UKMap from "@/components/UKMap";
 
 const inputClassName =
   "w-full border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 rounded-[4px] px-4 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F5C518]";
@@ -331,7 +330,17 @@ const Contact = () => {
             custom={0.1}
             className="rounded-[4px] overflow-hidden border border-slate-200 shadow-sm h-[360px] md:h-[440px]"
           >
-            <UKMap />
+            <iframe
+              title="GIPA Services Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2422.2!2d-1.0756!3d52.6002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877612!2sOadby%2C+Leicester!5e0!3m2!1sen!2suk!4v1"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full"
+            />
           </motion.div>
         </div>
       </section>
