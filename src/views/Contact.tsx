@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { REVEAL_EASE } from "@/lib/animations";
+import HeroEyebrow from "@/components/HeroEyebrow";
 
 const inputClassName =
   "w-full border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 rounded-[4px] px-4 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F5C518]";
@@ -82,41 +83,41 @@ const Contact = () => {
   return (
     <Layout>
       {/* ── Hero ── */}
-      <section className="relative h-[260px] md:h-[320px] overflow-hidden">
+      <section className="relative min-h-[450px] md:min-h-[470px] flex items-center overflow-hidden">
         <Image
-          src="/assets/contact-hero-containers.jpg"
+          src="/assets/contact-hero-port.jpg"
           alt="Shipping containers at port"
           fill
           className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center pt-8">
-          <motion.p
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-6 md:px-12 lg:px-16">
+          <motion.div
             variants={revealUp}
             initial="hidden"
             animate="visible"
             custom={0}
-            className="text-xs font-semibold tracking-widest text-[#F5C518] uppercase mb-3"
           >
-            Contact Us
-          </motion.p>
+            <HeroEyebrow text="CONTACT US" />
+          </motion.div>
           <motion.h1
             variants={revealUp}
             initial="hidden"
             animate="visible"
             custom={0.1}
-            className="text-4xl md:text-5xl font-bold text-white leading-tight"
+            className="font-display text-white max-w-[720px] text-[clamp(3.5rem,5.5vw,4.5rem)] font-bold leading-[0.94] tracking-[-0.03em]"
           >
-            Get in Touch
-            <span className="block">With Our Team</span>
+            Get in <span className="font-display italic text-[#F5C518]">Touch</span>
+            <br />
+            With Our Team
           </motion.h1>
           <motion.p
             variants={revealUp}
             initial="hidden"
             animate="visible"
             custom={0.2}
-            className="mt-3 text-slate-300 text-base max-w-md"
+            className="mt-6 max-w-xl text-base leading-relaxed text-slate-200 lg:text-lg"
           >
             We&apos;re ready to discuss your logistics requirements.
           </motion.p>
@@ -152,7 +153,7 @@ const Contact = () => {
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   </span>
                   <div>
@@ -172,8 +173,8 @@ const Contact = () => {
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="20" height="16" x="2" y="4" rx="2"/>
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                      <rect width="20" height="16" x="2" y="4" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </svg>
                   </span>
                   <div>
@@ -193,8 +194,8 @@ const Contact = () => {
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                      <circle cx="12" cy="10" r="3"/>
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
                   </span>
                   <div>
@@ -290,7 +291,7 @@ const Contact = () => {
                     <>
                       Send Enquiry
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                     </>
                   )}
@@ -314,8 +315,8 @@ const Contact = () => {
           >
             <span className="text-[#F5C518] mb-3">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
             </span>
             <h2 className="text-2xl font-bold text-slate-900">Our Location</h2>
@@ -382,7 +383,7 @@ const Contact = () => {
             >
               Call Us Now
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
             </a>
           </motion.div>

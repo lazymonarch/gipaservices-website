@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import Layout from "@/components/Layout";
+import HeroEyebrow from "@/components/HeroEyebrow";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -289,7 +290,7 @@ const DriverApplication = () => {
     <Layout>
       {/* Hero Section */}
       <section
-        className="relative min-h-[284px] md:min-h-[344px] flex items-end pb-10 md:pb-14 pt-16"
+        className="relative flex min-h-[520px] items-center overflow-hidden md:min-h-[560px] lg:min-h-[580px]"
         style={{
           backgroundImage: "url('/assets/hero-truck.jpg')",
           backgroundSize: "cover",
@@ -297,17 +298,22 @@ const DriverApplication = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/30" />
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 w-full">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-6 md:px-12 lg:px-16">
           <motion.div
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-              Drive With<br />GIPA Services
+            <HeroEyebrow text="Driver Application" />
+            <h1 className="max-w-[720px] font-display text-[clamp(3.5rem,5.5vw,4.5rem)] font-bold leading-[0.94] tracking-[-0.03em] text-white">
+              Drive With
+              <br />
+              <span className="font-display italic text-[#F5C518]">
+                GIPA Services
+              </span>
             </h1>
-            <p className="mt-3 text-base text-slate-200 max-w-sm">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-200 lg:text-lg">
               Join our team of professional HGV drivers operating across the UK.
             </p>
           </motion.div>

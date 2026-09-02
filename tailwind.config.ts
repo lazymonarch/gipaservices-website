@@ -23,7 +23,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['DM Sans', 'TildaSans', 'sans-serif'],
-        display: ['Fraunces', 'Georgia', 'serif'],
+        display: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
         body: ['DM Sans', 'TildaSans', 'sans-serif'],
       },
       colors: {

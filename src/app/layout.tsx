@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../index.css";
 import AppProviders from "@/components/AppProviders";
+import { playfairDisplay } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "GIPA Services Limited — Nationwide HGV Logistics & Transport",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-GB">
+    <html lang="en-GB" className={playfairDisplay.variable}>
       <body>
         <AppProviders>{children}</AppProviders>
 

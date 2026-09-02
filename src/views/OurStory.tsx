@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeUp } from "@/components/motion/Reveal";
 import { ChevronRight, ClipboardCheck, MapPin, Shield } from "lucide-react";
+import HeroEyebrow from "@/components/HeroEyebrow";
 
 const valueCards = [
 {
@@ -47,18 +48,12 @@ const OurStory = () => {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeUp mode="mount">
             <div className="max-w-[46rem]">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-[2px] w-10 bg-[#F5C518]" aria-hidden="true" />
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F5C518]">
-                  OUR STORY
-                </p>
-              </div>
+              <HeroEyebrow text="OUR STORY" />
 
-              <h1 className="font-display text-[clamp(3rem,6.25vw,5.4rem)] font-bold leading-[0.98] tracking-[-0.025em] text-white">
+              <h1 className="gipa-hero-title text-white text-[clamp(3.25rem,5.4vw,5.4rem)]">
                 A Commitment to
                 <br />
-                <span className="italic text-[#F5C518]">Professional</span>{" "}
-                Logistics
+                <span className="gipa-hero-accent">Professional</span> Logistics
               </h1>
 
               <p className="mt-7 max-w-[41rem] text-base leading-[1.75] text-white md:text-lg">

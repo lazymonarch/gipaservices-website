@@ -17,7 +17,7 @@ const navLinks = [
 const HERO_ROUTES = new Set(["/", "/contact", "/driver-application"]);
 const HEADER_HEIGHT_CLASS = "h-16";
 
-type HeaderSurface = "hero" | "light" | "dark";
+type HeaderSurface = "hero" | "light";
 
 function parseRgba(value: string) {
   const match = value.match(
@@ -65,8 +65,16 @@ const Header = () => {
   const pathname = usePathname();
   const isHeroRoute = HERO_ROUTES.has(pathname);
   const overlaysHero = isHeroRoute && !scrolled;
-  const surface: HeaderSurface = overlaysHero ? "hero" : overDark ? "dark" : "light";
-  const onDark = surface !== "light";
+  const isHomePage = pathname === "/";
+
+  const surface: HeaderSurface =
+    isHomePage && !scrolled
+      ? "light"
+      : overlaysHero || overDark
+        ? "hero"
+        : "light";
+
+  const onDark = surface === "hero";
 
   useEffect(() => {
     setMobileOpen(false);
@@ -87,7 +95,7 @@ const Header = () => {
       const nextOverDark = isDarkSurfaceAtPoint(window.innerWidth / 2, 8);
       header.style.pointerEvents = previous;
 
-      setOverDark(isHeroRoute && !nextScrolled ? true : nextOverDark);
+      setOverDark(nextOverDark);
     };
 
     const onScrollOrResize = () => {
@@ -112,9 +120,10 @@ const Header = () => {
         ref={headerRef}
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
-          surface === "hero"&& "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
-          surface === "dark"&& "border-white/10 bg-[color:var(--gipa-charcoal)]/70 shadow-[0_8px_32px_rgba(28,28,28,0.18)] backdrop-blur-xl backdrop-saturate-150",
-          surface === "light"&& "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
+          surface === "hero" &&
+          "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
+          surface === "light" &&
+          "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
         )}
       >
         <nav className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
@@ -213,7 +222,7 @@ const Header = () => {
                     "block py-4 px-6 text-[15px] font-medium transition-colors duration-150",
                     onDark ? "hover:bg-white/5" : "hover:bg-[color:var(--gipa-cream)]",
                     idx !== navLinks.length - 1 &&
-                      (onDark ? "border-b border-white/10" : "border-b border-gray-50"),
+                    (onDark ? "border-b border-white/10" : "border-b border-gray-50"),
                     onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
                   )}
                 >

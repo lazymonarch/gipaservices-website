@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -117,11 +117,12 @@
     @apply max-w-6xl mx-auto;
   }
 
-  .font-display.italic,
-  .font-display .italic,
-  .font-display em {
-    font-family: Georgia, serif;
-    font-style: italic;
+  .gipa-hero-title {
+    @apply font-display font-bold leading-[0.94] tracking-[-0.03em] text-balance;
+  }
+
+  .gipa-hero-accent {
+    @apply font-display font-bold italic text-[#F5C518];
   }
 
   .fade-in {

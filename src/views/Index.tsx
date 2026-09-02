@@ -7,83 +7,85 @@ import {
   ChevronRight,
   Route,
   Shield,
-  Truck } from
-"lucide-react";
+  Truck
+} from
+  "lucide-react";
 import Layout from "@/components/Layout";
 import UKMap from "@/components/UKMap";
 import Testimonials from "@/components/Testimonials";
 import HomePrimaryButton from "@/components/HomePrimaryButton";
+import HeroEyebrow from "@/components/HeroEyebrow";
 
 const services = [
-{
-  name: "Nationwide HGV Delivery",
-  description:
-  "Full-load and part-load transport operations covering routes across the United Kingdom.",
-  tag: "Full-load · Part-load",
-  number: "01",
-  href: "/contact",
-  image:
-  "https://img.rocket.new/generatedImages/rocket_gen_img_1a293c69e-1773072588388.png",
-  alt: "HGV articulated lorry driving on a UK motorway",
-  wide: true
-},
-{
-  name: "Secure Goods Transportation",
-  description:
-  "Compliance-led transport handling with operational controls focused on cargo safety and traceability.",
-  tag: "Secure · Compliant",
-  number: "02",
-  href: "/contact",
-  image:
-  "https://img.rocket.new/generatedImages/rocket_gen_img_157f7924c-1786705239862.png",
-  alt: "Logistics warehouse and loading operations",
-  wide: false
-},
-{
-  name: "Timed & Scheduled Deliveries",
-  description:
-  "Reliable collection and delivery windows aligned to your supply chain and warehouse operations.",
-  tag: "Timed · Scheduled",
-  number: "03",
-  href: "/contact",
-  image:
-  "https://images.unsplash.com/photo-1690913967058-e1a7323a58a2",
-  alt: "Loading dock at night with trucks at warehouse bays",
-  wide: false
-},
-{
-  name: "Dedicated Logistics Partnerships",
-  description:
-  "Long-term transport planning for businesses requiring continuity, consistency, and accountability.",
-  tag: "Dedicated · Long-term",
-  number: "04",
-  href: "/contact",
-  image:
-  "https://img.rocket.new/generatedImages/rocket_gen_img_1683f5bd2-1773072579871.png",
-  alt: "HGV truck on a UK motorway route",
-  wide: true
-}];
+  {
+    name: "Nationwide HGV Delivery",
+    description:
+      "Full-load and part-load transport operations covering routes across the United Kingdom.",
+    tag: "Full-load · Part-load",
+    number: "01",
+    href: "/contact",
+    image:
+      "https://img.rocket.new/generatedImages/rocket_gen_img_1a293c69e-1773072588388.png",
+    alt: "HGV articulated lorry driving on a UK motorway",
+    wide: true
+  },
+  {
+    name: "Secure Goods Transportation",
+    description:
+      "Compliance-led transport handling with operational controls focused on cargo safety and traceability.",
+    tag: "Secure · Compliant",
+    number: "02",
+    href: "/contact",
+    image:
+      "https://img.rocket.new/generatedImages/rocket_gen_img_157f7924c-1786705239862.png",
+    alt: "Logistics warehouse and loading operations",
+    wide: false
+  },
+  {
+    name: "Timed & Scheduled Deliveries",
+    description:
+      "Reliable collection and delivery windows aligned to your supply chain and warehouse operations.",
+    tag: "Timed · Scheduled",
+    number: "03",
+    href: "/contact",
+    image:
+      "https://images.unsplash.com/photo-1690913967058-e1a7323a58a2",
+    alt: "Loading dock at night with trucks at warehouse bays",
+    wide: false
+  },
+  {
+    name: "Dedicated Logistics Partnerships",
+    description:
+      "Long-term transport planning for businesses requiring continuity, consistency, and accountability.",
+    tag: "Dedicated · Long-term",
+    number: "04",
+    href: "/contact",
+    image:
+      "https://img.rocket.new/generatedImages/rocket_gen_img_1683f5bd2-1773072579871.png",
+    alt: "HGV truck on a UK motorway route",
+    wide: true
+  }];
 
 
 const whyGipaFeatures = [
-{
-  title: "Experienced Professional Drivers",
-  description:
-  "Experienced drivers and dependable HGV capability across nationwide routes.",
-  icon: Truck
-},
-{
-  title: "Compliance & Safety First",
-  description:
-  "Structured execution aligned with UK transport and safety standards.",
-  icon: Shield
-},
-{
-  title: "Nationwide UK Coverage",
-  description:
-  "Operating HGV routes across England, Scotland, Wales, and Northern Ireland.",
-  icon: Route
-}];
+  {
+    title: "Experienced Professional Drivers",
+    description:
+      "Experienced drivers and dependable HGV capability across nationwide routes.",
+    icon: Truck
+  },
+  {
+    title: "Compliance & Safety First",
+    description:
+      "Structured execution aligned with UK transport and safety standards.",
+    icon: Shield
+  },
+  {
+    title: "Nationwide UK Coverage",
+    description:
+      "Operating HGV routes across England, Scotland, Wales, and Northern Ireland.",
+    icon: Route
+  }];
 
 
 const Index = () => {
@@ -169,45 +171,71 @@ const Index = () => {
     <Layout>
       <div className="font-sans">
         {/* Hero section */}
-        <section
-          className="relative flex min-h-[calc(100svh-4rem)] items-center"
-          style={{
-            backgroundImage:
-            "url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1800&q=80')",
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat"
-          }}>
-          
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
+        <section className="relative min-h-[calc(100vh-80px)] bg-[color:var(--gipa-cream)] py-16 lg:min-h-[calc(100vh-80px)] lg:py-20">
+          <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center min-h-[680px] lg:min-h-[720px]">
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-24 md:px-6 md:py-28 lg:py-32">
-            <div className="mx-auto max-w-xl text-center md:mx-0 md:max-w-[55%] md:text-left">
-              <h1 className="font-display text-3xl font-bold leading-tight text-white lg:text-5xl">
-                A logistics partner you can trust, mile after mile.
-              </h1>
-              <p className="mt-4 max-w-md text-base text-white/80 lg:text-lg">
-                GIPA Services supports your business with UK-wide HGV delivery,
-                trained drivers, and compliance-led operations designed around
-                your timelines and cargo needs.
-              </p>
-
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-start">
-                <Link
-                  href="/contact"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3 text-sm font-semibold text-[#2C2C2C] transition duration-200 hover:bg-[#F5C518]/90 sm:w-auto">
-                  
-                  Contact Us
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/driver-application"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border-2 border-white px-8 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-[#2C2C2C] sm:w-auto">
-                  
-                  Apply as Driver
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
+              {/* Left Column: Hero Image */}
+              <div className="lg:col-span-6">
+                <div className="relative h-[460px] w-full overflow-hidden rounded-[18px] bg-white/50 shadow-2xl border border-slate-100 lg:h-[600px]">
+                  <Image
+                    src="/assets/home-hero-scania.jpg"
+                    alt="GIPA Services HGV Scania Truck"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-[35%_center] transition-transform duration-700 hover:scale-105"
+                  />
+                </div>
               </div>
+
+              {/* Right Column: Hero Content */}
+              <div className="lg:col-span-6 flex flex-col justify-center">
+                <HeroEyebrow text="UK Logistics & HGV Transport" />
+
+                <h1 className="gipa-hero-title text-[#1C1C1C] text-[44px] md:text-[60px] lg:text-[76px]">
+                  Dependable <span className="gipa-hero-accent">HGV Logistics</span> Across the UK
+                </h1>
+
+                <p className="mt-7 text-base leading-relaxed text-slate-600 lg:text-lg">
+                  GIPA Services delivers professional HGV transport across England, Scotland, Wales and Northern Ireland. Experienced drivers, rigorous compliance, and logistics partnerships built on trust.
+                </p>
+
+                <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-start">
+                  <Link
+                    href="/contact"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#e6b800] sm:w-auto shadow-sm">
+                    Get a Quote
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/driver-application"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-slate-300 bg-white px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-slate-800 transition duration-200 hover:bg-slate-50 sm:w-auto hover:border-slate-400">
+                    Apply as a Driver
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+
+                {/* Key Metrics/Stats */}
+                <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                    <p className="font-display text-3xl font-bold text-[#1C1C1C]">15+</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Years Operating</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 font-medium">Est. 2009</p>
+                  </div>
+                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                    <p className="font-display text-3xl font-bold text-[#1C1C1C]">UK-Wide</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Coverage</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 font-medium">Eng · Sco · Wal · NI</p>
+                  </div>
+                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                    <p className="font-display text-3xl font-bold text-[#1C1C1C]">100%</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Compliance</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 font-medium">FORS & DVSA</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -217,7 +245,7 @@ const Index = () => {
           id="services"
           className="overflow-hidden bg-[#111111] py-20 lg:py-32"
           aria-labelledby="services-heading">
-          
+
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             {/* Section heading — fade + upward reveal */}
             <div
@@ -238,7 +266,7 @@ const Index = () => {
                 <h2
                   id="services-heading"
                   className="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
-                  
+
                   Our Services
                 </h2>
               </div>
@@ -256,23 +284,22 @@ const Index = () => {
                   <article
                     key={service?.name}
                     ref={(el) => { cardRefs.current[index] = el; }}
-                    className={`group relative overflow-hidden rounded bg-[#1A1A1A] ${
-                    service?.wide ? "md:col-span-7" : "md:col-span-5"}`}
+                    className={`group relative overflow-hidden rounded bg-[#1A1A1A] ${service?.wide ? "md:col-span-7" : "md:col-span-5"}`}
                     style={{
                       opacity: 0,
                       transform: "translateY(32px)",
                       transition: `opacity 700ms ease ${staggerDelay}ms, transform 700ms ease ${staggerDelay}ms`
                     }}>
-                    
+
                     {/* Image container with wipe reveal */}
                     <div
                       className="relative overflow-hidden"
                       style={{
                         height: service?.wide ?
-                        "clamp(260px, 35vw, 420px)" :
-                        "clamp(220px, 28vw, 340px)"
+                          "clamp(260px, 35vw, 420px)" :
+                          "clamp(220px, 28vw, 340px)"
                       }}>
-                      
+
                       {/* Image wrapper — starts scaled up, scales to 1 on reveal */}
                       <div
                         ref={(el) => { imageScaleRefs.current[index] = el; }}
@@ -287,9 +314,9 @@ const Index = () => {
                           alt={service?.alt}
                           fill
                           sizes={
-                          service?.wide ?
-                          "(max-width: 768px) 100vw, 58vw" :
-                          "(max-width: 768px) 100vw, 42vw"
+                            service?.wide ?
+                              "(max-width: 768px) 100vw, 58vw" :
+                              "(max-width: 768px) 100vw, 42vw"
                           }
                           className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
                       </div>
@@ -308,9 +335,9 @@ const Index = () => {
                         className="absolute inset-0 z-[1]"
                         style={{
                           background:
-                          "linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.3) 55%, transparent 100%)"
+                            "linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.3) 55%, transparent 100%)"
                         }} />
-                    
+
                       <div className="absolute left-5 top-5 z-10">
                         <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
                           {service?.tag}
@@ -325,12 +352,11 @@ const Index = () => {
                       <span
                         className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
                         aria-hidden="true" />
-                    
+
                       <h3
-                        className={`mb-3 font-bold leading-snug tracking-tight text-white ${
-                        service?.wide ?
-                        "text-xl lg:text-2xl" : "text-xl"}`}>
-                        
+                        className={`mb-3 font-bold leading-snug tracking-tight text-white ${service?.wide ?
+                          "text-xl lg:text-2xl" : "text-xl"}`}>
+
                         {service?.name}
                       </h3>
                       <p className="text-sm leading-relaxed text-white/55">
@@ -358,25 +384,25 @@ const Index = () => {
           id="why-gipa"
           className="overflow-hidden bg-[#0E0E0E]"
           aria-labelledby="why-gipa-heading">
-          
+
           <div
             className="relative w-full overflow-hidden"
             style={{ height: "clamp(200px, 18vw, 280px)" }}>
-            
+
             <Image
               src="https://img.rocket.new/generatedImages/rocket_gen_img_157f7924c-1786705239862.png"
               alt="Logistics warehouse and loading operations"
               fill
               sizes="100vw"
               className="object-cover object-[center_40%]" />
-            
+
             <div
               className="absolute inset-0 z-[1]"
               style={{
                 background:
-                "linear-gradient(to bottom, rgba(14,14,14,0.15) 0%, rgba(14,14,14,0.0) 40%, rgba(14,14,14,0.85) 100%)"
+                  "linear-gradient(to bottom, rgba(14,14,14,0.15) 0%, rgba(14,14,14,0.0) 40%, rgba(14,14,14,0.85) 100%)"
               }} />
-            
+
             <div className="absolute bottom-8 left-0 right-0 z-10 mx-auto max-w-7xl px-6 lg:px-8">
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 bg-[#F5C518]" />
@@ -394,7 +420,7 @@ const Index = () => {
                   <h2
                     id="why-gipa-heading"
                     className="mb-6 text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
-                    
+
                     <span className="font-display">Logistics you can</span>
                     <br />
                     <span className="font-display italic text-[#F5C518]">
@@ -419,18 +445,18 @@ const Index = () => {
                         className="flex items-start gap-5 py-7"
                         style={{
                           borderBottom:
-                          index < whyGipaFeatures?.length - 1 ?
-                          "1px solid rgba(255,255,255,0.08)" :
-                          "none"
+                            index < whyGipaFeatures?.length - 1 ?
+                              "1px solid rgba(255,255,255,0.08)" :
+                              "none"
                         }}>
-                        
+
                         <div
                           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] text-[#F5C518]"
                           style={{
                             background: "rgba(245,197,24,0.12)",
                             border: "1px solid rgba(245,197,24,0.25)"
                           }}>
-                          
+
                           <Icon className="h-[22px] w-[22px]" />
                         </div>
                         <div>
@@ -454,7 +480,7 @@ const Index = () => {
           id="coverage"
           className="overflow-hidden bg-[color:var(--gipa-cream)]"
           aria-labelledby="coverage-heading">
-          
+
           <div className="h-1 w-full bg-[#F5C518]" aria-hidden="true" />
 
           <div className="pt-8 pb-16 lg:pt-10 lg:pb-20">
@@ -470,7 +496,7 @@ const Index = () => {
                   <h2
                     id="coverage-heading"
                     className="font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[color:var(--gipa-charcoal)]">
-                    
+
                     UK-Wide
                     <br />
                     <span className="italic">Coverage</span>
@@ -490,23 +516,23 @@ const Index = () => {
                 <div className="lg:col-span-5">
                   <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {[
-                    "England",
-                    "Scotland",
-                    "Wales",
-                    "Northern Ireland"]?.
-                    map((region) =>
-                    <div
-                      key={region}
-                      className="rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 border-l-[3px] border-l-[#F5C518] bg-white p-5">
-                      
-                        <div className="flex items-center gap-2">
-                          <span className="h-2 w-2 rounded-full bg-[#F5C518]" />
-                          <p className="text-lg font-bold text-[color:var(--gipa-charcoal)]">
-                            {region}
-                          </p>
+                      "England",
+                      "Scotland",
+                      "Wales",
+                      "Northern Ireland"]?.
+                      map((region) =>
+                        <div
+                          key={region}
+                          className="rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 border-l-[3px] border-l-[#F5C518] bg-white p-5">
+
+                          <div className="flex items-center gap-2">
+                            <span className="h-2 w-2 rounded-full bg-[#F5C518]" />
+                            <p className="text-lg font-bold text-[color:var(--gipa-charcoal)]">
+                              {region}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </div>
 
                   <div className="border-l-4 border-[#F5C518] py-1 pl-6">
@@ -528,10 +554,10 @@ const Index = () => {
           id="home-cta"
           className="relative overflow-hidden bg-[color:var(--gipa-cream)]"
           aria-labelledby="home-cta-heading">
-          
+
           <div className="absolute inset-x-0 top-0 z-10 h-1 bg-[#F5C518]" />
 
-          <div className="flex min-h-0 flex-col lg:min-h-[clamp(28rem,50vw,38rem)] lg:flex-row">
+          <div className="flex min-h-0 flex-col lg:min-h-[calc(clamp(28rem,50vw,38rem)+140px)] lg:flex-row">
             <div className="flex w-full items-center px-6 py-12 md:px-10 lg:w-1/2 lg:px-16 lg:py-16">
               <div className="w-full max-w-xl">
                 <div className="mb-5 flex items-center gap-3">
@@ -543,7 +569,7 @@ const Index = () => {
                 <h2
                   id="home-cta-heading"
                   className="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[#1C1C1C]">
-                  
+
                   Start a conversation
                   <br />
                   <span className="italic text-[#F5C518]">
@@ -562,7 +588,7 @@ const Index = () => {
                   <Link
                     href="/driver-application"
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1C1C1C] transition-colors duration-200 hover:text-[#F5C518]">
-                    
+
                     Driver Application
                     <ChevronRight className="h-4 w-4" />
                   </Link>
@@ -573,7 +599,7 @@ const Index = () => {
                     <a
                       href="mailto:info@gipaservices.co.uk"
                       className="hover:text-[#F5C518]">
-                      
+
                       info@gipaservices.co.uk
                     </a>
                   </div>
@@ -585,14 +611,14 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="relative min-h-[280px] w-full overflow-hidden lg:min-h-0 lg:w-1/2">
+            <div className="relative min-h-[420px] w-full overflow-hidden lg:min-h-0 lg:w-1/2">
               <Image
-                src="https://images.unsplash.com/photo-1652081439602-b917d33f794b"
-                alt="HGV truck driving on a UK motorway at dusk"
+                src="/assets/home-cta-truck.jpg"
+                alt="HGV truck driving on a mountain road"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-[center_55%]" />
-              
+                className="object-cover object-right" />
+
             </div>
           </div>
         </section>
