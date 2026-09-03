@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { plusJakarta } from "@/lib/fonts";
@@ -11,7 +11,11 @@ const navLinks = [
   { label: "Home", path: "/" },
   { label: "Our Story", path: "/our-story" },
   { label: "Contact", path: "/contact" },
-  { label: "Driver Application", path: "/driver-application" },
+];
+
+const careersLinks = [
+  { label: "Driver", path: "/driver-application" },
+  { label: "Warehouse Operative", path: "/warehouse-operative-application" },
 ];
 
 const HERO_ROUTES = new Set(["/", "/contact", "/driver-application"]);
@@ -59,10 +63,14 @@ function isDarkSurfaceAtPoint(x: number, y: number) {
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [careersOpen, setCareersOpen] = useState(false);
+  const [careersMobileOpen, setCareersMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [overDark, setOverDark] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const careersRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const isCareersActive = careersLinks.some((link) => pathname === link.path);
   const isHeroRoute = HERO_ROUTES.has(pathname);
   const overlaysHero = isHeroRoute && !scrolled;
   const isHomePage = pathname === "/";
@@ -78,7 +86,29 @@ const Header = () => {
 
   useEffect(() => {
     setMobileOpen(false);
+    setCareersOpen(false);
+    setCareersMobileOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!careersOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (careersRef.current?.contains(event.target as Node)) return;
+      setCareersOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setCareersOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [careersOpen]);
 
   useEffect(() => {
     let frame = 0;
@@ -144,8 +174,6 @@ const Header = () => {
 
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
             {navLinks.map((link) => {
-              const isActive = pathname === link.path;
-
               return (
                 <Link
                   key={link.path}
@@ -164,6 +192,73 @@ const Header = () => {
                 </Link>
               );
             })}
+
+            <div
+              ref={careersRef}
+              className="relative"
+              onMouseEnter={() => setCareersOpen(true)}
+              onMouseLeave={() => setCareersOpen(false)}
+            >
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={careersOpen}
+                onClick={() => setCareersOpen((prev) => !prev)}
+                className={cn(
+                  "group relative inline-flex items-center gap-0.5 pb-1 text-[15px] font-medium tracking-wide transition-colors duration-200",
+                  onDark ? "text-white hover:text-[#F5C518]" : "text-[color:var(--gipa-charcoal)] hover:text-[#F5C518]",
+                  isCareersActive && (onDark ? "text-[#F5C518]" : "text-[#F5C518]"),
+                )}
+              >
+                Careers
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 origin-center transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                    careersOpen && "rotate-180",
+                  )}
+                  aria-hidden="true"
+                />
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute bottom-0 left-0 h-[2px] bg-[#F5C518] transition-[width] duration-300 group-hover:w-full",
+                    isCareersActive || careersOpen ? "w-full" : "w-0",
+                  )}
+                  style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)", bottom: "-3px" }}
+                />
+              </button>
+
+              <div
+                role="menu"
+                className={cn(
+                  "absolute left-1/2 top-full z-50 min-w-[200px] -translate-x-1/2 pt-2 transition-all duration-200",
+                  careersOpen
+                    ? "pointer-events-auto visible translate-y-0 opacity-100"
+                    : "pointer-events-none invisible -translate-y-1 opacity-0",
+                )}
+              >
+                <div
+                  className="overflow-hidden rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 bg-[#F8F6F1] shadow-[0_8px_24px_rgba(28,28,28,0.12)]"
+                >
+                  {careersLinks.map((link, idx) => (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      role="menuitem"
+                      onClick={() => setCareersOpen(false)}
+                      className={cn(
+                        "block px-4 py-3 text-[15px] font-medium text-[color:var(--gipa-charcoal)] transition-colors duration-200",
+                        "hover:bg-[#F5C518]/10 hover:text-[#F5C518]",
+                        idx !== careersLinks.length - 1 && "border-b border-[color:var(--gipa-charcoal)]/10",
+                        pathname === link.path && "bg-[#F5C518]/10 text-[#F5C518]",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="relative z-10 flex items-center gap-3">
@@ -210,9 +305,7 @@ const Header = () => {
               mobileOpen ? "max-h-screen" : "max-h-0",
             )}
           >
-            {navLinks.map((link, idx) => {
-              const isActive = pathname === link.path;
-
+            {navLinks.map((link) => {
               return (
                 <Link
                   key={link.path}
@@ -221,8 +314,7 @@ const Header = () => {
                   className={cn(
                     "block py-4 px-6 text-[15px] font-medium transition-colors duration-150",
                     onDark ? "hover:bg-white/5" : "hover:bg-[color:var(--gipa-cream)]",
-                    idx !== navLinks.length - 1 &&
-                    (onDark ? "border-b border-white/10" : "border-b border-gray-50"),
+                    onDark ? "border-b border-white/10" : "border-b border-gray-50",
                     onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
                   )}
                 >
@@ -232,6 +324,52 @@ const Header = () => {
                 </Link>
               );
             })}
+
+            <div className={onDark ? "border-b border-white/10" : "border-b border-gray-50"}>
+              <button
+                type="button"
+                aria-expanded={careersMobileOpen}
+                onClick={() => setCareersMobileOpen((prev) => !prev)}
+                className={cn(
+                  "flex w-full items-center justify-between py-4 px-6 text-[15px] font-medium transition-colors duration-150",
+                  onDark ? "text-white hover:bg-white/5" : "text-[color:var(--gipa-charcoal)] hover:bg-[color:var(--gipa-cream)]",
+                  isCareersActive && "text-[#F5C518]",
+                )}
+              >
+                <span className="block border-l-[3px] border-transparent pl-3">Careers</span>
+                <ChevronDown
+                  className={cn(
+                    "mr-2 h-4 w-4 origin-center transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                    careersMobileOpen && "rotate-180",
+                  )}
+                  aria-hidden="true"
+                />
+              </button>
+
+              {careersMobileOpen && (
+                <div className={onDark ? "border-t border-white/10" : "border-t border-gray-50"}>
+                  {careersLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      onClick={() => {
+                        setMobileOpen(false);
+                        setCareersMobileOpen(false);
+                      }}
+                      className={cn(
+                        "block py-3 pl-10 pr-6 text-[15px] font-medium transition-colors duration-150",
+                        onDark
+                          ? "text-white hover:bg-white/5 hover:text-[#F5C518]"
+                          : "text-[color:var(--gipa-charcoal)] hover:bg-[color:var(--gipa-cream)] hover:text-[#F5C518]",
+                        pathname === link.path && "text-[#F5C518]",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <div
               className={cn(

@@ -41,3 +41,19 @@ model DriverApplication {
   ipAddress        String?
   createdAt        DateTime @default(now())
 }
+
+model WarehouseOperativeApplication {
+  id                       String   @id @default(uuid())
+  fullName                 String
+  address                  String
+  phone                    String
+  email                    String
+  warehouseExperienceYears Int
+  rightToWork              Boolean
+  gdprConsent              Boolean  @default(false)
+  consentTimestamp         DateTime @default(now())
+  availability             String?
+  cvFileUrl                String
+  ipAddress                String?
+  createdAt                DateTime @default(now())
+}

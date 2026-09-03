@@ -11,13 +11,15 @@ const nonEmptyCsv = z
 
 const envSchema = z.object({
   DATABASE_URL: z.string().trim().min(1),
-  RESEND_API_KEY: z.string().trim().min(1),
-  RESEND_FROM_EMAIL: z.string().trim().email(),
+  ZEPTOMAIL_SEND_TOKEN: z.string().trim().min(1),
+  ZEPTOMAIL_FROM_EMAIL: z.string().trim().email(),
   CONTACT_NOTIFICATION_TO: nonEmptyCsv,
   DRIVER_NOTIFICATION_TO: nonEmptyCsv,
-  GOOGLE_CLIENT_EMAIL: z.string().trim().min(1),
-  GOOGLE_PRIVATE_KEY: z.string().trim().min(1),
-  GOOGLE_DRIVE_FOLDER_ID: z.string().trim().min(1),
+  ZOHO_CLIENT_ID: z.string().trim().min(1),
+  ZOHO_CLIENT_SECRET: z.string().trim().min(1),
+  ZOHO_REFRESH_TOKEN: z.string().trim().min(1),
+  ZOHO_WORKDRIVE_DRIVER_FOLDER_ID: z.string().trim().min(1),
+  ZOHO_WORKDRIVE_WAREHOUSE_FOLDER_ID: z.string().trim().min(1),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -32,4 +34,3 @@ if (!parsed.success) {
   );
   process.exit(1);
 }
-

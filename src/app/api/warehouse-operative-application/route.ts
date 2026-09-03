@@ -3,8 +3,8 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ENV } from "@/lib/env";
 import {
-  sendDriverApplicationConfirmation,
-  sendDriverApplicationNotification,
+  sendWarehouseOperativeApplicationConfirmation,
+  sendWarehouseOperativeApplicationNotification,
 } from "@/lib/email";
 import { getIP } from "@/lib/rate-limit";
 import { uploadToWorkDrive } from "@/lib/zoho-workdrive";
@@ -21,12 +21,9 @@ const schema = z.object({
   address: z.string().trim().min(5),
   phone: z.string().trim().min(5),
   email: z.string().trim().email(),
-  licenceType: z.string().trim().min(1),
-  experienceYears: z.coerce.number().int().min(0),
+  warehouseExperienceYears: z.coerce.number().int().min(0),
   rightToWork: z.enum(["yes", "no"]),
   gdprConsent: z.literal("on"),
-  cpcStatus: z.string().trim().optional(),
-  hgvCategory: z.string().trim().optional(),
   availability: z.string().trim().optional(),
 });
 
@@ -68,34 +65,28 @@ export async function POST(req: NextRequest) {
       address: formData.get("address"),
       phone: formData.get("phone"),
       email: formData.get("email"),
-      licenceType: formData.get("licenceType"),
-      experienceYears: formData.get("experienceYears"),
+      warehouseExperienceYears: formData.get("warehouseExperienceYears"),
       rightToWork: formData.get("rightToWork"),
       gdprConsent,
-      cpcStatus: formData.get("cpcStatus") || undefined,
-      hgvCategory: formData.get("hgvCategory") || undefined,
       availability: formData.get("availability") || undefined,
     });
 
     const { fileUrl: cvFileUrl } = await uploadToWorkDrive(
       cvFile,
-      ENV.ZOHO_WORKDRIVE_DRIVER_FOLDER_ID,
+      ENV.ZOHO_WORKDRIVE_WAREHOUSE_FOLDER_ID,
     );
     const rightToWork = data.rightToWork === "yes";
 
-    await prisma.driverApplication.create({
+    await prisma.warehouseOperativeApplication.create({
       data: {
         fullName: data.fullName,
         address: data.address,
         phone: data.phone,
         email: data.email,
-        licenceType: data.licenceType,
-        experienceYears: data.experienceYears,
+        warehouseExperienceYears: data.warehouseExperienceYears,
         rightToWork,
         gdprConsent: true,
         consentTimestamp: new Date(),
-        cpcStatus: data.cpcStatus,
-        hgvCategory: data.hgvCategory,
         availability: data.availability,
         cvFileUrl,
         ipAddress,
@@ -103,35 +94,35 @@ export async function POST(req: NextRequest) {
     });
 
     try {
-      await sendDriverApplicationNotification({
+      await sendWarehouseOperativeApplicationNotification({
         fullName: data.fullName,
         address: data.address,
         phone: data.phone,
         email: data.email,
-        licenceType: data.licenceType,
-        experienceYears: data.experienceYears,
+        warehouseExperienceYears: data.warehouseExperienceYears,
         rightToWork,
-        cpcStatus: data.cpcStatus,
-        hgvCategory: data.hgvCategory,
         availability: data.availability,
         cvFileUrl,
       });
     } catch (error) {
-      console.error("Driver application email failed:", error);
+      console.error("Warehouse operative application email failed:", error);
     }
 
     try {
-      await sendDriverApplicationConfirmation({
+      await sendWarehouseOperativeApplicationConfirmation({
         fullName: data.fullName,
         email: data.email,
       });
     } catch (error) {
-      console.error("Driver application confirmation email failed:", error);
+      console.error(
+        "Warehouse operative application confirmation email failed:",
+        error,
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Driver application submission failed:", error);
+    console.error("Warehouse operative application submission failed:", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
