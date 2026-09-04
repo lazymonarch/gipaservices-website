@@ -14,8 +14,8 @@ const navLinks = [
 ];
 
 const careersLinks = [
-  { label: "Driver", path: "/driver-application" },
-  { label: "Warehouse Operative", path: "/warehouse-operative-application" },
+  { label: "Driver", mobileLabel: "Driver Application", path: "/driver-application" },
+  { label: "Warehouse Operative", mobileLabel: "Warehouse Operative", path: "/warehouse-operative-application" },
 ];
 
 const HERO_ROUTES = new Set(["/", "/contact", "/driver-application"]);
@@ -69,6 +69,8 @@ const Header = () => {
   const [overDark, setOverDark] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const careersRef = useRef<HTMLDivElement>(null);
+  const mobilePanelRef = useRef<HTMLDivElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const isCareersActive = careersLinks.some((link) => pathname === link.path);
   const isHeroRoute = HERO_ROUTES.has(pathname);
@@ -83,12 +85,39 @@ const Header = () => {
         : "light";
 
   const onDark = surface === "hero";
+  const mobileChromeOnDark = onDark && !mobileOpen;
 
   useEffect(() => {
     setMobileOpen(false);
     setCareersOpen(false);
     setCareersMobileOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (mobilePanelRef.current?.contains(target)) return;
+      if (mobileToggleRef.current?.contains(target)) return;
+      setMobileOpen(false);
+      setCareersMobileOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        setCareersMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (!careersOpen) return;
@@ -151,9 +180,11 @@ const Header = () => {
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
           surface === "hero" &&
-          "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
+            "border-white/15 bg-[color:var(--gipa-charcoal)]/20 shadow-[0_8px_32px_rgba(28,28,28,0.12)] backdrop-blur-xl backdrop-saturate-150",
           surface === "light" &&
-          "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
+            "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/75 shadow-[0_8px_32px_rgba(28,28,28,0.06)] backdrop-blur-xl backdrop-saturate-150",
+          mobileOpen &&
+            "max-lg:border-[#1C1C1C]/10 max-lg:bg-[#F8F6F1] max-lg:shadow-[0_8px_24px_rgba(28,28,28,0.08)] max-lg:backdrop-blur-none",
         )}
       >
         <nav className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
@@ -165,7 +196,7 @@ const Header = () => {
               className={cn(
                 "ml-2 text-base font-semibold transition-colors duration-300",
                 plusJakarta.className,
-                onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
+                mobileChromeOnDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
               )}
             >
               GIPA Services
@@ -248,9 +279,8 @@ const Header = () => {
                       onClick={() => setCareersOpen(false)}
                       className={cn(
                         "block px-4 py-3 text-[15px] font-medium text-[color:var(--gipa-charcoal)] transition-colors duration-200",
-                        "hover:bg-[#F5C518]/10 hover:text-[#F5C518]",
+                        "hover:bg-[#F5C518]/10 hover:text-[#F5C518] focus:bg-[#F5C518]/10 focus:text-[#F5C518] focus:outline-none focus-visible:bg-[#F5C518]/10 focus-visible:text-[#F5C518]",
                         idx !== careersLinks.length - 1 && "border-b border-[color:var(--gipa-charcoal)]/10",
-                        pathname === link.path && "bg-[#F5C518]/10 text-[#F5C518]",
                       )}
                     >
                       {link.label}
@@ -264,31 +294,27 @@ const Header = () => {
           <div className="relative z-10 flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden rounded-[4px] bg-[#F5C518] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.05em] text-[color:var(--gipa-charcoal)] transition duration-200 hover:bg-[#F5C518]/90 lg:inline-flex"
+              className="gipa-btn-nav hidden lg:inline-flex"
             >
               Get a Quote
             </Link>
 
             <button
+              ref={mobileToggleRef}
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="inline-flex items-center justify-center lg:hidden"
-              aria-label="Toggle menu"
+              className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-[4px] lg:hidden"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-dropdown"
             >
               {mobileOpen ? (
-                <X
-                  className={cn(
-                    "h-6 w-6 transition-colors duration-300",
-                    onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
-                  )}
-                />
+                <X className="h-6 w-6 text-[#1C1C1C]" />
               ) : (
                 <Menu
                   className={cn(
                     "h-6 w-6 transition-colors duration-300",
-                    onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
+                    mobileChromeOnDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
                   )}
                 />
               )}
@@ -296,114 +322,101 @@ const Header = () => {
           </div>
 
           <div
+            ref={mobilePanelRef}
             id="mobile-nav-dropdown"
             className={cn(
-              "absolute left-0 right-0 top-full overflow-hidden border-b shadow-lg backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 ease-in-out lg:hidden",
-              onDark
-                ? "border-white/10 bg-[color:var(--gipa-charcoal)]/90"
-                : "border-[color:var(--gipa-charcoal)]/10 bg-[color:var(--gipa-cream)]/95",
-              mobileOpen ? "max-h-screen" : "max-h-0",
+              "absolute inset-x-0 top-full z-50 lg:hidden",
+              "border-b border-[#1C1C1C]/10 bg-[#F8F6F1] shadow-[0_16px_40px_rgba(28,28,28,0.14)]",
+              "origin-top transition-[opacity,transform,visibility] duration-[220ms] ease-out",
+              "motion-reduce:transition-none motion-reduce:transform-none",
+              mobileOpen
+                ? "visible translate-y-0 opacity-100"
+                : "pointer-events-none invisible -translate-y-1.5 opacity-0",
             )}
           >
-            {navLinks.map((link) => {
-              return (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "block py-4 px-6 text-[15px] font-medium transition-colors duration-150",
-                    onDark ? "hover:bg-white/5" : "hover:bg-[color:var(--gipa-cream)]",
-                    onDark ? "border-b border-white/10" : "border-b border-gray-50",
-                    onDark ? "text-white" : "text-[color:var(--gipa-charcoal)]",
-                  )}
-                >
-                  <span className="block border-l-[3px] border-transparent pl-3">
-                    {link.label}
-                  </span>
-                </Link>
-              );
-            })}
-
-            <div className={onDark ? "border-b border-white/10" : "border-b border-gray-50"}>
-              <button
-                type="button"
-                aria-expanded={careersMobileOpen}
-                onClick={() => setCareersMobileOpen((prev) => !prev)}
-                className={cn(
-                  "flex w-full items-center justify-between py-4 px-6 text-[15px] font-medium transition-colors duration-150",
-                  onDark ? "text-white hover:bg-white/5" : "text-[color:var(--gipa-charcoal)] hover:bg-[color:var(--gipa-cream)]",
-                  isCareersActive && "text-[#F5C518]",
-                )}
-              >
-                <span className="block border-l-[3px] border-transparent pl-3">Careers</span>
-                <ChevronDown
-                  className={cn(
-                    "mr-2 h-4 w-4 origin-center transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
-                    careersMobileOpen && "rotate-180",
-                  )}
-                  aria-hidden="true"
-                />
-              </button>
-
-              {careersMobileOpen && (
-                <div className={onDark ? "border-t border-white/10" : "border-t border-gray-50"}>
-                  {careersLinks.map((link) => (
+            <div className="mx-auto w-full max-w-7xl px-4 pb-4 pt-1 sm:px-6">
+              <nav aria-label="Mobile" className="flex flex-col">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.path;
+                  return (
                     <Link
                       key={link.path}
                       href={link.path}
-                      onClick={() => {
-                        setMobileOpen(false);
-                        setCareersMobileOpen(false);
-                      }}
+                      onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "block py-3 pl-10 pr-6 text-[15px] font-medium transition-colors duration-150",
-                        onDark
-                          ? "text-white hover:bg-white/5 hover:text-[#F5C518]"
-                          : "text-[color:var(--gipa-charcoal)] hover:bg-[color:var(--gipa-cream)] hover:text-[#F5C518]",
-                        pathname === link.path && "text-[#F5C518]",
+                        "flex min-h-11 items-center rounded-[4px] px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
+                        "hover:bg-[#F5C518]/15 hover:text-[#1C1C1C]",
+                        isActive && "bg-[#F5C518]/15 font-semibold text-[#1C1C1C]",
                       )}
                     >
                       {link.label}
                     </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                  );
+                })}
 
-            <div
-              className={cn(
-                "px-6 py-5",
-                onDark ? "bg-black/20" : "bg-[color:var(--gipa-cream)]",
-              )}
-            >
-              <p
-                className={cn(
-                  "mb-2 text-xs uppercase tracking-wider",
-                  onDark ? "text-white/50" : "text-[color:var(--gipa-muted-foreground)]",
-                )}
-              >
-                Looking for HGV work?
-              </p>
-              <Link
-                href="/driver-application"
-                onClick={() => setMobileOpen(false)}
-                className="mb-3 block w-full rounded-[4px] bg-[#F5C518] px-4 py-2 text-center text-sm font-semibold text-[#2C2C2C]"
-              >
-                Apply as Driver →
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className={cn(
-                  "block w-full rounded-[4px] border px-4 py-2 text-center text-sm font-semibold transition-colors duration-200",
-                  onDark
-                    ? "border-white/30 text-white hover:border-[#F5C518] hover:text-[#F5C518]"
-                    : "border-[color:var(--gipa-charcoal)]/20 text-[color:var(--gipa-charcoal)] hover:border-[#F5C518] hover:text-[#F5C518]",
-                )}
-              >
-                Get a Quote
-              </Link>
+                <div>
+                  <button
+                    type="button"
+                    aria-expanded={careersMobileOpen}
+                    aria-controls="mobile-careers-submenu"
+                    onClick={() => setCareersMobileOpen((prev) => !prev)}
+                    className={cn(
+                      "flex min-h-11 w-full items-center justify-between rounded-[4px] px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
+                      "hover:bg-[#F5C518]/15",
+                      isCareersActive && "font-semibold",
+                    )}
+                  >
+                    Careers
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 origin-center text-[#1C1C1C]/70 transition-transform duration-[220ms] ease-out motion-reduce:transition-none",
+                        careersMobileOpen && "rotate-180",
+                      )}
+                      aria-hidden="true"
+                    />
+                  </button>
+
+                  <div
+                    id="mobile-careers-submenu"
+                    className={cn(
+                      "grid transition-[grid-template-rows] duration-[220ms] ease-out motion-reduce:transition-none",
+                      careersMobileOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                    )}
+                  >
+                    <div className="min-h-0 overflow-hidden">
+                      <div className="ml-3 border-l-2 border-[#F5C518] py-1 pl-3">
+                        {careersLinks.map((link) => (
+                          <Link
+                            key={link.path}
+                            href={link.path}
+                            onClick={() => {
+                              setMobileOpen(false);
+                              setCareersMobileOpen(false);
+                            }}
+                            className={cn(
+                              "flex min-h-11 items-center rounded-[4px] px-2 text-[14px] font-medium text-[#1C1C1C]/80 transition-colors duration-150",
+                              "hover:bg-[#F5C518]/15 hover:text-[#1C1C1C]",
+                              pathname === link.path && "bg-[#F5C518]/15 font-semibold text-[#1C1C1C]",
+                            )}
+                          >
+                            {link.mobileLabel}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+
+              <div className="mt-3 border-t border-[#1C1C1C]/10 pt-3">
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="gipa-btn-primary w-full"
+                >
+                  Get a Quote
+                </Link>
+              </div>
             </div>
           </div>
         </nav>

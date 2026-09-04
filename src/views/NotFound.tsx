@@ -24,7 +24,7 @@ const NotFound = () => {
           </p>
           <Link
             href="/"
-            className="mt-8 inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-6 py-3 font-medium text-slate-900 transition duration-300 hover:bg-[#F5C518]/90"
+            className="gipa-btn-primary mt-8"
           >
             Return to Home
           </Link>

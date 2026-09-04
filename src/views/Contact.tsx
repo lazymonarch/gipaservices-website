@@ -7,9 +7,10 @@ import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { REVEAL_EASE } from "@/lib/animations";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 const inputClassName =
-  "w-full border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 rounded-[4px] px-4 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F5C518]";
+  "w-full rounded-[4px] border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-none outline-none ring-0 ring-offset-0 transition-colors duration-200 placeholder:text-slate-400 focus:border-[#F5C518] focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-[#F5C518] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
 const labelClassName = "mb-1.5 block text-sm font-medium text-slate-700";
 
@@ -151,10 +152,8 @@ const Contact = () => {
                   custom={0.05}
                   className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
                 >
-                  <span className="mt-0.5 shrink-0 text-[#F5C518]">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
+                  <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
+                    <Phone className="h-5 w-5" strokeWidth={1.8} />
                   </span>
                   <div>
                     <p className="font-semibold text-slate-900 text-sm mb-1">Call Us</p>
@@ -171,11 +170,8 @@ const Contact = () => {
                   custom={0.1}
                   className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
                 >
-                  <span className="mt-0.5 shrink-0 text-[#F5C518]">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="20" height="16" x="2" y="4" rx="2" />
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                    </svg>
+                  <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
+                    <Mail className="h-5 w-5" strokeWidth={1.8} />
                   </span>
                   <div>
                     <p className="font-semibold text-slate-900 text-sm mb-1">Email Us</p>
@@ -192,11 +188,8 @@ const Contact = () => {
                   custom={0.15}
                   className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
                 >
-                  <span className="mt-0.5 shrink-0 text-[#F5C518]">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
+                  <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
+                    <MapPin className="h-5 w-5" strokeWidth={1.8} />
                   </span>
                   <div>
                     <p className="font-semibold text-slate-900 text-sm mb-1">Our Location</p>
@@ -223,7 +216,7 @@ const Contact = () => {
                 Complete the form below and we&apos;ll get back to you within 24 hours.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="fullName" className={labelClassName}>Full Name</label>
@@ -231,6 +224,9 @@ const Contact = () => {
                       id="fullName"
                       name="fullName"
                       required
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="words"
                       placeholder="Your full name"
                       className={inputClassName}
                     />
@@ -240,6 +236,9 @@ const Contact = () => {
                     <input
                       id="companyName"
                       name="companyName"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="words"
                       placeholder="Your company"
                       className={inputClassName}
                     />
@@ -254,6 +253,10 @@ const Contact = () => {
                       name="email"
                       type="email"
                       required
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck={false}
                       placeholder="your@email.com"
                       className={inputClassName}
                     />
@@ -264,6 +267,7 @@ const Contact = () => {
                       id="phone"
                       name="phone"
                       type="tel"
+                      autoComplete="off"
                       placeholder="+44 ..."
                       className={inputClassName}
                     />
@@ -277,6 +281,7 @@ const Contact = () => {
                     name="message"
                     required
                     rows={5}
+                    autoComplete="off"
                     placeholder="Tell us about your logistics requirements..."
                     className={`${inputClassName} resize-none`}
                   />
@@ -285,14 +290,12 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full flex items-center justify-center gap-2 bg-[#F5C518] hover:bg-[#e6b800] text-slate-900 font-semibold text-sm tracking-widest uppercase px-6 py-3 rounded-[4px] transition duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="gipa-btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:shadow-none"
                 >
                   {submitting ? "Sending..." : (
                     <>
                       Send Enquiry
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
+                      <ArrowRight className="gipa-btn-icon" strokeWidth={2.2} aria-hidden="true" />
                     </>
                   )}
                 </button>
@@ -313,11 +316,8 @@ const Contact = () => {
             custom={0}
             className="flex flex-col items-center text-center mb-8"
           >
-            <span className="text-[#F5C518] mb-3">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
+            <span className="mb-3 text-[#F5C518]" aria-hidden="true">
+              <MapPin className="h-8 w-8" strokeWidth={1.6} />
             </span>
             <h2 className="text-2xl font-bold text-slate-900">Our Location</h2>
             <p className="text-slate-500 text-sm mt-1">United Kingdom</p>
@@ -338,7 +338,7 @@ const Contact = () => {
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
-              loading="lazy"
+              loading="eager"
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full"
             />
@@ -347,15 +347,26 @@ const Contact = () => {
       </section>
 
       {/* ── CTA Section ── */}
-      <section className="bg-[#3A3A3A] py-16 md:py-24">
-        <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
+      <section className="bg-[#1C1C1C] pt-8 pb-12 md:pt-12 md:pb-16">
+        <div className="mx-auto max-w-2xl px-6 text-center md:max-w-4xl md:px-12">
+          <motion.div
+            variants={revealUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            custom={0}
+            className="mb-5 flex justify-center"
+            aria-hidden="true"
+          >
+            <span className="h-[2px] w-10 bg-[#F5C518]" />
+          </motion.div>
           <motion.h2
             variants={revealUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            custom={0}
-            className="text-3xl md:text-5xl font-bold text-white leading-tight"
+            viewport={{ once: true, amount: 0.4 }}
+            custom={0.05}
+            className="font-display text-[clamp(1.85rem,3.4vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.025em] text-[#F5F3F0] lg:whitespace-nowrap"
           >
             Need Urgent Logistics Support?
           </motion.h2>
@@ -363,9 +374,9 @@ const Contact = () => {
             variants={revealUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            custom={0.1}
-            className="mt-4 text-slate-300 text-base"
+            viewport={{ once: true, amount: 0.4 }}
+            custom={0.12}
+            className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-[#F5F3F0]/60 md:text-base"
           >
             Our team is ready to respond quickly to your transport requirements.
           </motion.p>
@@ -373,18 +384,16 @@ const Contact = () => {
             variants={revealUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.4 }}
             custom={0.2}
-            className="mt-8"
+            className="mt-7"
           >
             <a
               href="tel:+44"
-              className="inline-flex items-center gap-2 border-2 border-[#F5C518] text-white hover:bg-[#F5C518] hover:text-slate-900 font-semibold text-sm tracking-widest uppercase px-8 py-3.5 rounded-[4px] transition duration-200"
+              className="gipa-btn-primary"
             >
               Call Us Now
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.08 6.08l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
+              <Phone className="h-3.5 w-3.5 shrink-0" strokeWidth={2} aria-hidden="true" />
             </a>
           </motion.div>
         </div>

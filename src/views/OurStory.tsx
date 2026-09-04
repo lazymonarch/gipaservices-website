@@ -210,17 +210,17 @@ const OurStory = () => {
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#E0B400] hover:shadow-[0_6px_20px_rgba(245,197,24,0.35)] sm:w-auto">
+                className="gipa-btn-primary w-full sm:w-auto">
                 
                 Get In Touch
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
               </Link>
               <Link
                 href="/driver-application"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-white/40 px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:border-[#F5C518] hover:text-[#F5C518] sm:w-auto">
+                className="gipa-btn-secondary-dark w-full sm:w-auto">
                 
                 Apply as a Driver
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
               </Link>
             </div>
           </FadeUp>

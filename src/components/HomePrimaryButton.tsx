@@ -14,15 +14,9 @@ export default function HomePrimaryButton({
   className,
 }: HomePrimaryButtonProps) {
   return (
-    <Link
-      href={href}
-      className={cn(
-        "inline-flex items-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#E0B400] hover:shadow-[0_6px_20px_rgba(245,197,24,0.35)]",
-        className,
-      )}
-    >
+    <Link href={href} className={cn("gipa-btn-primary", className)}>
       {children}
-      <ChevronRight className="h-4 w-4" />
+      <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
     </Link>
   );
 }

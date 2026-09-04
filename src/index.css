@@ -125,6 +125,96 @@
     @apply font-display font-bold italic text-[#F5C518];
   }
 
+  .gipa-btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out sm:px-7;
+    transition-property: background-color, border-color, color, box-shadow;
+  }
+
+  .gipa-btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    background-color: #F5C518;
+    color: #1C1C1C;
+    transition-property: background-color, border-color, color, box-shadow;
+  }
+
+  .gipa-btn-primary:hover {
+    background-color: #E0B400;
+    box-shadow: 0 8px 22px rgb(28 28 28 / 0.12);
+  }
+
+  .gipa-btn-primary:focus-visible {
+    --tw-ring-color: rgb(28 28 28 / 0.15);
+  }
+
+  .gipa-btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    border-color: rgb(28 28 28 / 0.2);
+    color: #1C1C1C;
+    transition-property: background-color, border-color, color, box-shadow;
+  }
+
+  .gipa-btn-secondary:hover {
+    border-color: #F5C518;
+    background-color: rgb(245 197 24 / 0.12);
+  }
+
+  .gipa-btn-secondary:focus-visible {
+    --tw-ring-color: rgb(245 197 24 / 0.5);
+  }
+
+  .gipa-btn-secondary-dark {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-white duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    border-color: rgb(255 255 255 / 0.4);
+    transition-property: background-color, border-color, color, box-shadow;
+  }
+
+  .gipa-btn-secondary-dark:hover {
+    border-color: #F5C518;
+    color: #F5C518;
+  }
+
+  .gipa-btn-secondary-dark:focus-visible {
+    --tw-ring-color: rgb(245 197 24 / 0.6);
+    --tw-ring-offset-color: #1C1C1C;
+  }
+
+  .gipa-btn-nav {
+    @apply inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[4px] px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-5 lg:py-2.5;
+    background-color: #F5C518;
+    color: #1C1C1C;
+    transition-property: background-color;
+  }
+
+  .gipa-btn-nav:hover {
+    background-color: #E0B400;
+  }
+
+  .gipa-btn-nav:focus-visible {
+    --tw-ring-color: rgb(28 28 28 / 0.15);
+  }
+
+  .gipa-btn-icon {
+    @apply h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none;
+  }
+
+  .gipa-btn:hover .gipa-btn-icon,
+  .gipa-btn-primary:hover .gipa-btn-icon,
+  .gipa-btn-secondary:hover .gipa-btn-icon,
+  .gipa-btn-secondary-dark:hover .gipa-btn-icon,
+  .gipa-btn-nav:hover .gipa-btn-icon {
+    transform: translateX(0.125rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gipa-btn:hover .gipa-btn-icon,
+    .gipa-btn-primary:hover .gipa-btn-icon,
+    .gipa-btn-secondary:hover .gipa-btn-icon,
+    .gipa-btn-secondary-dark:hover .gipa-btn-icon,
+    .gipa-btn-nav:hover .gipa-btn-icon {
+      transform: none;
+    }
+  }
+
   .fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }

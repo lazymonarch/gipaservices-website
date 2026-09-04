@@ -2,15 +2,13 @@
 
 import { type ChangeEvent, type FormEvent, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowRight,
   CalendarIcon,
-  ClipboardList,
   FileText,
   Info,
-  Truck,
   Upload,
-  UserCheck,
   X,
 } from "lucide-react";
 import Layout from "@/components/Layout";
@@ -45,11 +43,24 @@ const revealVariant = {
   }),
 };
 
-const formFieldClassName =
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C518] focus-visible:border-[#F5C518]";
+const focusFieldClassName =
+  "shadow-none outline-none ring-0 ring-offset-0 focus:border-[#F5C518] focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-[#F5C518] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
-const selectTriggerClassName =
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:ring-2 focus:ring-[#F5C518] focus:ring-offset-0";
+const formFieldClassName = cn(
+  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 md:text-sm",
+  focusFieldClassName,
+);
+
+const selectTriggerClassName = cn(
+  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-[#1C1C1C] md:text-sm",
+  focusFieldClassName,
+);
+
+const selectContentClassName =
+  "rounded-[4px] border border-slate-200 bg-[#F8F6F1] text-[#1C1C1C] shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
+
+const selectItemClassName =
+  "rounded-[4px] whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-[#1C1C1C] focus:bg-[#F5C518]/25 focus:text-[#1C1C1C] data-[state=checked]:bg-[#F5C518]/20 data-[highlighted]:bg-[#F5C518]/25 data-[highlighted]:text-[#1C1C1C]";
 
 const labelClassName = "text-sm font-medium text-slate-700";
 
@@ -81,24 +92,27 @@ function isValidE164(phone: string) {
   return /^\+[1-9]\d{7,14}$/.test(phone);
 }
 
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 const processSteps = [
   {
     number: 1,
     title: "Submit Your Application",
     description: "Complete the form below with your details and experience.",
-    icon: ClipboardList,
   },
   {
     number: 2,
     title: "Initial Assessment",
-    description: "Our team will review your application and contact you within 48 hours.",
-    icon: UserCheck,
+    description: "Our team will review your application and contact you if you are shortlisted.",
   },
   {
     number: 3,
     title: "Onboarding",
     description: "Successful applicants will be guided through our onboarding process.",
-    icon: Truck,
   },
 ];
 
@@ -108,13 +122,13 @@ const FieldHint = ({ title, description }: { title: string; description: string 
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="inline-flex h-4 w-4 items-center justify-center text-slate-500 transition hover:text-slate-900"
+          className="-m-2 inline-flex h-11 w-11 items-center justify-center text-slate-500 transition hover:text-slate-900"
           aria-label={`${title} information`}
         >
           <Info className="h-4 w-4" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-xs rounded-md border border-slate-200 bg-white p-4 text-sm shadow-lg">
+      <PopoverContent className="max-w-xs rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 text-sm text-[#1C1C1C] shadow-lg">
         <p className="font-semibold text-slate-900">{title}</p>
         <p className="mt-2 leading-relaxed text-slate-700">{description}</p>
       </PopoverContent>
@@ -124,6 +138,7 @@ const FieldHint = ({ title, description }: { title: string; description: string 
 
 const DriverApplication = () => {
   const { toast } = useToast();
+  const prefersReducedMotion = useReducedMotion();
 
   const [submitting, setSubmitting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -290,7 +305,7 @@ const DriverApplication = () => {
     <Layout>
       {/* Hero Section */}
       <section
-        className="relative flex min-h-[520px] items-center overflow-hidden md:min-h-[560px] lg:min-h-[580px]"
+        className="relative flex min-h-[420px] items-center overflow-hidden sm:min-h-[480px] md:min-h-[560px] lg:min-h-[580px]"
         style={{
           backgroundImage: "url('/assets/hero-truck.jpg')",
           backgroundSize: "cover",
@@ -298,7 +313,7 @@ const DriverApplication = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/30" />
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-6 md:px-12 lg:px-16">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-16 sm:px-6 md:px-12 md:py-0 lg:px-16">
           <motion.div
             variants={revealVariant}
             initial="hidden"
@@ -306,14 +321,14 @@ const DriverApplication = () => {
             viewport={revealViewport}
           >
             <HeroEyebrow text="Driver Application" />
-            <h1 className="max-w-[720px] font-display text-[clamp(3.5rem,5.5vw,4.5rem)] font-bold leading-[0.94] tracking-[-0.03em] text-white">
+            <h1 className="max-w-[720px] font-display text-[2.55rem] font-bold leading-[0.96] tracking-[-0.03em] text-white sm:text-[3.25rem] md:text-[clamp(3.5rem,5.5vw,4.5rem)] md:leading-[0.94]">
               Drive With
               <br />
               <span className="font-display italic text-[#F5C518]">
                 GIPA Services
               </span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-200 lg:text-lg">
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-200 sm:mt-6 sm:text-base lg:text-lg">
               Join our team of professional HGV drivers operating across the UK.
             </p>
           </motion.div>
@@ -321,110 +336,171 @@ const DriverApplication = () => {
       </section>
 
       {/* How to Apply / Process Steps Section */}
-      <section className="bg-[#F5F3F0] py-14 md:py-16">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="bg-[#F5F3F0] py-10 sm:py-14 md:py-16">
+        <div className="mx-auto max-w-[1200px] px-5 sm:px-6">
           <motion.div
-            className="text-center mb-12"
+            className="mb-8 text-center sm:mb-10 md:mb-12"
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
           >
-            <p className="text-xs font-semibold tracking-widest text-[#F5C518] uppercase mb-2">The Process</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">How to Apply</h2>
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F5C518] sm:text-xs">
+              The Process
+            </p>
+            <h2 className="font-display text-[1.85rem] font-bold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
+              How to Apply
+            </h2>
           </motion.div>
 
-          {/* Steps with connecting dashed line */}
-          <div className="relative flex flex-col sm:flex-row items-start justify-center gap-0">
-            {/* Dashed connector line (desktop only) */}
-            <div className="hidden sm:block absolute top-[28px] left-1/2 -translate-x-1/2 w-[calc(100%-160px)] max-w-[520px] border-t-2 border-dashed border-slate-300 z-0" />
+          <div className="relative mx-auto max-w-xl md:max-w-none">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-[16.666%] right-[16.666%] top-[27px] hidden md:block"
+            >
+              <div className="mx-7 border-t-2 border-dashed border-slate-300" />
+            </div>
 
-            {processSteps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                className="relative z-10 flex flex-col items-center text-center w-full sm:w-1/3 px-4 mb-8 sm:mb-0"
-                variants={revealVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={revealViewport}
-                custom={index * 0.15}
-              >
-                <div className="w-14 h-14 rounded-full bg-[#F5C518] flex items-center justify-center mb-4 shadow-sm">
-                  <span className="text-xl font-bold text-slate-900">{step.number}</span>
-                </div>
-                <h3 className="text-base font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">{step.description}</p>
-              </motion.div>
-            ))}
+            <motion.ol
+              className="grid grid-cols-1 md:grid-cols-3"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: prefersReducedMotion ? 0 : 0.5,
+                  },
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: "some" }}
+            >
+              {processSteps.map((step, index) => (
+                <motion.li
+                  key={step.number}
+                  className="relative flex gap-4 pb-8 last:pb-0 md:flex-col md:items-center md:px-5 md:pb-0 md:text-center lg:px-8"
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: prefersReducedMotion ? 0 : 18,
+                    },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: prefersReducedMotion ? 0.01 : 0.55,
+                        ease: revealEase,
+                      },
+                    },
+                  }}
+                >
+                  {index < processSteps.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-0 left-[27px] top-14 w-0 border-l-2 border-dashed border-slate-300 md:hidden"
+                    />
+                  )}
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F5C518] shadow-sm">
+                    <span className="text-xl font-bold text-[#1C1C1C]">{step.number}</span>
+                  </div>
+                  <div className="min-w-0 flex-1 pt-1 md:pt-4">
+                    <h3 className="text-base font-bold text-slate-900">{step.title}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-slate-600 md:mx-auto md:mt-2 md:max-w-[220px]">
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.li>
+              ))}
+            </motion.ol>
           </div>
         </div>
       </section>
 
       {/* Driver Application Form Section */}
-      <section id="driver-application-form" className="bg-white py-12 md:py-16">
-        <div className="max-w-[760px] mx-auto px-6">
+      <section id="driver-application-form" className="bg-white py-10 sm:py-12 md:py-16">
+        <div className="mx-auto max-w-[760px] px-5 sm:px-6">
           <motion.div
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
-            viewport={revealViewport}
-            className="mb-8"
+            viewport={{ once: true, amount: "some" }}
+            className="mb-6 sm:mb-8"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Driver Application Form</h2>
-            <p className="mt-2 text-sm text-slate-600">
+            <h2 className="font-display text-[1.85rem] font-bold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
+              Driver Application Form
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Please complete all sections accurately. All fields marked <span className="text-red-500">*</span> are required.
             </p>
           </motion.div>
 
-          <motion.form
+          <form
             onSubmit={handleSubmit}
-            variants={revealVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={revealViewport}
             noValidate
+            autoComplete="off"
           >
             {/* Personal Information */}
-            <fieldset className="mb-8">
-              <div className="mb-5">
-                <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Personal Information</h3>
-                <div className="mt-2 h-[2px] bg-[#F5C518]" />
+            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+              <div className="mb-4 sm:mb-5">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                    01
+                  </span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
+                    Personal Information
+                  </h3>
+                </div>
+                <div className="mt-3 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
-                <div>
+              <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
+                <div className="min-w-0">
                   <Label htmlFor="fullName" className={labelClassName}>Full Name <span className="text-red-500">*</span></Label>
                   <Input
                     id="fullName"
                     name="fullName"
                     required
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="words"
                     placeholder="e.g. James Thompson"
                     className={formFieldClassName}
                   />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <Label htmlFor="email" className={labelClassName}>Email Address <span className="text-red-500">*</span></Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
                     required
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
                     placeholder="your@email.com"
                     className={formFieldClassName}
                   />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <Label htmlFor="phoneLocal" className={labelClassName}>Phone Number <span className="text-red-500">*</span></Label>
-                  <div className="mt-1.5 grid grid-cols-[110px_1fr] gap-2">
+                  <div className="mt-1.5 grid grid-cols-1 gap-2 min-[400px]:grid-cols-[minmax(6.75rem,7.5rem)_minmax(0,1fr)]">
                     <Select value={phoneCountry} onValueChange={setPhoneCountry}>
                       <SelectTrigger className={cn(selectTriggerClassName, "mt-0")}>
                         <SelectValue placeholder="Country" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent
+                        className={selectContentClassName}
+                        position="popper"
+                        align="start"
+                        side="bottom"
+                        sideOffset={4}
+                        collisionPadding={16}
+                      >
                         {phoneCountries.map((country) => (
-                          <SelectItem key={country.code} value={country.code}>
+                          <SelectItem key={country.code} value={country.code} className={selectItemClassName}>
                             {country.label} ({country.dialCode})
                           </SelectItem>
                         ))}
@@ -436,13 +512,14 @@ const DriverApplication = () => {
                       value={phoneLocal}
                       onChange={handlePhoneChange}
                       required
+                      autoComplete="off"
                       placeholder="+44 ..."
                       className={cn(formFieldClassName, "mt-0")}
                     />
                   </div>
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="experienceYears" className={labelClassName}>Years of Driving Experience <span className="text-red-500">*</span></Label>
                     <FieldHint
@@ -456,6 +533,7 @@ const DriverApplication = () => {
                     type="number"
                     min="0"
                     required
+                    autoComplete="off"
                     placeholder="e.g. 5"
                     className={formFieldClassName}
                   />
@@ -464,14 +542,21 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Driving Qualifications */}
-            <fieldset className="mb-8">
-              <div className="mb-5">
-                <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Driving Qualifications</h3>
-                <div className="mt-2 h-[2px] bg-[#F5C518]" />
+            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+              <div className="mb-4 sm:mb-5">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                    02
+                  </span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
+                    Driving Qualifications
+                  </h3>
+                </div>
+                <div className="mt-3 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
-                <div>
+              <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="licenceType" className={labelClassName}>Driving Licence Type <span className="text-red-500">*</span></Label>
                     <FieldHint
@@ -483,17 +568,24 @@ const DriverApplication = () => {
                     <SelectTrigger id="licenceType" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Category B">Category B</SelectItem>
-                      <SelectItem value="Category C1">Category C1</SelectItem>
-                      <SelectItem value="Category C1+E">Category C1+E</SelectItem>
-                      <SelectItem value="Category C">Category C</SelectItem>
-                      <SelectItem value="Category C+E">Category C+E</SelectItem>
+                    <SelectContent
+                        className={selectContentClassName}
+                        position="popper"
+                        align="start"
+                        side="bottom"
+                        sideOffset={4}
+                        collisionPadding={16}
+                      >
+                      <SelectItem value="Category B" className={selectItemClassName}>Category B</SelectItem>
+                      <SelectItem value="Category C1" className={selectItemClassName}>Category C1</SelectItem>
+                      <SelectItem value="Category C1+E" className={selectItemClassName}>Category C1+E</SelectItem>
+                      <SelectItem value="Category C" className={selectItemClassName}>Category C</SelectItem>
+                      <SelectItem value="Category C+E" className={selectItemClassName}>Category C+E</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="hgvCategory" className={labelClassName}>HGV Licence Category</Label>
                     <FieldHint
@@ -505,16 +597,23 @@ const DriverApplication = () => {
                     <SelectTrigger id="hgvCategory" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Class 2 (Category C)">Class 2 (Category C)</SelectItem>
-                      <SelectItem value="Class 1 (Category C+E)">Class 1 (Category C+E)</SelectItem>
-                      <SelectItem value="Both Class 1 & 2">Both Class 1 & 2</SelectItem>
-                      <SelectItem value="Currently Training">Currently Training</SelectItem>
+                    <SelectContent
+                        className={selectContentClassName}
+                        position="popper"
+                        align="start"
+                        side="bottom"
+                        sideOffset={4}
+                        collisionPadding={16}
+                      >
+                      <SelectItem value="Class 2 (Category C)" className={selectItemClassName}>Class 2 (Category C)</SelectItem>
+                      <SelectItem value="Class 1 (Category C+E)" className={selectItemClassName}>Class 1 (Category C+E)</SelectItem>
+                      <SelectItem value="Both Class 1 & 2" className={selectItemClassName}>Both Class 1 & 2</SelectItem>
+                      <SelectItem value="Currently Training" className={selectItemClassName}>Currently Training</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="cpcStatus" className={labelClassName}>Driver CPC Status</Label>
                     <FieldHint
@@ -526,16 +625,23 @@ const DriverApplication = () => {
                     <SelectTrigger id="cpcStatus" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Valid - Expires within 1 year">Valid - Expires within 1 year</SelectItem>
-                      <SelectItem value="Valid - Expires within 2 years">Valid - Expires within 2 years</SelectItem>
-                      <SelectItem value="Valid - Expires 3+ years">Valid - Expires 3+ years</SelectItem>
-                      <SelectItem value="Expired - Renewal Required">Expired - Renewal Required</SelectItem>
+                    <SelectContent
+                        className={selectContentClassName}
+                        position="popper"
+                        align="start"
+                        side="bottom"
+                        sideOffset={4}
+                        collisionPadding={16}
+                      >
+                      <SelectItem value="Valid - Expires within 1 year" className={selectItemClassName}>Valid - Expires within 1 year</SelectItem>
+                      <SelectItem value="Valid - Expires within 2 years" className={selectItemClassName}>Valid - Expires within 2 years</SelectItem>
+                      <SelectItem value="Valid - Expires 3+ years" className={selectItemClassName}>Valid - Expires 3+ years</SelectItem>
+                      <SelectItem value="Expired - Renewal Required" className={selectItemClassName}>Expired - Renewal Required</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <Label htmlFor="rightToWork" className={labelClassName}>Right to Work in UK <span className="text-red-500">*</span></Label>
                     <FieldHint
@@ -547,19 +653,28 @@ const DriverApplication = () => {
                     <SelectTrigger id="rightToWork" className={selectTriggerClassName}>
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="yes">Yes</SelectItem>
-                      <SelectItem value="no">No</SelectItem>
+                    <SelectContent
+                        className={selectContentClassName}
+                        position="popper"
+                        align="start"
+                        side="bottom"
+                        sideOffset={4}
+                        collisionPadding={16}
+                      >
+                      <SelectItem value="yes" className={selectItemClassName}>Yes</SelectItem>
+                      <SelectItem value="no" className={selectItemClassName}>No</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div className="md:col-span-2">
+                <div className="min-w-0 md:col-span-2">
                   <Label htmlFor="address" className={labelClassName}>Full Address <span className="text-red-500">*</span></Label>
                   <Input
                     id="address"
                     name="address"
                     required
+                    autoComplete="off"
+                    autoCorrect="off"
                     placeholder="123 High Street, London, E1 6AN"
                     className={formFieldClassName}
                   />
@@ -568,19 +683,24 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Availability */}
-            <fieldset className="mb-8">
-              <div className="mb-5">
-                <div className="flex items-center gap-1.5">
-                  <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">Availability</h3>
+            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+              <div className="mb-4 sm:mb-5">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                    03
+                  </span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
+                    Availability
+                  </h3>
                   <FieldHint
                     title="Availability"
                     description="Select your expected start timeline. Choose date for planned start."
                   />
                 </div>
-                <div className="mt-2 h-[2px] bg-[#F5C518]" />
+                <div className="mt-3 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {(
                   [
                     ["immediate", "Immediate"],
@@ -593,15 +713,15 @@ const DriverApplication = () => {
                     type="button"
                     onClick={() => setAvailabilityMode(value)}
                     className={cn(
-                      "inline-flex items-center gap-2 border rounded-[4px] px-4 py-2.5 text-sm transition",
+                      "inline-flex min-h-11 w-full items-center gap-2 rounded-[4px] border px-4 py-2.5 text-sm transition sm:w-auto",
                       availabilityMode === value
-                        ? "border-[#F5C518] text-slate-900 bg-[#F5C518]/10"
-                        : "border-slate-300 text-slate-600 bg-white hover:border-slate-400",
+                        ? "border-[#F5C518] bg-[#F5C518]/10 text-slate-900"
+                        : "border-slate-300 bg-white text-slate-600 hover:border-slate-400",
                     )}
                   >
                     <span
                       className={cn(
-                        "h-4 w-4 rounded-full border-2 flex items-center justify-center",
+                        "flex h-4 w-4 items-center justify-center rounded-full border-2",
                         availabilityMode === value ? "border-[#F5C518]" : "border-slate-400",
                       )}
                     >
@@ -613,7 +733,7 @@ const DriverApplication = () => {
               </div>
 
               {availabilityMode === "select_date" && (
-                <div className="mt-3 max-w-sm">
+                <div className="mt-3 w-full max-w-sm">
                   <Popover
                     open={availabilityCalendarOpen}
                     onOpenChange={(open) => {
@@ -626,13 +746,16 @@ const DriverApplication = () => {
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className="inline-flex w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900"
+                        className={cn(
+                          "inline-flex min-h-11 w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900",
+                          focusFieldClassName,
+                        )}
                       >
-                        <span>{availabilityDate ? format(availabilityDate, "PPP") : "Select start date"}</span>
-                        <CalendarIcon className="h-4 w-4" />
+                        <span className="truncate">{availabilityDate ? format(availabilityDate, "PPP") : "Select start date"}</span>
+                        <CalendarIcon className="ml-2 h-4 w-4 shrink-0" />
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[288px] p-0" align="start">
+                    <PopoverContent className="w-[min(288px,calc(100vw-2.5rem))] rounded-[4px] border-slate-200 bg-[#F8F6F1] p-0" align="start">
                       <Calendar
                         mode="single"
                         selected={availabilityDate}
@@ -644,7 +767,7 @@ const DriverApplication = () => {
                         onMonthChange={setAvailabilityMonth}
                         showOutsideDays={false}
                         fixedWeeks
-                        className="w-[288px]"
+                        className="w-full max-w-[288px]"
                         classNames={{
                           cell: "h-9 w-9 p-0 text-center text-sm",
                           day: "h-9 w-9 rounded-[4px] p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
@@ -662,16 +785,21 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* CV Upload */}
-            <fieldset className="mb-8">
-              <div className="mb-5">
-                <div className="flex items-center gap-1.5">
-                  <h3 className="text-xs font-bold tracking-widest text-slate-800 uppercase">CV Upload</h3>
+            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+              <div className="mb-4 sm:mb-5">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                    04
+                  </span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
+                    CV Upload
+                  </h3>
                   <FieldHint
                     title="CV Upload"
                     description="Upload your latest CV in PDF, DOC, or DOCX format (max 5MB)."
                   />
                 </div>
-                <div className="mt-2 h-[2px] bg-[#F5C518]" />
+                <div className="mt-3 h-[2px] bg-[#F5C518]" />
               </div>
 
               <input
@@ -684,29 +812,40 @@ const DriverApplication = () => {
               />
 
               {file ? (
-                <div className="flex items-center gap-3 rounded-[4px] border border-slate-300 bg-white p-3">
-                  <FileText className="h-8 w-8 text-slate-900 shrink-0" />
+                <div className="flex flex-col gap-3 rounded-[4px] border border-slate-300 bg-white p-4 sm:flex-row sm:items-center">
+                  <FileText className="h-8 w-8 shrink-0 text-[#1C1C1C]" aria-hidden="true" />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-slate-900">{file.name}</p>
+                    <p className="break-all text-sm font-semibold text-[#1C1C1C]">{file.name}</p>
+                    <p className="mt-1 text-xs text-slate-500">{formatFileSize(file.size)} · Selected</p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setFile(null);
-                      if (fileInputRef.current) fileInputRef.current.value = "";
-                    }}
-                    className="rounded p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="inline-flex min-h-11 items-center justify-center rounded-[4px] border border-[#1C1C1C]/15 bg-[#F8F6F1] px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518] hover:bg-[#F5C518]/15"
+                    >
+                      Change file
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFile(null);
+                        if (fileInputRef.current) fileInputRef.current.value = "";
+                      }}
+                      className="inline-flex min-h-11 items-center justify-center rounded-[4px] px-3 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                      aria-label="Remove selected CV"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-full rounded-[4px] border-2 border-dashed border-slate-300 p-8 text-center transition hover:bg-slate-50"
+                  className="w-full rounded-[4px] border-2 border-dashed border-slate-300 bg-white px-4 py-8 text-center transition hover:border-[#F5C518]/70 hover:bg-white"
                 >
-                  <Upload className="mx-auto h-8 w-8 text-slate-400" />
+                  <Upload className="mx-auto h-8 w-8 text-slate-400" aria-hidden="true" />
                   <p className="mt-2 text-sm font-medium text-slate-900">Click to upload your CV</p>
                   <p className="mt-1 text-xs text-slate-500">PDF, DOC, DOCX — Max 5MB</p>
                 </button>
@@ -714,47 +853,58 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Consent & Submit */}
-            <div className="mt-6 space-y-3">
-              <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                <input
-                  type="checkbox"
-                  id="gdprConsent"
-                  name="gdprConsent"
-                  required
-                  className="mt-0.5 h-4 w-4 accent-[#F5C518] shrink-0"
-                />
-                <span>
-                  I confirm that all information provided is accurate and complete.
-                </span>
-              </label>
-              <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="privacyConsent"
-                  required
-                  className="mt-0.5 h-4 w-4 accent-[#F5C518] shrink-0"
-                />
-                <span>
-                  I consent to GIPA Services processing my personal data for recruitment purposes in accordance with the{" "}
-                  <a href="/privacy-policy" className="underline text-slate-900 hover:text-[#F5C518] transition-colors">
-                    Privacy Policy
-                  </a>
-                  .
-                </span>
-              </label>
+            <div className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+              <div className="mb-4 sm:mb-5">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                    05
+                  </span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
+                    Consent
+                  </h3>
+                </div>
+                <div className="mt-3 h-[2px] bg-[#F5C518]" />
+              </div>
+              <div className="space-y-3">
+                <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-slate-700">
+                  <input
+                    type="checkbox"
+                    id="gdprConsent"
+                    name="gdprConsent"
+                    required
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-[#F5C518] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5C518]"
+                  />
+                  <span>
+                    I confirm that all information provided is accurate and complete.
+                  </span>
+                </label>
+                <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-slate-700">
+                  <input
+                    type="checkbox"
+                    name="privacyConsent"
+                    required
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-[#F5C518] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5C518]"
+                  />
+                  <span>
+                    I consent to GIPA Services processing my personal data for recruitment purposes in accordance with the{" "}
+                    <a href="/privacy-policy" className="text-slate-900 underline transition-colors hover:text-[#F5C518]">
+                      Privacy Policy
+                    </a>
+                    .
+                  </span>
+                </label>
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-[#F5C518] text-slate-900 px-8 py-3.5 text-sm font-bold uppercase tracking-widest rounded-[4px] transition hover:bg-[#F5C518]/90 disabled:cursor-not-allowed disabled:opacity-70"
+              className="gipa-btn-primary mt-1 w-full disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:shadow-none"
             >
               {submitting ? "Submitting..." : (
                 <>
                   Submit Application
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                  <ArrowRight className="gipa-btn-icon" strokeWidth={2.5} aria-hidden="true" />
                 </>
               )}
             </button>
@@ -765,7 +915,7 @@ const DriverApplication = () => {
             <input type="hidden" name="cpcStatus" value={cpcStatus} />
             <input type="hidden" name="rightToWork" value={rightToWork} />
             <input type="hidden" name="availability" value={availabilityValue} />
-          </motion.form>
+          </form>
         </div>
       </section>
     </Layout>

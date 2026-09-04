@@ -204,15 +204,15 @@ const Index = () => {
                 <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-start">
                   <Link
                     href="/contact"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#F5C518] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-[#1C1C1C] transition duration-200 hover:bg-[#e6b800] sm:w-auto shadow-sm">
+                    className="gipa-btn-primary w-full sm:w-auto">
                     Get a Quote
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
                   </Link>
                   <Link
                     href="/driver-application"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] border border-slate-300 bg-white px-8 py-3.5 text-sm font-bold uppercase tracking-[0.05em] text-slate-800 transition duration-200 hover:bg-slate-50 sm:w-auto hover:border-slate-400">
+                    className="gipa-btn-secondary w-full sm:w-auto">
                     Apply as a Driver
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
                   </Link>
                 </div>
 
@@ -369,7 +369,7 @@ const Index = () => {
                           className="inline-flex translate-x-[-110%] items-center gap-0 text-xs font-bold uppercase tracking-widest text-[#F5C518] opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:gap-3 group-hover:opacity-100">
                           <span className="block h-[1.5px] w-8 bg-[#F5C518] transition-all duration-500 ease-out group-hover:w-10" />
                           Learn More
-                          <ChevronRight className="h-3.5 w-3.5" />
+                          <ChevronRight className="gipa-btn-icon" />
                         </Link>
                       </div>
                     </div>
@@ -587,10 +587,10 @@ const Index = () => {
                   </HomePrimaryButton>
                   <Link
                     href="/driver-application"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1C1C1C] transition-colors duration-200 hover:text-[#F5C518]">
+                    className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#1C1C1C] transition-colors duration-200 hover:text-[#F5C518]">
 
                     Driver Application
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
                   </Link>
                 </div>
                 <div className="flex flex-col gap-3 text-sm text-[#1C1C1C]/50 sm:flex-row sm:gap-6">
