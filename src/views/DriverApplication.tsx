@@ -1,18 +1,16 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useMemo, useRef, useState } from "react";
+import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
 import { format } from "date-fns";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   CalendarIcon,
-  FileText,
   Info,
-  Upload,
-  X,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import CvUploadDropzone from "@/components/CvUploadDropzone";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -21,6 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  selectItemClassName,
 } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -59,9 +58,6 @@ const selectTriggerClassName = cn(
 const selectContentClassName =
   "rounded-gipa border border-slate-200 bg-gipa-cream text-gipa-charcoal shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
 
-const selectItemClassName =
-  "rounded-gipa whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-gipa-charcoal focus:bg-gipa-yellow/25 focus:text-gipa-charcoal data-[state=checked]:bg-gipa-yellow/20 data-[highlighted]:bg-gipa-yellow/25 data-[highlighted]:text-gipa-charcoal";
-
 const labelClassName = "text-sm font-medium text-slate-700";
 
 type AvailabilityMode = "immediate" | "within_2_weeks" | "select_date";
@@ -90,12 +86,6 @@ function toE164(dialCode: string, localNumber: string) {
 
 function isValidE164(phone: string) {
   return /^\+[1-9]\d{7,14}$/.test(phone);
-}
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 const processSteps = [
@@ -154,8 +144,6 @@ const DriverApplication = () => {
   const [phoneCountry, setPhoneCountry] = useState("GB");
   const [phoneLocal, setPhoneLocal] = useState("");
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const selectedCountry = useMemo(
     () => phoneCountries.find((country) => country.code === phoneCountry) ?? phoneCountries[0],
     [phoneCountry],
@@ -175,37 +163,6 @@ const DriverApplication = () => {
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneLocal(formatPhoneLocal(e.target.value));
-  };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = e.target.files?.[0];
-    if (!uploadedFile) return;
-
-    const validTypes = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ];
-
-    if (!validTypes.includes(uploadedFile.type)) {
-      toast({
-        title: "Invalid file type",
-        description: "Please upload a PDF or DOC file only.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (uploadedFile.size > 5 * 1024 * 1024) {
-      toast({
-        title: "File too large",
-        description: "Maximum file size is 5MB.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setFile(uploadedFile);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -280,7 +237,6 @@ const DriverApplication = () => {
 
       form.reset();
       setFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
       setLicenceType("");
       setHgvCategory("");
       setCpcStatus("");
@@ -532,6 +488,8 @@ const DriverApplication = () => {
                     name="experienceYears"
                     type="number"
                     min="0"
+                    max="60"
+                    inputMode="numeric"
                     required
                     autoComplete="off"
                     placeholder="e.g. 5"
@@ -802,54 +760,11 @@ const DriverApplication = () => {
                 <div className="mt-3 h-[2px] bg-[#F5C518]" />
               </div>
 
-              <input
-                ref={fileInputRef}
-                type="file"
-                name="cvFile"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className="hidden"
+              <CvUploadDropzone
+                file={file}
+                onFileChange={setFile}
+                className="bg-white hover:bg-white"
               />
-
-              {file ? (
-                <div className="flex flex-col gap-3 rounded-gipa border border-slate-300 bg-white p-4 sm:flex-row sm:items-center">
-                  <FileText className="h-8 w-8 shrink-0 text-[#1C1C1C]" aria-hidden="true" />
-                  <div className="min-w-0 flex-1">
-                    <p className="break-all text-sm font-semibold text-[#1C1C1C]">{file.name}</p>
-                    <p className="mt-1 text-xs text-slate-500">{formatFileSize(file.size)} · Selected</p>
-                  </div>
-                  <div className="flex flex-col gap-2 sm:flex-row">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="inline-flex min-h-11 items-center justify-center rounded-gipa border border-[#1C1C1C]/15 bg-[#F8F6F1] px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518] hover:bg-[#F5C518]/15"
-                    >
-                      Change file
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFile(null);
-                        if (fileInputRef.current) fileInputRef.current.value = "";
-                      }}
-                      className="inline-flex min-h-11 items-center justify-center rounded-gipa px-3 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-                      aria-label="Remove selected CV"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="w-full rounded-gipa border-2 border-dashed border-slate-300 bg-white px-4 py-8 text-center transition hover:border-[#F5C518]/70 hover:bg-white"
-                >
-                  <Upload className="mx-auto h-8 w-8 text-slate-400" aria-hidden="true" />
-                  <p className="mt-2 text-sm font-medium text-slate-900">Click to upload your CV</p>
-                  <p className="mt-1 text-xs text-slate-500">PDF, DOC, DOCX — Max 5MB</p>
-                </button>
-              )}
             </fieldset>
 
             {/* Consent & Submit */}

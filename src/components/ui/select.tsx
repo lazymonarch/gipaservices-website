@@ -4,6 +4,9 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+const selectItemClassName =
+  "rounded-gipa whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-gipa-charcoal focus:bg-[#F5C518]/50 focus:text-gipa-charcoal data-[state=checked]:bg-[#F5C518]/20 data-[highlighted]:bg-[#F5C518]/50 data-[highlighted]:font-medium data-[highlighted]:text-gipa-charcoal";
+
 const Select = SelectPrimitive.Root;
 
 const SelectGroup = SelectPrimitive.Group;
@@ -140,4 +143,5 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
+  selectItemClassName,
 };

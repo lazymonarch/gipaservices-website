@@ -199,7 +199,7 @@ const PrivacyContent = () => {
       </section>
 
       <p className="text-xs text-slate-500 pt-8 border-t border-slate-200 font-body">
-        Last updated: February 2027
+        Last updated: 4 September 2026
       </p>
     </div>
   );

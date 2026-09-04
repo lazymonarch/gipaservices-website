@@ -1,18 +1,58 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
-import { useToast } from "@/hooks/use-toast";
 import { REVEAL_EASE } from "@/lib/animations";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import { cn } from "@/lib/utils";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 const inputClassName =
   "w-full rounded-gipa border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-none outline-none ring-0 ring-offset-0 transition-colors duration-200 placeholder:text-slate-400 focus:border-gipa-yellow focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-gipa-yellow focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
 const labelClassName = "mb-1.5 block text-sm font-medium text-slate-700";
+
+const errorTextClassName = "mt-1.5 text-xs text-red-500";
+
+const requiredMark = <span className="text-red-500">*</span>;
+
+type EnquiryFields = {
+  fullName: string;
+  email: string;
+  message: string;
+};
+
+type FieldErrors = Partial<Record<keyof EnquiryFields, string>>;
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateFullName(value: string) {
+  if (value.trim().length < 2) return "Please enter your full name.";
+  return "";
+}
+
+function validateEmail(value: string) {
+  if (!EMAIL_PATTERN.test(value.trim())) return "Please enter a valid email.";
+  return "";
+}
+
+function validateMessage(value: string) {
+  if (value.trim().length < 5) return "Please enter a message.";
+  return "";
+}
+
+function validateEnquiry(fields: EnquiryFields): FieldErrors {
+  const next: FieldErrors = {};
+  const fullName = validateFullName(fields.fullName);
+  const email = validateEmail(fields.email);
+  const message = validateMessage(fields.message);
+  if (fullName) next.fullName = fullName;
+  if (email) next.email = email;
+  if (message) next.message = message;
+  return next;
+}
 
 const revealUp = {
   hidden: { opacity: 0, y: 24 },
@@ -29,12 +69,35 @@ const stagger = {
 };
 
 const Contact = () => {
-  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<FieldErrors>({});
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const fieldClassName = (hasError: boolean) =>
+    cn(inputClassName, hasError && "border-red-500");
+
+  const handleBlur = (field: keyof EnquiryFields, value: string) => {
+    const message =
+      field === "fullName"
+        ? validateFullName(value)
+        : field === "email"
+          ? validateEmail(value)
+          : validateMessage(value);
+
+    setErrors((current) => {
+      const next = { ...current };
+      if (message) next[field] = message;
+      else delete next[field];
+      return next;
+    });
+  };
+
+  const submitEnquiry = async () => {
+    const form = formRef.current;
+    if (!form) return;
+
     const formData = new FormData(form);
     const fullName = String(formData.get("fullName") ?? "");
     const companyName = String(formData.get("companyName") ?? "").trim();
@@ -42,6 +105,13 @@ const Contact = () => {
     const phone = String(formData.get("phone") ?? "").trim();
     const message = String(formData.get("message") ?? "");
 
+    const nextErrors = validateEnquiry({ fullName, email, message });
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    setSubmitError(null);
     setSubmitting(true);
 
     try {
@@ -64,21 +134,22 @@ const Contact = () => {
         throw new Error(payload?.message || "Request failed");
       }
 
-      toast({
-        title: "Message Sent",
-        description: "We will respond within 1–2 business days.",
-      });
-      form.reset();
+      setSubmitted(true);
     } catch (error) {
-      toast({
-        title: "Submission Failed",
-        description:
-          error instanceof Error ? error.message : "Please try again in a moment.",
-        variant: "destructive",
-      });
+      const raw = error instanceof Error ? error.message : "";
+      setSubmitError(
+        !raw || raw === "Failed to fetch" || raw === "Request failed" || raw === "Load failed"
+          ? "Something went wrong. Please try again."
+          : raw,
+      );
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void submitEnquiry();
   };
 
   return (
@@ -211,15 +282,55 @@ const Contact = () => {
               custom={0.1}
               className="bg-white border border-slate-200 rounded-gipa shadow-sm p-7 md:p-8"
             >
+              {submitted ? (
+                <div role="status">
+                  <HeroEyebrow text="ENQUIRY RECEIVED" />
+                  <h2 className="font-display text-xl font-bold leading-tight tracking-[-0.025em] text-slate-900">
+                    We&apos;ve received your enquiry
+                  </h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                    Thanks — we&apos;ll get back to you within 24 hours.
+                  </p>
+                </div>
+              ) : (
+              <>
               <h2 className="text-xl font-bold text-slate-900 mb-1">Send Us an Enquiry</h2>
               <p className="text-sm text-slate-500 mb-6">
                 Complete the form below and we&apos;ll get back to you within 24 hours.
               </p>
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                autoComplete="off"
+                noValidate
+              >
+                {submitError ? (
+                  <div
+                    role="alert"
+                    className="flex flex-col gap-3 rounded-gipa border border-red-200 bg-red-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <p className="text-sm text-red-700">
+                      {submitError === "Request failed"
+                        ? "Something went wrong. Please try again."
+                        : submitError}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => void submitEnquiry()}
+                      disabled={submitting}
+                      className="shrink-0 text-sm font-semibold text-red-800 underline underline-offset-2 hover:text-red-900 disabled:opacity-70"
+                    >
+                      Try again
+                    </button>
+                  </div>
+                ) : null}
 
-              <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="fullName" className={labelClassName}>Full Name</label>
+                    <label htmlFor="fullName" className={labelClassName}>
+                      Full Name {requiredMark}
+                    </label>
                     <input
                       id="fullName"
                       name="fullName"
@@ -228,8 +339,16 @@ const Contact = () => {
                       autoCorrect="off"
                       autoCapitalize="words"
                       placeholder="Your full name"
-                      className={inputClassName}
+                      aria-invalid={Boolean(errors.fullName)}
+                      aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                      onBlur={(event) => handleBlur("fullName", event.target.value)}
+                      className={fieldClassName(Boolean(errors.fullName))}
                     />
+                    {errors.fullName ? (
+                      <p id="fullName-error" className={errorTextClassName}>
+                        {errors.fullName}
+                      </p>
+                    ) : null}
                   </div>
                   <div>
                     <label htmlFor="companyName" className={labelClassName}>Company Name</label>
@@ -247,7 +366,9 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="email" className={labelClassName}>Email Address</label>
+                    <label htmlFor="email" className={labelClassName}>
+                      Email Address {requiredMark}
+                    </label>
                     <input
                       id="email"
                       name="email"
@@ -258,8 +379,16 @@ const Contact = () => {
                       autoCapitalize="off"
                       spellCheck={false}
                       placeholder="your@email.com"
-                      className={inputClassName}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      onBlur={(event) => handleBlur("email", event.target.value)}
+                      className={fieldClassName(Boolean(errors.email))}
                     />
+                    {errors.email ? (
+                      <p id="email-error" className={errorTextClassName}>
+                        {errors.email}
+                      </p>
+                    ) : null}
                   </div>
                   <div>
                     <label htmlFor="phone" className={labelClassName}>Phone Number</label>
@@ -275,7 +404,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className={labelClassName}>Message</label>
+                  <label htmlFor="message" className={labelClassName}>
+                    Message {requiredMark}
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -283,8 +414,16 @@ const Contact = () => {
                     rows={5}
                     autoComplete="off"
                     placeholder="Tell us about your logistics requirements..."
-                    className={`${inputClassName} resize-none`}
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    onBlur={(event) => handleBlur("message", event.target.value)}
+                    className={cn(fieldClassName(Boolean(errors.message)), "resize-none")}
                   />
+                  {errors.message ? (
+                    <p id="message-error" className={errorTextClassName}>
+                      {errors.message}
+                    </p>
+                  ) : null}
                 </div>
 
                 <button
@@ -300,6 +439,8 @@ const Contact = () => {
                   )}
                 </button>
               </form>
+              </>
+              )}
             </motion.div>
           </div>
         </div>
