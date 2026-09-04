@@ -17,14 +17,14 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     .join(" · ");
 
   return (
-    <article className="flex h-full flex-col rounded-[4px] border border-white/10 bg-[#1A1A1A] p-7 lg:p-8">
+    <article className="gipa-card-dark flex h-full flex-col bg-[#1A1A1A] p-7 lg:p-8">
       <span
         className="font-display text-5xl leading-none text-[#F5C518]"
         aria-hidden="true"
       >
         &ldquo;
       </span>
-      <p className="mt-4 flex-1 text-base leading-relaxed text-white/80">
+      <p className="gipa-text-body mt-4 flex-1 text-white/80">
         {testimonial.quote}
       </p>
       <span
@@ -33,7 +33,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       />
       <div className="flex items-center gap-3">
         {initials ? (
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-[#F5C518]/30 bg-[#F5C518]/10 text-xs font-bold tracking-wide text-[#F5C518]">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-gipa border border-gipa-yellow/30 bg-gipa-yellow/10 text-xs font-bold tracking-wide text-gipa-yellow">
             {initials}
           </span>
         ) : null}
@@ -54,14 +54,14 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="overflow-hidden bg-[#0E0E0E] py-16 lg:py-24"
+      className="overflow-hidden bg-[#0E0E0E] gipa-section-y"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-12 max-w-3xl md:mb-16">
           <div className="mb-4 flex items-center gap-3">
-            <div className="h-[2px] w-8 bg-[#F5C518]" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+            <div className="gipa-rule" />
+            <span className="gipa-eyebrow">
               Client Feedback
             </span>
           </div>
@@ -73,7 +73,7 @@ export default function Testimonials() {
             <br />
             <span className="italic text-[#F5C518]">UK businesses</span>
           </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/55">
+          <p className="gipa-text-body mt-5 max-w-xl text-white/55">
             Client feedback focused on reliability, communication, and delivery
             consistency.
           </p>

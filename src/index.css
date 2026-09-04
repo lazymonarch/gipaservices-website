@@ -38,10 +38,33 @@
 
     --gipa-cream: #F8F6F1;
     --gipa-yellow: #F5C518;
+    --gipa-yellow-hover: #E0B400;
     --gipa-charcoal: #1C1C1C;
     --gipa-muted: #EBEBEB;
     --gipa-muted-foreground: #6B6B6B;
     --gipa-radius: 4px;
+
+    --gipa-font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
+    --gipa-font-body: "DM Sans", TildaSans, sans-serif;
+
+    --gipa-text-h1-leading: 0.94;
+    --gipa-text-h1-tracking: -0.03em;
+
+    --gipa-text-h2-size: clamp(2.2rem, 4vw, 3.4rem);
+    --gipa-text-h2-leading: 1.02;
+    --gipa-text-h2-tracking: -0.025em;
+
+    --gipa-text-h3-size: 1.25rem;
+    --gipa-text-h3-tracking: -0.025em;
+
+    --gipa-text-body-size: 1rem;
+    --gipa-text-body-leading: 1.625;
+
+    --gipa-section-y: 4rem;
+    --gipa-section-y-lg: 6rem;
+
+    --gipa-card-border: rgb(28 28 28 / 0.1);
+    --gipa-card-border-dark: rgb(255 255 255 / 0.1);
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 11%;
@@ -76,10 +99,13 @@
 
     --gipa-cream: #F8F6F1;
     --gipa-yellow: #F5C518;
+    --gipa-yellow-hover: #E0B400;
     --gipa-charcoal: #1C1C1C;
     --gipa-muted: #EBEBEB;
     --gipa-muted-foreground: #6B6B6B;
     --gipa-radius: 4px;
+    --gipa-font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
+    --gipa-font-body: "DM Sans", TildaSans, sans-serif;
 
     --sidebar-background: 217 33% 17%;
     --sidebar-foreground: 210 20% 98%;
@@ -100,7 +126,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background-color: var(--gipa-cream);
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--gipa-font-body);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -117,28 +143,92 @@
     @apply max-w-6xl mx-auto;
   }
 
-  .gipa-hero-title {
-    @apply font-display font-bold leading-[0.94] tracking-[-0.03em] text-balance;
+  .gipa-hero-title,
+  .gipa-heading-h1 {
+    @apply font-display font-bold text-balance;
+    line-height: var(--gipa-text-h1-leading);
+    letter-spacing: var(--gipa-text-h1-tracking);
   }
 
   .gipa-hero-accent {
-    @apply font-display font-bold italic text-[#F5C518];
+    @apply font-display font-bold italic;
+    color: var(--gipa-yellow);
+  }
+
+  .gipa-heading-h2 {
+    font-family: var(--gipa-font-heading);
+    font-size: var(--gipa-text-h2-size);
+    font-weight: 700;
+    line-height: var(--gipa-text-h2-leading);
+    letter-spacing: var(--gipa-text-h2-tracking);
+  }
+
+  .gipa-heading-h3 {
+    font-family: var(--gipa-font-body);
+    font-size: var(--gipa-text-h3-size);
+    font-weight: 700;
+    letter-spacing: var(--gipa-text-h3-tracking);
+  }
+
+  .gipa-text-body {
+    font-family: var(--gipa-font-body);
+    font-size: var(--gipa-text-body-size);
+    line-height: var(--gipa-text-body-leading);
+  }
+
+  .gipa-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gipa-yellow);
+  }
+
+  .gipa-rule {
+    height: 2px;
+    width: 2rem;
+    flex-shrink: 0;
+    background-color: var(--gipa-yellow);
+  }
+
+  .gipa-section-y {
+    padding-top: var(--gipa-section-y);
+    padding-bottom: var(--gipa-section-y);
+  }
+
+  @media (min-width: 1024px) {
+    .gipa-section-y {
+      padding-top: var(--gipa-section-y-lg);
+      padding-bottom: var(--gipa-section-y-lg);
+    }
+  }
+
+  .gipa-card {
+    border-radius: var(--gipa-radius);
+    border: 1px solid var(--gipa-card-border);
+  }
+
+  .gipa-card-dark {
+    border-radius: var(--gipa-radius);
+    border: 1px solid var(--gipa-card-border-dark);
   }
 
   .gipa-btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out sm:px-7;
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out sm:px-7;
+    border-radius: var(--gipa-radius);
     transition-property: background-color, border-color, color, box-shadow;
   }
 
   .gipa-btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
-    background-color: #F5C518;
-    color: #1C1C1C;
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    border-radius: var(--gipa-radius);
+    background-color: var(--gipa-yellow);
+    color: var(--gipa-charcoal);
     transition-property: background-color, border-color, color, box-shadow;
   }
 
   .gipa-btn-primary:hover {
-    background-color: #E0B400;
+    background-color: var(--gipa-yellow-hover);
     box-shadow: 0 8px 22px rgb(28 28 28 / 0.12);
   }
 
@@ -147,14 +237,15 @@
   }
 
   .gipa-btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    border-radius: var(--gipa-radius);
     border-color: rgb(28 28 28 / 0.2);
-    color: #1C1C1C;
+    color: var(--gipa-charcoal);
     transition-property: background-color, border-color, color, box-shadow;
   }
 
   .gipa-btn-secondary:hover {
-    border-color: #F5C518;
+    border-color: var(--gipa-yellow);
     background-color: rgb(245 197 24 / 0.12);
   }
 
@@ -163,30 +254,32 @@
   }
 
   .gipa-btn-secondary-dark {
-    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-[4px] border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-white duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-white duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
+    border-radius: var(--gipa-radius);
     border-color: rgb(255 255 255 / 0.4);
     transition-property: background-color, border-color, color, box-shadow;
   }
 
   .gipa-btn-secondary-dark:hover {
-    border-color: #F5C518;
-    color: #F5C518;
+    border-color: var(--gipa-yellow);
+    color: var(--gipa-yellow);
   }
 
   .gipa-btn-secondary-dark:focus-visible {
     --tw-ring-color: rgb(245 197 24 / 0.6);
-    --tw-ring-offset-color: #1C1C1C;
+    --tw-ring-offset-color: var(--gipa-charcoal);
   }
 
   .gipa-btn-nav {
-    @apply inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[4px] px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-5 lg:py-2.5;
-    background-color: #F5C518;
-    color: #1C1C1C;
+    @apply inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-5 lg:py-2.5;
+    border-radius: var(--gipa-radius);
+    background-color: var(--gipa-yellow);
+    color: var(--gipa-charcoal);
     transition-property: background-color;
   }
 
   .gipa-btn-nav:hover {
-    background-color: #E0B400;
+    background-color: var(--gipa-yellow-hover);
   }
 
   .gipa-btn-nav:focus-visible {

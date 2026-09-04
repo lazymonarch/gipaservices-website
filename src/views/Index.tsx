@@ -218,17 +218,17 @@ const Index = () => {
 
                 {/* Key Metrics/Stats */}
                 <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                  <div className="min-h-[125px] rounded-gipa border border-slate-100 border-l-[4px] border-l-gipa-yellow bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
                     <p className="font-display text-3xl font-bold text-[#1C1C1C]">15+</p>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Years Operating</p>
                     <p className="text-[11px] text-slate-400 mt-0.5 font-medium">Est. 2009</p>
                   </div>
-                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                  <div className="min-h-[125px] rounded-gipa border border-slate-100 border-l-[4px] border-l-gipa-yellow bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
                     <p className="font-display text-3xl font-bold text-[#1C1C1C]">UK-Wide</p>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Coverage</p>
                     <p className="text-[11px] text-slate-400 mt-0.5 font-medium">Eng · Sco · Wal · NI</p>
                   </div>
-                  <div className="rounded-[4px] border border-slate-100 bg-white min-h-[125px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border-l-[4px] border-l-[#F5C518]">
+                  <div className="min-h-[125px] rounded-gipa border border-slate-100 border-l-[4px] border-l-gipa-yellow bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
                     <p className="font-display text-3xl font-bold text-[#1C1C1C]">100%</p>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">Compliance</p>
                     <p className="text-[11px] text-slate-400 mt-0.5 font-medium">FORS & DVSA</p>
@@ -258,8 +258,8 @@ const Index = () => {
               }}>
               <div>
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="h-[2px] w-8 bg-[#F5C518]" />
-                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  <div className="gipa-rule" />
+                  <span className="gipa-eyebrow">
                     What We Do
                   </span>
                 </div>
@@ -405,15 +405,15 @@ const Index = () => {
 
             <div className="absolute bottom-8 left-0 right-0 z-10 mx-auto max-w-7xl px-6 lg:px-8">
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-8 bg-[#F5C518]" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                <div className="gipa-rule" />
+                <span className="gipa-eyebrow">
                   Why Choose GIPA
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="py-16 lg:py-24">
+          <div className="gipa-section-y">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
                 <div className="lg:col-span-5">
@@ -451,7 +451,7 @@ const Index = () => {
                         }}>
 
                         <div
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] text-[#F5C518]"
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-gipa text-gipa-yellow"
                           style={{
                             background: "rgba(245,197,24,0.12)",
                             border: "1px solid rgba(245,197,24,0.25)"
@@ -488,8 +488,8 @@ const Index = () => {
               <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="h-[2px] w-8 bg-[#F5C518]" />
-                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                    <div className="gipa-rule" />
+                    <span className="gipa-eyebrow">
                       Where We Operate
                     </span>
                   </div>
@@ -523,7 +523,7 @@ const Index = () => {
                       map((region) =>
                         <div
                           key={region}
-                          className="rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 border-l-[3px] border-l-[#F5C518] bg-white p-5">
+                          className="gipa-card border-l-[3px] border-l-gipa-yellow bg-white p-5">
 
                           <div className="flex items-center gap-2">
                             <span className="h-2 w-2 rounded-full bg-[#F5C518]" />
@@ -561,8 +561,8 @@ const Index = () => {
             <div className="flex w-full items-center px-6 py-12 md:px-10 lg:w-1/2 lg:px-16 lg:py-16">
               <div className="w-full max-w-xl">
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="h-[2px] w-8 bg-[#F5C518]" />
-                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                  <div className="gipa-rule" />
+                  <span className="gipa-eyebrow">
                     Ready to Move?
                   </span>
                 </div>

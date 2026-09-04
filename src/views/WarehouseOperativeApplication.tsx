@@ -48,31 +48,29 @@ const revealVariant = {
 };
 
 const focusFieldClassName =
-  "shadow-none outline-none ring-0 ring-offset-0 focus:border-[#F5C518] focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-[#F5C518] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
+  "shadow-none outline-none ring-0 ring-offset-0 focus:border-gipa-yellow focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-gipa-yellow focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
 const formFieldClassName = cn(
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 md:text-sm",
+  "mt-1.5 h-11 rounded-gipa border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 md:text-sm",
   focusFieldClassName,
 );
 
 const selectTriggerClassName = cn(
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-[#1C1C1C] md:text-sm",
+  "mt-1.5 h-11 rounded-gipa border border-slate-300 bg-white px-3 py-2 text-base text-gipa-charcoal md:text-sm",
   focusFieldClassName,
 );
 
 const selectContentClassName =
-  "rounded-[4px] border border-slate-200 bg-[#F8F6F1] text-[#1C1C1C] shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
+  "rounded-gipa border border-slate-200 bg-gipa-cream text-gipa-charcoal shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
 
 const selectItemClassName =
-  "rounded-[4px] whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-[#1C1C1C] focus:bg-[#F5C518]/25 focus:text-[#1C1C1C] data-[state=checked]:bg-[#F5C518]/20 data-[highlighted]:bg-[#F5C518]/25 data-[highlighted]:text-[#1C1C1C]";
+  "rounded-gipa whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-gipa-charcoal focus:bg-gipa-yellow/25 focus:text-gipa-charcoal data-[state=checked]:bg-gipa-yellow/20 data-[highlighted]:bg-gipa-yellow/25 data-[highlighted]:text-gipa-charcoal";
 
 const labelClassName = "text-sm font-medium leading-normal text-[#1C1C1C]/80";
 
-const sectionEyebrowText =
-  "text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]";
+const sectionEyebrowText = "gipa-eyebrow";
 
-const sectionHeadingClass =
-  "font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.025em]";
+const sectionHeadingClass = "gipa-heading-h2";
 
 const bodyClass = "text-base leading-[1.75] text-[#1C1C1C]/65 md:text-lg";
 
@@ -171,7 +169,7 @@ const FieldHint = ({ title, description }: { title: string; description: string 
           <Info className="h-4 w-4" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-xs rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 text-sm text-[#1C1C1C] shadow-lg">
+      <PopoverContent className="max-w-xs rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 text-sm text-[#1C1C1C] shadow-lg">
         <p className="font-semibold text-slate-900">{title}</p>
         <p className="mt-2 leading-relaxed text-slate-700">{description}</p>
       </PopoverContent>
@@ -366,7 +364,7 @@ const WarehouseOperativeApplication = () => {
         </div>
       </section>
 
-      <section className="bg-white py-16 lg:py-24">
+      <section className="bg-white gipa-section-y">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="mb-12 max-w-3xl lg:mb-14"
@@ -376,10 +374,10 @@ const WarehouseOperativeApplication = () => {
             viewport={revealViewport}
           >
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              <span className="gipa-rule" aria-hidden="true" />
               <p className={sectionEyebrowText}>Application steps</p>
             </div>
-            <h2 className={cn(sectionHeadingClass, "text-[#1C1C1C]")}>
+            <h2 className={cn(sectionHeadingClass, "text-gipa-charcoal")}>
               How warehouse applications are reviewed
             </h2>
           </motion.div>
@@ -401,7 +399,7 @@ const WarehouseOperativeApplication = () => {
             {processSteps.map((step) => (
               <motion.li
                 key={step.number}
-                className="flex h-full flex-col rounded-[4px] border border-[#1C1C1C]/10 border-t-[3px] border-t-[#F5C518] bg-[color:var(--gipa-cream)] p-7 shadow-[0_12px_40px_rgba(28,28,28,0.06)] lg:p-8"
+                className="gipa-card flex h-full flex-col border-t-[3px] border-t-gipa-yellow bg-[color:var(--gipa-cream)] p-7 shadow-[0_12px_40px_rgba(28,28,28,0.06)] lg:p-8"
                 variants={{
                   hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 16 },
                   visible: {
@@ -417,15 +415,15 @@ const WarehouseOperativeApplication = () => {
                 <span className="font-display text-[2.75rem] font-bold leading-none tracking-[-0.04em] text-[#1C1C1C]/12">
                   {step.number}
                 </span>
-                <h3 className="mt-7 text-xl font-bold tracking-tight text-[#1C1C1C]">{step.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-[#1C1C1C]/65">{step.description}</p>
+                <h3 className="gipa-heading-h3 mt-7 text-gipa-charcoal">{step.title}</h3>
+                <p className="gipa-text-body mt-3 text-gipa-charcoal/65">{step.description}</p>
               </motion.li>
             ))}
           </motion.ol>
         </div>
       </section>
 
-      <section className="bg-[color:var(--gipa-charcoal)] py-16 lg:py-24">
+      <section className="bg-[color:var(--gipa-charcoal)] gipa-section-y">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="mb-12 max-w-3xl lg:mb-14"
@@ -435,7 +433,7 @@ const WarehouseOperativeApplication = () => {
             viewport={revealViewport}
           >
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              <span className="gipa-rule" aria-hidden="true" />
               <p className={sectionEyebrowText}>The role in context</p>
             </div>
             <h2 className={cn(sectionHeadingClass, "text-white")}>
@@ -454,11 +452,11 @@ const WarehouseOperativeApplication = () => {
               return (
                 <article
                   key={note.title}
-                  className="h-full rounded-[4px] border border-white/10 border-t-[3px] border-t-[#F5C518] bg-[#242424] p-7 lg:p-8"
+                  className="gipa-card-dark h-full border-t-[3px] border-t-gipa-yellow bg-[#242424] p-7 lg:p-8"
                 >
                   <Icon className="mb-6 h-7 w-7 text-[#F5C518]" strokeWidth={1.8} aria-hidden="true" />
-                  <h3 className="mb-3 text-xl font-bold tracking-tight text-white">{note.title}</h3>
-                  <p className="text-base leading-relaxed text-white/70">{note.description}</p>
+                  <h3 className="gipa-heading-h3 mb-3 text-white">{note.title}</h3>
+                  <p className="gipa-text-body text-white/70">{note.description}</p>
                 </article>
               );
             })}
@@ -466,14 +464,14 @@ const WarehouseOperativeApplication = () => {
         </div>
       </section>
 
-      <section id="warehouse-operative-application-form" className="bg-[color:var(--gipa-cream)] py-16 lg:py-24">
+      <section id="warehouse-operative-application-form" className="bg-[color:var(--gipa-cream)] gipa-section-y">
         <div className="mx-auto grid max-w-7xl items-start gap-10 px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
           <div className="lg:sticky lg:top-28 lg:col-span-4 lg:pt-2">
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              <span className="gipa-rule" aria-hidden="true" />
               <p className={sectionEyebrowText}>Application</p>
             </div>
-            <h2 className={cn(sectionHeadingClass, "text-[#1C1C1C]")}>
+            <h2 className={cn(sectionHeadingClass, "text-gipa-charcoal")}>
               Warehouse Operative Application
             </h2>
             <p className={cn("mt-6 max-w-md", bodyClass)}>
@@ -487,7 +485,7 @@ const WarehouseOperativeApplication = () => {
               onSubmit={handleSubmit}
               noValidate
               autoComplete="off"
-              className="rounded-[4px] border border-[#1C1C1C]/10 bg-white p-7 shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:p-8 lg:p-10"
+              className="gipa-card bg-white p-7 shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:p-8 lg:p-10"
             >
               <fieldset className="mb-10 border-l-[3px] border-[#F5C518] pl-5 sm:pl-6">
                 <h3 className={fieldsetHeadingClass}>
@@ -672,7 +670,7 @@ const WarehouseOperativeApplication = () => {
                       type="button"
                       onClick={() => setAvailabilityMode(value)}
                       className={cn(
-                        "inline-flex min-h-11 w-full items-center gap-2 rounded-[4px] border px-4 py-2.5 text-sm transition sm:w-auto",
+                        "inline-flex min-h-11 w-full items-center gap-2 rounded-gipa border px-4 py-2.5 text-sm transition sm:w-auto",
                         availabilityMode === value
                           ? "border-[#F5C518] bg-[#F5C518]/10 text-slate-900"
                           : "border-slate-300 bg-white text-slate-600 hover:border-slate-400",
@@ -710,7 +708,7 @@ const WarehouseOperativeApplication = () => {
                         <button
                           type="button"
                           className={cn(
-                            "inline-flex min-h-11 w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900",
+                            "inline-flex min-h-11 w-full items-center justify-between rounded-gipa border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900",
                             focusFieldClassName,
                           )}
                         >
@@ -723,7 +721,7 @@ const WarehouseOperativeApplication = () => {
                         </button>
                       </PopoverTrigger>
                       <PopoverContent
-                        className="w-[min(288px,calc(100vw-2.5rem))] rounded-[4px] border-slate-200 bg-[#F8F6F1] p-0"
+                        className="w-[min(288px,calc(100vw-2.5rem))] rounded-gipa border-slate-200 bg-[#F8F6F1] p-0"
                         align="start"
                       >
                         <Calendar
@@ -740,7 +738,7 @@ const WarehouseOperativeApplication = () => {
                           className="w-full max-w-[288px]"
                           classNames={{
                             cell: "h-9 w-9 p-0 text-center text-sm",
-                            day: "h-9 w-9 rounded-[4px] p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
+                            day: "h-9 w-9 rounded-gipa p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
                             day_today: "bg-[#F5C518]/20 text-slate-900",
                             day_selected:
                               "bg-[#F5C518] text-slate-900 hover:bg-[#F5C518]/90 hover:text-slate-900 focus:bg-[#F5C518]/90 focus:text-slate-900",
@@ -778,7 +776,7 @@ const WarehouseOperativeApplication = () => {
 
                 <div className="mt-6">
                   {file ? (
-                    <div className="flex flex-col gap-3 rounded-[4px] border border-slate-300 bg-[#F8F6F1] p-4 sm:flex-row sm:items-center">
+                    <div className="flex flex-col gap-3 rounded-gipa border border-slate-300 bg-[#F8F6F1] p-4 sm:flex-row sm:items-center">
                       <FileText className="h-8 w-8 shrink-0 text-[#1C1C1C]" aria-hidden="true" />
                       <div className="min-w-0 flex-1">
                         <p className="break-all text-sm font-semibold text-[#1C1C1C]">{file.name}</p>
@@ -790,7 +788,7 @@ const WarehouseOperativeApplication = () => {
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
-                          className="inline-flex min-h-11 items-center justify-center rounded-[4px] border border-[#1C1C1C]/15 bg-white px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518]"
+                          className="inline-flex min-h-11 items-center justify-center rounded-gipa border border-[#1C1C1C]/15 bg-white px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518]"
                         >
                           Change file
                         </button>
@@ -800,7 +798,7 @@ const WarehouseOperativeApplication = () => {
                             setFile(null);
                             if (fileInputRef.current) fileInputRef.current.value = "";
                           }}
-                          className="inline-flex min-h-11 items-center justify-center rounded-[4px] px-3 text-sm text-slate-600 transition hover:bg-white hover:text-slate-900"
+                          className="inline-flex min-h-11 items-center justify-center rounded-gipa px-3 text-sm text-slate-600 transition hover:bg-white hover:text-slate-900"
                           aria-label="Remove uploaded CV"
                         >
                           <X className="h-4 w-4" />
@@ -811,7 +809,7 @@ const WarehouseOperativeApplication = () => {
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="w-full rounded-[4px] border-2 border-dashed border-slate-300 bg-[#F8F6F1] px-4 py-8 text-center transition hover:border-[#F5C518]/70"
+                      className="w-full rounded-gipa border-2 border-dashed border-slate-300 bg-[#F8F6F1] px-4 py-8 text-center transition hover:border-[#F5C518]/70"
                     >
                       <Upload className="mx-auto h-8 w-8 text-slate-400" aria-hidden="true" />
                       <p className="mt-2 text-sm font-medium text-slate-900">

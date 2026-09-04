@@ -65,13 +65,13 @@ const OurStory = () => {
           </FadeUp>
         </div>
       </section>
-      <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
+      <section className="overflow-hidden bg-[color:var(--gipa-cream)] gipa-section-y">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
             <FadeUp className="lg:col-span-5">
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                <span className="gipa-rule" aria-hidden="true" />
+                <p className="gipa-eyebrow">
                   WHO WE ARE
                 </p>
               </div>
@@ -80,16 +80,16 @@ const OurStory = () => {
                 <br />
                 <span className="italic text-[#F5C518]">Driven</span> by Reliability.
               </h2>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-[#1C1C1C]/65 md:text-lg">
+              <p className="gipa-text-body mt-6 max-w-xl text-gipa-charcoal/65 md:text-lg">
                 GIPA Services Limited is a UK-based HGV logistics and transport company dedicated to delivering professional, reliable, and compliant transport solutions. Founded on the principles of operational excellence and driver professionalism, we have built a reputation for dependable service across England, Scotland, Wales, and Northern Ireland.
               </p>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-[#1C1C1C]/65 md:text-lg">
+              <p className="gipa-text-body mt-5 max-w-xl text-gipa-charcoal/65 md:text-lg">
                 Our team of experienced HGV drivers and logistics professionals work tirelessly to ensure your goods reach their destination safely, on time, and in perfect condition.
               </p>
             </FadeUp>
 
             <FadeUp className="lg:col-span-7" delay={0.1}>
-              <div className="relative min-h-[300px] overflow-hidden rounded-[4px] bg-white shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:min-h-[390px] lg:min-h-[460px]">
+              <div className="relative min-h-[300px] overflow-hidden rounded-gipa bg-white shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:min-h-[390px] lg:min-h-[460px]">
                 <Image
                   src="/assets/warehouse-real-1.jpeg"
                   alt="Warehouse operations at GIPA Services"
@@ -103,18 +103,18 @@ const OurStory = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[color:var(--gipa-charcoal)] py-16 lg:py-24">
+      <section className="bg-[color:var(--gipa-charcoal)] gipa-section-y">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
             <div className="mb-12 text-center lg:mb-14">
               <div className="mb-5 flex items-center justify-center gap-3">
-                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                <span className="gipa-rule" aria-hidden="true" />
+                <p className="gipa-eyebrow">
                   OUR VALUES
                 </p>
-                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+                <span className="gipa-rule" aria-hidden="true" />
               </div>
-              <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
+              <h2 className="gipa-heading-h2 text-white">
                 What We Stand For
               </h2>
             </div>
@@ -126,12 +126,12 @@ const OurStory = () => {
 
               return (
                 <FadeUp key={card?.title} delay={index * 0.1}>
-                  <article className="h-full rounded-[4px] border border-white/10 border-t-[3px] border-t-[#F5C518] bg-[#242424] p-7 transition duration-300 hover:-translate-y-1 hover:bg-[#2E2E2E] lg:p-8">
-                    <Icon className="mb-6 h-7 w-7 text-[#F5C518]" strokeWidth={1.8} />
-                    <h3 className="mb-3 text-xl font-bold tracking-tight text-white">
+                  <article className="gipa-card-dark h-full border-t-[3px] border-t-gipa-yellow bg-[#242424] p-7 transition duration-300 hover:-translate-y-1 hover:bg-[#2E2E2E] lg:p-8">
+                    <Icon className="mb-6 h-7 w-7 text-gipa-yellow" strokeWidth={1.8} />
+                    <h3 className="gipa-heading-h3 mb-3 text-white">
                       {card?.title}
                     </h3>
-                    <p className="text-base leading-relaxed text-white/70">
+                    <p className="gipa-text-body text-white/70">
                       {card?.description}
                     </p>
                   </article>
@@ -141,10 +141,10 @@ const OurStory = () => {
           </div>
         </div>
       </section>
-      <section className="overflow-hidden bg-[color:var(--gipa-cream)] py-16 lg:py-24">
+      <section className="overflow-hidden bg-[color:var(--gipa-cream)] gipa-section-y">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-20 lg:px-8">
           <FadeUp className="lg:col-span-6">
-            <div className="relative overflow-hidden rounded-[4px] shadow-[0_12px_40px_rgba(28,28,28,0.10)]">
+            <div className="relative overflow-hidden rounded-gipa shadow-[0_12px_40px_rgba(28,28,28,0.10)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://img.rocket.new/generatedImages/rocket_gen_img_145accce3-1772852165930.png"
@@ -159,15 +159,15 @@ const OurStory = () => {
           <FadeUp className="lg:col-span-6" delay={0.1}>
             <div className="max-w-xl">
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+                <span className="gipa-rule" aria-hidden="true" />
+                <p className="gipa-eyebrow">
                   HOW WE WORK
                 </p>
               </div>
-              <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.025em] text-[#1C1C1C]">
+              <h2 className="gipa-heading-h2 text-gipa-charcoal">
                 How We Operate
               </h2>
-              <p className="mt-6 text-lg leading-relaxed text-[#1C1C1C]/65">
+              <p className="mt-6 gipa-text-body text-lg text-gipa-charcoal/65">
                 From the moment a route is confirmed, GIPA Services applies a
                 structured approach to every delivery. Our drivers are
                 experienced, compliance-checked, and supported by clear
@@ -194,11 +194,11 @@ const OurStory = () => {
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
           <FadeUp>
             <div className="mb-6 flex items-center justify-center gap-3">
-              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C518]">
+              <span className="gipa-rule" aria-hidden="true" />
+              <p className="gipa-eyebrow">
                 Get In Touch
               </p>
-              <span className="h-[2px] w-8 bg-[#F5C518]" aria-hidden="true" />
+              <span className="gipa-rule" aria-hidden="true" />
             </div>
             <h2 className="font-display text-[clamp(2.1rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white">
               Ready to work with a logistics team that delivers?

@@ -269,7 +269,7 @@ const Header = () => {
                 )}
               >
                 <div
-                  className="overflow-hidden rounded-[4px] border border-[color:var(--gipa-charcoal)]/10 bg-[#F8F6F1] shadow-[0_8px_24px_rgba(28,28,28,0.12)]"
+                  className="overflow-hidden rounded-gipa border border-[color:var(--gipa-charcoal)]/10 bg-[#F8F6F1] shadow-[0_8px_24px_rgba(28,28,28,0.12)]"
                 >
                   {careersLinks.map((link, idx) => (
                     <Link
@@ -303,7 +303,7 @@ const Header = () => {
               ref={mobileToggleRef}
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-[4px] lg:hidden"
+              className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-gipa lg:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-dropdown"
@@ -344,7 +344,7 @@ const Header = () => {
                       href={link.path}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "flex min-h-11 items-center rounded-[4px] px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
+                        "flex min-h-11 items-center rounded-gipa px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
                         "hover:bg-[#F5C518]/15 hover:text-[#1C1C1C]",
                         isActive && "bg-[#F5C518]/15 font-semibold text-[#1C1C1C]",
                       )}
@@ -361,7 +361,7 @@ const Header = () => {
                     aria-controls="mobile-careers-submenu"
                     onClick={() => setCareersMobileOpen((prev) => !prev)}
                     className={cn(
-                      "flex min-h-11 w-full items-center justify-between rounded-[4px] px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
+                      "flex min-h-11 w-full items-center justify-between rounded-gipa px-3 text-[15px] font-medium text-[#1C1C1C] transition-colors duration-150",
                       "hover:bg-[#F5C518]/15",
                       isCareersActive && "font-semibold",
                     )}
@@ -394,7 +394,7 @@ const Header = () => {
                               setCareersMobileOpen(false);
                             }}
                             className={cn(
-                              "flex min-h-11 items-center rounded-[4px] px-2 text-[14px] font-medium text-[#1C1C1C]/80 transition-colors duration-150",
+                              "flex min-h-11 items-center rounded-gipa px-2 text-[14px] font-medium text-[#1C1C1C]/80 transition-colors duration-150",
                               "hover:bg-[#F5C518]/15 hover:text-[#1C1C1C]",
                               pathname === link.path && "bg-[#F5C518]/15 font-semibold text-[#1C1C1C]",
                             )}

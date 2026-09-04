@@ -22,14 +22,15 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'TildaSans', 'sans-serif'],
-        display: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
-        body: ['DM Sans', 'TildaSans', 'sans-serif'],
+        sans: ["var(--gipa-font-body)"],
+        display: ["var(--gipa-font-heading)"],
+        body: ["var(--gipa-font-body)"],
       },
       colors: {
         gipa: {
           cream: "var(--gipa-cream)",
           yellow: "var(--gipa-yellow)",
+          "yellow-hover": "var(--gipa-yellow-hover)",
           charcoal: "var(--gipa-charcoal)",
           muted: "var(--gipa-muted)",
           "muted-foreground": "var(--gipa-muted-foreground)",
@@ -77,6 +78,10 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      spacing: {
+        "gipa-section": "var(--gipa-section-y)",
+        "gipa-section-lg": "var(--gipa-section-y-lg)",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -10,7 +10,7 @@ import HeroEyebrow from "@/components/HeroEyebrow";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 const inputClassName =
-  "w-full rounded-[4px] border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-none outline-none ring-0 ring-offset-0 transition-colors duration-200 placeholder:text-slate-400 focus:border-[#F5C518] focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-[#F5C518] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
+  "w-full rounded-gipa border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-none outline-none ring-0 ring-offset-0 transition-colors duration-200 placeholder:text-slate-400 focus:border-gipa-yellow focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-gipa-yellow focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
 const labelClassName = "mb-1.5 block text-sm font-medium text-slate-700";
 
@@ -150,7 +150,7 @@ const Contact = () => {
                 <motion.div
                   variants={revealUp}
                   custom={0.05}
-                  className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
+                  className="bg-white border border-slate-200 rounded-gipa p-5 flex gap-4 items-start"
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
                     <Phone className="h-5 w-5" strokeWidth={1.8} />
@@ -168,7 +168,7 @@ const Contact = () => {
                 <motion.div
                   variants={revealUp}
                   custom={0.1}
-                  className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
+                  className="bg-white border border-slate-200 rounded-gipa p-5 flex gap-4 items-start"
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
                     <Mail className="h-5 w-5" strokeWidth={1.8} />
@@ -186,7 +186,7 @@ const Contact = () => {
                 <motion.div
                   variants={revealUp}
                   custom={0.15}
-                  className="bg-white border border-slate-200 rounded-[4px] p-5 flex gap-4 items-start"
+                  className="bg-white border border-slate-200 rounded-gipa p-5 flex gap-4 items-start"
                 >
                   <span className="mt-0.5 shrink-0 text-[#F5C518]" aria-hidden="true">
                     <MapPin className="h-5 w-5" strokeWidth={1.8} />
@@ -209,7 +209,7 @@ const Contact = () => {
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
               custom={0.1}
-              className="bg-white border border-slate-200 rounded-[4px] shadow-sm p-7 md:p-8"
+              className="bg-white border border-slate-200 rounded-gipa shadow-sm p-7 md:p-8"
             >
               <h2 className="text-xl font-bold text-slate-900 mb-1">Send Us an Enquiry</h2>
               <p className="text-sm text-slate-500 mb-6">
@@ -329,7 +329,7 @@ const Contact = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
             custom={0.1}
-            className="rounded-[4px] overflow-hidden border border-slate-200 shadow-sm h-[360px] md:h-[440px]"
+            className="rounded-gipa overflow-hidden border border-slate-200 shadow-sm h-[360px] md:h-[440px]"
           >
             <iframe
               title="GIPA Services Location"

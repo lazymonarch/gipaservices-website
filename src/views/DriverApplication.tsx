@@ -44,23 +44,23 @@ const revealVariant = {
 };
 
 const focusFieldClassName =
-  "shadow-none outline-none ring-0 ring-offset-0 focus:border-[#F5C518] focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-[#F5C518] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
+  "shadow-none outline-none ring-0 ring-offset-0 focus:border-gipa-yellow focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-gipa-yellow focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
 
 const formFieldClassName = cn(
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 md:text-sm",
+  "mt-1.5 h-11 rounded-gipa border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 md:text-sm",
   focusFieldClassName,
 );
 
 const selectTriggerClassName = cn(
-  "mt-1.5 h-11 rounded-[4px] border border-slate-300 bg-white px-3 py-2 text-base text-[#1C1C1C] md:text-sm",
+  "mt-1.5 h-11 rounded-gipa border border-slate-300 bg-white px-3 py-2 text-base text-gipa-charcoal md:text-sm",
   focusFieldClassName,
 );
 
 const selectContentClassName =
-  "rounded-[4px] border border-slate-200 bg-[#F8F6F1] text-[#1C1C1C] shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
+  "rounded-gipa border border-slate-200 bg-gipa-cream text-gipa-charcoal shadow-[0_10px_30px_rgba(28,28,28,0.12)]";
 
 const selectItemClassName =
-  "rounded-[4px] whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-[#1C1C1C] focus:bg-[#F5C518]/25 focus:text-[#1C1C1C] data-[state=checked]:bg-[#F5C518]/20 data-[highlighted]:bg-[#F5C518]/25 data-[highlighted]:text-[#1C1C1C]";
+  "rounded-gipa whitespace-normal py-2.5 pl-8 pr-3 text-sm leading-snug text-gipa-charcoal focus:bg-gipa-yellow/25 focus:text-gipa-charcoal data-[state=checked]:bg-gipa-yellow/20 data-[highlighted]:bg-gipa-yellow/25 data-[highlighted]:text-gipa-charcoal";
 
 const labelClassName = "text-sm font-medium text-slate-700";
 
@@ -128,7 +128,7 @@ const FieldHint = ({ title, description }: { title: string; description: string 
           <Info className="h-4 w-4" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-xs rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 text-sm text-[#1C1C1C] shadow-lg">
+      <PopoverContent className="max-w-xs rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 text-sm text-[#1C1C1C] shadow-lg">
         <p className="font-semibold text-slate-900">{title}</p>
         <p className="mt-2 leading-relaxed text-slate-700">{description}</p>
       </PopoverContent>
@@ -440,10 +440,10 @@ const DriverApplication = () => {
             autoComplete="off"
           >
             {/* Personal Information */}
-            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+            <fieldset className="mb-5 rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
               <div className="mb-4 sm:mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-gipa bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
                     01
                   </span>
                   <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
@@ -542,10 +542,10 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Driving Qualifications */}
-            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+            <fieldset className="mb-5 rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
               <div className="mb-4 sm:mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-gipa bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
                     02
                   </span>
                   <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
@@ -683,10 +683,10 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Availability */}
-            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+            <fieldset className="mb-5 rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
               <div className="mb-4 sm:mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-gipa bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
                     03
                   </span>
                   <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
@@ -713,7 +713,7 @@ const DriverApplication = () => {
                     type="button"
                     onClick={() => setAvailabilityMode(value)}
                     className={cn(
-                      "inline-flex min-h-11 w-full items-center gap-2 rounded-[4px] border px-4 py-2.5 text-sm transition sm:w-auto",
+                      "inline-flex min-h-11 w-full items-center gap-2 rounded-gipa border px-4 py-2.5 text-sm transition sm:w-auto",
                       availabilityMode === value
                         ? "border-[#F5C518] bg-[#F5C518]/10 text-slate-900"
                         : "border-slate-300 bg-white text-slate-600 hover:border-slate-400",
@@ -747,7 +747,7 @@ const DriverApplication = () => {
                       <button
                         type="button"
                         className={cn(
-                          "inline-flex min-h-11 w-full items-center justify-between rounded-[4px] border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900",
+                          "inline-flex min-h-11 w-full items-center justify-between rounded-gipa border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900",
                           focusFieldClassName,
                         )}
                       >
@@ -755,7 +755,7 @@ const DriverApplication = () => {
                         <CalendarIcon className="ml-2 h-4 w-4 shrink-0" />
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[min(288px,calc(100vw-2.5rem))] rounded-[4px] border-slate-200 bg-[#F8F6F1] p-0" align="start">
+                    <PopoverContent className="w-[min(288px,calc(100vw-2.5rem))] rounded-gipa border-slate-200 bg-[#F8F6F1] p-0" align="start">
                       <Calendar
                         mode="single"
                         selected={availabilityDate}
@@ -770,7 +770,7 @@ const DriverApplication = () => {
                         className="w-full max-w-[288px]"
                         classNames={{
                           cell: "h-9 w-9 p-0 text-center text-sm",
-                          day: "h-9 w-9 rounded-[4px] p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
+                          day: "h-9 w-9 rounded-gipa p-0 text-sm font-normal text-slate-900 hover:bg-[#F5C518]/20",
                           day_today: "bg-[#F5C518]/20 text-slate-900",
                           day_selected:
                             "bg-[#F5C518] text-slate-900 hover:bg-[#F5C518]/90 hover:text-slate-900 focus:bg-[#F5C518]/90 focus:text-slate-900",
@@ -785,10 +785,10 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* CV Upload */}
-            <fieldset className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+            <fieldset className="mb-5 rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
               <div className="mb-4 sm:mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-gipa bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
                     04
                   </span>
                   <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
@@ -812,7 +812,7 @@ const DriverApplication = () => {
               />
 
               {file ? (
-                <div className="flex flex-col gap-3 rounded-[4px] border border-slate-300 bg-white p-4 sm:flex-row sm:items-center">
+                <div className="flex flex-col gap-3 rounded-gipa border border-slate-300 bg-white p-4 sm:flex-row sm:items-center">
                   <FileText className="h-8 w-8 shrink-0 text-[#1C1C1C]" aria-hidden="true" />
                   <div className="min-w-0 flex-1">
                     <p className="break-all text-sm font-semibold text-[#1C1C1C]">{file.name}</p>
@@ -822,7 +822,7 @@ const DriverApplication = () => {
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="inline-flex min-h-11 items-center justify-center rounded-[4px] border border-[#1C1C1C]/15 bg-[#F8F6F1] px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518] hover:bg-[#F5C518]/15"
+                      className="inline-flex min-h-11 items-center justify-center rounded-gipa border border-[#1C1C1C]/15 bg-[#F8F6F1] px-4 text-sm font-semibold text-[#1C1C1C] transition hover:border-[#F5C518] hover:bg-[#F5C518]/15"
                     >
                       Change file
                     </button>
@@ -832,7 +832,7 @@ const DriverApplication = () => {
                         setFile(null);
                         if (fileInputRef.current) fileInputRef.current.value = "";
                       }}
-                      className="inline-flex min-h-11 items-center justify-center rounded-[4px] px-3 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                      className="inline-flex min-h-11 items-center justify-center rounded-gipa px-3 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                       aria-label="Remove selected CV"
                     >
                       <X className="h-4 w-4" />
@@ -843,7 +843,7 @@ const DriverApplication = () => {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-full rounded-[4px] border-2 border-dashed border-slate-300 bg-white px-4 py-8 text-center transition hover:border-[#F5C518]/70 hover:bg-white"
+                  className="w-full rounded-gipa border-2 border-dashed border-slate-300 bg-white px-4 py-8 text-center transition hover:border-[#F5C518]/70 hover:bg-white"
                 >
                   <Upload className="mx-auto h-8 w-8 text-slate-400" aria-hidden="true" />
                   <p className="mt-2 text-sm font-medium text-slate-900">Click to upload your CV</p>
@@ -853,10 +853,10 @@ const DriverApplication = () => {
             </fieldset>
 
             {/* Consent & Submit */}
-            <div className="mb-5 rounded-[4px] border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
+            <div className="mb-5 rounded-gipa border border-slate-200 bg-[#F8F6F1] p-4 sm:mb-6 sm:p-5 md:mb-8 md:p-6">
               <div className="mb-4 sm:mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-gipa bg-[#1C1C1C] text-[11px] font-bold tracking-wider text-[#F5C518]">
                     05
                   </span>
                   <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-[#1C1C1C]">
