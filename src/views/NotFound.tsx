@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 
 const NotFound = () => {
@@ -27,6 +28,7 @@ const NotFound = () => {
             className="gipa-btn-primary mt-8"
           >
             Return to Home
+            <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
           </Link>
         </div>
       </section>

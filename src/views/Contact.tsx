@@ -534,7 +534,7 @@ const Contact = () => {
               className="gipa-btn-primary"
             >
               Call Us Now
-              <Phone className="h-3.5 w-3.5 shrink-0" strokeWidth={2} aria-hidden="true" />
+              <Phone className="gipa-btn-phone-icon" strokeWidth={2} aria-hidden="true" />
             </a>
           </motion.div>
         </div>

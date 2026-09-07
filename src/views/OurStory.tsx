@@ -91,7 +91,7 @@ const OurStory = () => {
             <FadeUp className="lg:col-span-7" delay={0.1}>
               <div className="relative min-h-[300px] overflow-hidden rounded-gipa bg-white shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:min-h-[390px] lg:min-h-[460px]">
                 <Image
-                  src="/assets/warehouse-real-1.jpeg"
+                  src="/assets/warehouse-real-1.jpg"
                   alt="Warehouse operations at GIPA Services"
                   fill
                   sizes="(max-width: 1024px) 100vw, 58vw"
@@ -207,19 +207,12 @@ const OurStory = () => {
               Contact our team to discuss your UK transport requirements.
             </p>
 
-            <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-9 flex justify-center">
               <Link
                 href="/contact"
                 className="gipa-btn-primary w-full sm:w-auto">
                 
                 Get In Touch
-                <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/driver-application"
-                className="gipa-btn-secondary-dark w-full sm:w-auto">
-                
-                Apply as a Driver
                 <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
               </Link>
             </div>

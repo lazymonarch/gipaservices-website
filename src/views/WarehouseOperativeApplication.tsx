@@ -305,7 +305,7 @@ const WarehouseOperativeApplication = () => {
 
           <div className="relative min-h-[280px] overflow-hidden sm:min-h-[360px] md:min-h-[420px] lg:col-span-7 lg:min-h-[36rem]">
             <Image
-              src="/assets/warehouse-real-1.jpeg"
+              src="/assets/warehouse-real-1.jpg"
               alt="Warehouse operations supporting GIPA Services logistics"
               fill
               priority

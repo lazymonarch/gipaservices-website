@@ -43,6 +43,7 @@
     --gipa-muted: #EBEBEB;
     --gipa-muted-foreground: #6B6B6B;
     --gipa-radius: 4px;
+    --gipa-btn-radius: 0px;
 
     --gipa-font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
     --gipa-font-body: "DM Sans", TildaSans, sans-serif;
@@ -104,6 +105,7 @@
     --gipa-muted: #EBEBEB;
     --gipa-muted-foreground: #6B6B6B;
     --gipa-radius: 4px;
+    --gipa-btn-radius: 0px;
     --gipa-font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
     --gipa-font-body: "DM Sans", TildaSans, sans-serif;
 
@@ -215,13 +217,13 @@
 
   .gipa-btn {
     @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out sm:px-7;
-    border-radius: var(--gipa-radius);
+    border-radius: var(--gipa-btn-radius);
     transition-property: background-color, border-color, color, box-shadow;
   }
 
   .gipa-btn-primary {
     @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
-    border-radius: var(--gipa-radius);
+    border-radius: var(--gipa-btn-radius);
     background-color: var(--gipa-yellow);
     color: var(--gipa-charcoal);
     transition-property: background-color, border-color, color, box-shadow;
@@ -238,7 +240,7 @@
 
   .gipa-btn-secondary {
     @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
-    border-radius: var(--gipa-radius);
+    border-radius: var(--gipa-btn-radius);
     border-color: rgb(28 28 28 / 0.2);
     color: var(--gipa-charcoal);
     transition-property: background-color, border-color, color, box-shadow;
@@ -255,7 +257,7 @@
 
   .gipa-btn-secondary-dark {
     @apply inline-flex min-h-11 items-center justify-center gap-2.5 whitespace-nowrap border bg-transparent px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-white duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-7;
-    border-radius: var(--gipa-radius);
+    border-radius: var(--gipa-btn-radius);
     border-color: rgb(255 255 255 / 0.4);
     transition-property: background-color, border-color, color, box-shadow;
   }
@@ -272,7 +274,7 @@
 
   .gipa-btn-nav {
     @apply inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap px-4 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-5 lg:py-2.5;
-    border-radius: var(--gipa-radius);
+    border-radius: var(--gipa-btn-radius);
     background-color: var(--gipa-yellow);
     color: var(--gipa-charcoal);
     transition-property: background-color;
@@ -295,7 +297,18 @@
   .gipa-btn-secondary:hover .gipa-btn-icon,
   .gipa-btn-secondary-dark:hover .gipa-btn-icon,
   .gipa-btn-nav:hover .gipa-btn-icon {
-    transform: translateX(0.125rem);
+    transform: translateX(0.25rem);
+  }
+
+  .gipa-btn-phone-icon {
+    height: 0.875rem;
+    width: 0.875rem;
+    flex-shrink: 0;
+    transform-origin: 70% 15%;
+  }
+
+  .gipa-btn-primary:hover .gipa-btn-phone-icon {
+    animation: gipaPhoneShake 0.55s ease-in-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -305,6 +318,10 @@
     .gipa-btn-secondary-dark:hover .gipa-btn-icon,
     .gipa-btn-nav:hover .gipa-btn-icon {
       transform: none;
+    }
+
+    .gipa-btn-primary:hover .gipa-btn-phone-icon {
+      animation: none;
     }
   }
 
@@ -342,4 +359,48 @@
 @keyframes trustStripMarquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+@keyframes coverageSpokeFlow {
+  to {
+    stroke-dashoffset: -19;
+  }
+}
+
+@keyframes gipaPhoneShake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(14deg);
+  }
+  30% {
+    transform: rotate(-12deg);
+  }
+  45% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}
+
+.coverage-spoke {
+  stroke: #c48a00;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8 11;
+  stroke-dashoffset: 0;
+  animation: coverageSpokeFlow 2.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverage-spoke {
+    animation: none;
+  }
 }

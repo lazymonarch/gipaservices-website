@@ -263,20 +263,21 @@ const DriverApplication = () => {
       <section
         className="relative flex min-h-[420px] items-center overflow-hidden sm:min-h-[480px] md:min-h-[560px] lg:min-h-[580px]"
         style={{
-          backgroundImage: "url('/assets/hero-truck.jpg')",
+          backgroundImage: "url('/assets/driver-hero.jpg?v=2')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center 70%",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/30" />
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-16 sm:px-6 md:px-12 md:py-0 lg:px-16">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/30 via-slate-900/60 to-slate-900/80" />
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-end justify-center px-5 py-16 text-right sm:px-6 md:px-12 md:py-0 lg:px-16">
           <motion.div
+            className="flex w-full max-w-[720px] flex-col items-end"
             variants={revealVariant}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
           >
-            <HeroEyebrow text="Driver Application" />
+            <HeroEyebrow text="Driver Application" className="justify-end" />
             <h1 className="max-w-[720px] font-display text-[2.55rem] font-bold leading-[0.96] tracking-[-0.03em] text-white sm:text-[3.25rem] md:text-[clamp(3.5rem,5.5vw,4.5rem)] md:leading-[0.94]">
               Drive With
               <br />

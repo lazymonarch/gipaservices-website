@@ -1,3 +1,7 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { testimonials, type Testimonial } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +21,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     .join(" · ");
 
   return (
-    <article className="gipa-card-dark flex h-full flex-col bg-[#1A1A1A] p-7 lg:p-8">
+    <article className="flex h-full flex-col px-6 py-2 md:px-8 lg:px-10">
       <span
         className="font-display text-5xl leading-none text-[#F5C518]"
         aria-hidden="true"
@@ -49,7 +53,34 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 }
 
 export default function Testimonials() {
-  const count = testimonials.length;
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  const updateArrows = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 1);
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      el.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, [updateArrows]);
+
+  const scrollByPage = (direction: -1 | 1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
+  };
 
   return (
     <section
@@ -58,36 +89,65 @@ export default function Testimonials() {
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-12 max-w-3xl md:mb-16">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="gipa-rule" />
-            <span className="gipa-eyebrow">
-              Client Feedback
-            </span>
+        <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="gipa-rule" />
+              <span className="gipa-eyebrow">
+                Client Feedback
+              </span>
+            </div>
+            <h2
+              id="testimonials-heading"
+              className="font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white"
+            >
+              Trusted by
+              <br />
+              <span className="italic text-[#F5C518]">UK businesses</span>
+            </h2>
+            <p className="gipa-text-body mt-5 max-w-xl text-white/55">
+              Client feedback focused on reliability, communication, and delivery
+              consistency.
+            </p>
           </div>
-          <h2
-            id="testimonials-heading"
-            className="font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.025em] text-white"
-          >
-            Trusted by
-            <br />
-            <span className="italic text-[#F5C518]">UK businesses</span>
-          </h2>
-          <p className="gipa-text-body mt-5 max-w-xl text-white/55">
-            Client feedback focused on reliability, communication, and delivery
-            consistency.
-          </p>
+
+          <div className="flex shrink-0 gap-2">
+            <button
+              type="button"
+              aria-label="Previous testimonials"
+              disabled={!canPrev}
+              onClick={() => scrollByPage(-1)}
+              className="flex h-11 w-11 items-center justify-center border border-white/25 text-white transition-opacity duration-200 enabled:hover:border-[#F5C518] enabled:hover:text-[#F5C518] disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next testimonials"
+              disabled={!canNext}
+              onClick={() => scrollByPage(1)}
+              className="flex h-11 w-11 items-center justify-center border border-white/25 text-white transition-opacity duration-200 enabled:hover:border-[#F5C518] enabled:hover:text-[#F5C518] disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
         <div
-          className={cn(
-            "grid gap-5",
-            count === 1
-              ? "mx-auto max-w-2xl grid-cols-1" :"grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
-          )}
+          ref={scrollerRef}
+          className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={testimonial.id}
+              className={cn(
+                "w-full shrink-0 snap-start md:w-1/2",
+                index < testimonials.length - 1 &&
+                  "border-r border-white/10",
+              )}
+            >
+              <TestimonialCard testimonial={testimonial} />
+            </div>
           ))}
         </div>
       </div>

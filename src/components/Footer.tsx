@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-import { plusJakarta } from "@/lib/fonts";
 
 const navLinks = [
   { label: "Home", href: "/", className: "order-1 lg:order-1" },
@@ -19,17 +18,13 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-10">
           <div className="max-w-sm">
             <div className="flex items-center">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-[#F5C518] text-sm font-bold text-[#2C2C2C]">
-                G
-              </div>
-              <span
-                className={cn(
-                  "ml-2 text-base font-semibold text-[color:var(--gipa-cream)]",
-                  plusJakarta?.className,
-                )}
-              >
-                GIPA Services
-              </span>
+              <img
+                src="/assets/gipa-logo.png"
+                alt="GIPA Services"
+                width={251}
+                height={150}
+                className="h-[52px] w-auto shrink-0 object-contain object-left lg:h-14"
+              />
             </div>
           </div>
 
