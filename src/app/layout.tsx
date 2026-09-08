@@ -5,12 +5,22 @@ import AppProviders from "@/components/AppProviders";
 import { playfairDisplay } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "GIPA Services Limited — Nationwide HGV Logistics & Transport",
+  title: {
+    default: "GIPA Services",
+    template: "%s | GIPA Services",
+  },
   description:
     "GIPA Services Limited provides reliable, professional HGV logistics and transport services across the United Kingdom.",
   authors: [{ name: "GIPA Services Limited" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
-    title: "GIPA Services Limited — Nationwide HGV Logistics",
+    title: "GIPA Services — HGV Logistics UK",
     description:
       "Reliable, professional HGV logistics and transport services across the United Kingdom.",
     type: "website",
