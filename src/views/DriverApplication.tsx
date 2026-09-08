@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import { mediaUrl } from "@/lib/media";
 import CvUploadDropzone from "@/components/CvUploadDropzone";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -263,7 +264,7 @@ const DriverApplication = () => {
       <section
         className="relative flex min-h-[420px] items-center overflow-hidden sm:min-h-[480px] md:min-h-[560px] lg:min-h-[580px]"
         style={{
-          backgroundImage: "url('/assets/driver-hero.jpg?v=2')",
+          backgroundImage: `url('${mediaUrl("driverHero")}')`,
           backgroundSize: "cover",
           backgroundPosition: "center 70%",
         }}

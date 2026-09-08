@@ -7,6 +7,7 @@ import Layout from "@/components/Layout";
 import { REVEAL_EASE } from "@/lib/animations";
 import HeroEyebrow from "@/components/HeroEyebrow";
 import { cn } from "@/lib/utils";
+import { mediaUrl } from "@/lib/media";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 const inputClassName =
@@ -157,7 +158,7 @@ const Contact = () => {
       {/* ── Hero ── */}
       <section className="relative min-h-[450px] md:min-h-[470px] flex items-center overflow-hidden">
         <Image
-          src="/assets/contact-hero-port.jpg"
+          src={mediaUrl("contactHero")}
           alt="Shipping containers at port"
           fill
           className="object-cover object-center"

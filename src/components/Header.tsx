@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { mediaUrl } from "@/lib/media";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -209,7 +210,7 @@ const Header = () => {
         <nav className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
           <Link href="/" className="relative z-10 flex items-center" aria-label="GIPA Services home">
             <img
-              src="/assets/gipa-logo.png"
+              src={mediaUrl("logo")}
               alt="GIPA Services"
               width={251}
               height={150}

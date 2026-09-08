@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import { mediaUrl } from "@/lib/media";
 import CvUploadDropzone from "@/components/CvUploadDropzone";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -305,7 +306,7 @@ const WarehouseOperativeApplication = () => {
 
           <div className="relative min-h-[280px] overflow-hidden sm:min-h-[360px] md:min-h-[420px] lg:col-span-7 lg:min-h-[36rem]">
             <Image
-              src="/assets/warehouse-real-1.jpg"
+              src={mediaUrl("warehouseReal")}
               alt="Warehouse operations supporting GIPA Services logistics"
               fill
               priority

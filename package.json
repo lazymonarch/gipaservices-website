@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "node scripts/validate-env.mjs && node .next/standalone/server.js",
     "lint": "eslint .",
+    "assets:upload": "node --env-file=.env scripts/upload-cloudinary.mjs",
     "prisma:generate": "prisma generate",
     "postinstall": "prisma generate"
   },

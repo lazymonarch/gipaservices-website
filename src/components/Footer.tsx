@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
+import { mediaUrl } from "@/lib/media";
 
 const navLinks = [
   { label: "Home", href: "/", className: "order-1 lg:order-1" },
@@ -19,7 +20,7 @@ const Footer = () => {
           <div className="max-w-sm">
             <div className="flex items-center">
               <img
-                src="/assets/gipa-logo.png"
+                src={mediaUrl("logo")}
                 alt="GIPA Services"
                 width={251}
                 height={150}

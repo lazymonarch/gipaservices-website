@@ -1,3 +1,5 @@
+import { mediaUrl } from "@/lib/media";
+
 const VIEW_W = 511;
 const VIEW_H = 781;
 
@@ -58,7 +60,7 @@ export default function UKMap() {
     >
       <div className="relative h-full w-full">
         <img
-          src="/assets/united-kingdom.png?v=source-map"
+          src={mediaUrl("ukMap")}
           alt=""
           width={VIEW_W}
           height={VIEW_H}

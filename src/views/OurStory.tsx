@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FadeUp } from "@/components/motion/Reveal";
 import { ChevronRight, ClipboardCheck, MapPin, Shield } from "lucide-react";
 import HeroEyebrow from "@/components/HeroEyebrow";
+import { mediaUrl } from "@/lib/media";
 
 const valueCards = [
 {
@@ -91,7 +92,7 @@ const OurStory = () => {
             <FadeUp className="lg:col-span-7" delay={0.1}>
               <div className="relative min-h-[300px] overflow-hidden rounded-gipa bg-white shadow-[0_12px_40px_rgba(28,28,28,0.10)] sm:min-h-[390px] lg:min-h-[460px]">
                 <Image
-                  src="/assets/warehouse-real-1.jpg"
+                  src={mediaUrl("warehouseReal")}
                   alt="Warehouse operations at GIPA Services"
                   fill
                   sizes="(max-width: 1024px) 100vw, 58vw"

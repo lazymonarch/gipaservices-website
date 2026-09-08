@@ -11,6 +11,7 @@ import Testimonials from "@/components/Testimonials";
 import HomePrimaryButton from "@/components/HomePrimaryButton";
 import HeroEyebrow from "@/components/HeroEyebrow";
 import { revealVariant } from "@/lib/animations";
+import { mediaUrl } from "@/lib/media";
 
 const services = [
   {
@@ -32,7 +33,7 @@ const services = [
     tag: "Secure · Compliant",
     number: "02",
     href: "/contact",
-    image: "/assets/service-secure-warehouse.jpg",
+    image: mediaUrl("serviceSecure"),
     alt: "Organised warehouse racking with bins and palletised goods",
     wide: false
   },
@@ -43,7 +44,7 @@ const services = [
     tag: "Timed · Scheduled",
     number: "03",
     href: "/contact",
-    image: "/assets/service-timed-dock.jpg",
+    image: mediaUrl("serviceTimed"),
     alt: "Loading dock with trucks at numbered warehouse bays",
     wide: false
   },
@@ -54,7 +55,7 @@ const services = [
     tag: "Dedicated · Long-term",
     number: "04",
     href: "/contact",
-    image: "/assets/service-partnership-review.jpg",
+    image: mediaUrl("servicePartnership"),
     alt: "Two warehouse operatives in high-visibility vests reviewing a clipboard",
     wide: true
   }];
@@ -124,7 +125,7 @@ const careerRoles = [
     number: "01",
     description: "Professional HGV driving roles supporting UK logistics operations.",
     href: "/driver-application",
-    image: "/assets/hero-truck.jpg",
+    image: mediaUrl("careerDriver"),
     alt: "HGV truck on a UK route",
     imageClassName: "object-cover object-center"
   },
@@ -133,7 +134,7 @@ const careerRoles = [
     number: "02",
     description: "Warehouse operative roles supporting UK distribution operations.",
     href: "/warehouse-operative-application",
-    image: "/assets/warehouse-operative.jpg",
+    image: mediaUrl("careerWarehouse"),
     alt: "Warehouse operative in a hard hat checking stock",
     imageClassName: "object-cover object-center"
   }];
@@ -262,7 +263,7 @@ const Index = () => {
         {/* Hero section */}
         <section className="relative min-h-[100svh] overflow-hidden">
           <img
-            src="/assets/home-hero-mountain.png"
+            src={mediaUrl("homeHero")}
             alt="HGV truck on a winding mountain road"
             fetchPriority="high"
             className="pointer-events-none absolute max-w-none object-cover object-[64%_85%] md:hidden"
@@ -277,7 +278,7 @@ const Index = () => {
             }}
           />
           <Image
-            src="/assets/home-hero-mountain.png"
+            src={mediaUrl("homeHero")}
             alt="HGV truck on a winding mountain road"
             fill
             priority
@@ -731,7 +732,7 @@ const Index = () => {
 
             <div className="relative min-h-[360px] w-full overflow-hidden lg:min-h-0 lg:w-1/2">
               <Image
-                src="/assets/home-cta-truck.jpg"
+                src={mediaUrl("homeCta")}
                 alt="HGV truck driving on a mountain road"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
