@@ -9,6 +9,7 @@ import HeroEyebrow from "@/components/HeroEyebrow";
 import { cn } from "@/lib/utils";
 import { mediaUrl } from "@/lib/media";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { GlowSubmitButton } from "@/components/GlowSubmitButton";
 
 const inputClassName =
   "w-full rounded-gipa border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-none outline-none ring-0 ring-offset-0 transition-colors duration-200 placeholder:text-slate-400 focus:border-gipa-yellow focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:border-gipa-yellow focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
@@ -427,18 +428,14 @@ const Contact = () => {
                   ) : null}
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="gipa-btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:shadow-none"
+                <GlowSubmitButton
+                  submitting={submitting}
+                  submittingLabel="Sending..."
+                  className="w-full"
+                  icon={<ArrowRight className="gipa-btn-icon" strokeWidth={2.2} aria-hidden="true" />}
                 >
-                  {submitting ? "Sending..." : (
-                    <>
-                      Send Enquiry
-                      <ArrowRight className="gipa-btn-icon" strokeWidth={2.2} aria-hidden="true" />
-                    </>
-                  )}
-                </button>
+                  Send Enquiry
+                </GlowSubmitButton>
               </form>
               </>
               )}

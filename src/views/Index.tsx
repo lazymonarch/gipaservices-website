@@ -12,6 +12,18 @@ import HomePrimaryButton from "@/components/HomePrimaryButton";
 import HeroEyebrow from "@/components/HeroEyebrow";
 import { revealVariant } from "@/lib/animations";
 import { mediaUrl } from "@/lib/media";
+import { cn } from "@/lib/utils";
+
+const heroOverlayGradients = [
+  "radial-gradient(120% 95% at 0% 100%, rgba(10,10,10,0.58) 0%, rgba(10,10,10,0.52) 28%, rgba(10,10,10,0.29) 52%, rgba(10,10,10,0.07) 72%, transparent 86%)",
+  "linear-gradient(to top, rgba(10,10,10,0.49) 0%, rgba(10,10,10,0.23) 36%, rgba(10,10,10,0.05) 62%, transparent 82%)",
+  "linear-gradient(to right, rgba(10,10,10,0.43) 0%, rgba(10,10,10,0.19) 34%, rgba(10,10,10,0.04) 58%, transparent 76%)",
+].join(", ");
+
+const heroMobileExtraOverlay = [
+  "linear-gradient(to top, rgba(10,10,10,0.93) 0%, rgba(10,10,10,0.42) 38%, transparent 58%)",
+  "rgba(10,10,10,0.22)",
+].join(", ");
 
 const services = [
   {
@@ -85,20 +97,19 @@ const whyGipaFeatures = [
 
 const heroStats = [
   {
-    value: "15+",
-    label: "Years Operating",
-    note: "Est. 2009"
+    title: "Dependable Support",
+    sub: "Timely & Secure",
   },
   {
-    value: "UK-Wide",
+    title: "UK-Wide",
     label: "Coverage",
-    note: "Eng · Sco · Wal · NI"
+    note: "Eng · Sco · Wal · NI",
   },
   {
-    value: "100%",
-    label: "Compliance",
-    note: "FORS & DVSA"
-  }];
+    title: "Professional",
+    sub: "Standards & Compliance",
+  },
+];
 
 
 const coverageSupportPoints = [
@@ -225,7 +236,21 @@ const Index = () => {
   const imageWipeRefs = useRef<(HTMLDivElement | null)[]>([]);
   const imageScaleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const servicesTrackRef = useRef<HTMLDivElement>(null);
+  const serviceVisibilityRatiosRef = useRef<number[]>(services.map(() => 0));
   const [servicesRevealed, setServicesRevealed] = useState(false);
+  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+
+  const goToService = (index: number) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    card.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      inline: "start",
+      block: "nearest",
+    });
+    setActiveServiceIndex(index);
+  };
 
   useEffect(() => {
     if (servicesRevealed) return;
@@ -257,111 +282,168 @@ const Index = () => {
     };
   }, [servicesRevealed]);
 
+  useEffect(() => {
+    const track = servicesTrackRef.current;
+    if (!track) return;
+
+    const cards = cardRefs.current.filter((card): card is HTMLElement => card !== null);
+    if (cards.length === 0) return;
+
+    serviceVisibilityRatiosRef.current = services.map(() => 0);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = cardRefs.current.indexOf(entry.target as HTMLElement);
+          if (idx >= 0) {
+            serviceVisibilityRatiosRef.current[idx] = entry.intersectionRatio;
+          }
+        });
+
+        const ratios = serviceVisibilityRatiosRef.current;
+        const bestIdx = ratios.reduce(
+          (best, ratio, idx) => (ratio > ratios[best] ? idx : best),
+          0,
+        );
+
+        if (ratios[bestIdx] > 0) {
+          setActiveServiceIndex(bestIdx);
+        }
+      },
+      {
+        root: track,
+        threshold: [0, 0.25, 0.5, 0.6, 0.75, 1],
+      },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [servicesRevealed]);
+
   return (
     <Layout>
       <div className="font-sans">
-        {/* Hero section */}
-        <section className="relative min-h-[100svh] overflow-hidden">
-          <img
-            src={mediaUrl("homeHero")}
-            alt="HGV truck on a winding mountain road"
-            fetchPriority="high"
-            className="pointer-events-none absolute max-w-none object-cover object-[64%_85%] md:hidden"
-            style={{
-              top: 0,
-              right: "-22%",
-              bottom: 0,
-              left: "auto",
-              height: "100%",
-              width: "170%",
-              filter: "contrast(1.18) saturate(1.25) brightness(0.96)",
-            }}
-          />
-          <Image
-            src={mediaUrl("homeHero")}
-            alt="HGV truck on a winding mountain road"
-            fill
-            priority
-            sizes="100vw"
-            className="hidden object-cover object-[55%_45%] md:block lg:object-center"
-          />
-          <div
-            className="absolute inset-0 md:hidden"
-            aria-hidden="true"
-            style={{
-              background: [
-                "linear-gradient(to top, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.52) 18%, rgba(10,10,10,0.22) 34%, rgba(10,10,10,0.06) 48%, transparent 62%)",
-                "radial-gradient(130% 55% at 0% 100%, rgba(10,10,10,0.42) 0%, rgba(10,10,10,0.16) 40%, transparent 68%)",
-              ].join(", "),
-            }}
-          />
-          <div
-            className="absolute inset-0 hidden md:block"
-            aria-hidden="true"
-            style={{
-              background: [
-                "radial-gradient(120% 95% at 0% 100%, rgba(10,10,10,0.58) 0%, rgba(10,10,10,0.52) 28%, rgba(10,10,10,0.29) 52%, rgba(10,10,10,0.07) 72%, transparent 86%)",
-                "linear-gradient(to top, rgba(10,10,10,0.49) 0%, rgba(10,10,10,0.23) 36%, rgba(10,10,10,0.05) 62%, transparent 82%)",
-                "linear-gradient(to right, rgba(10,10,10,0.43) 0%, rgba(10,10,10,0.19) 34%, rgba(10,10,10,0.04) 58%, transparent 76%)",
-              ].join(", "),
-            }}
-          />
+        <div className="max-md:flex max-md:h-[100svh] max-md:max-h-[100svh] max-md:flex-col max-md:overflow-hidden">
+          {/* Hero section */}
+          <section className="relative max-md:flex max-md:min-h-0 max-md:flex-1 max-md:flex-col overflow-hidden md:min-h-[100svh]">
+            <img
+              src={mediaUrl("homeHero")}
+              alt="HGV truck on a winding mountain road"
+              fetchPriority="high"
+              className="pointer-events-none absolute max-w-none object-cover object-[58%_82%] md:hidden"
+              style={{
+                top: 0,
+                right: "auto",
+                bottom: 0,
+                left: "-14%",
+                height: "100%",
+                width: "150%",
+              }}
+            />
+            <Image
+              src={mediaUrl("homeHero")}
+              alt="HGV truck on a winding mountain road"
+              fill
+              priority
+              sizes="100vw"
+              className="hidden object-cover object-[55%_45%] md:block lg:object-center"
+            />
+            <div
+              className="absolute inset-0"
+              aria-hidden="true"
+              style={{ background: heroOverlayGradients }}
+            />
+            <div
+              className="absolute inset-0 md:hidden"
+              aria-hidden="true"
+              style={{ background: heroMobileExtraOverlay }}
+            />
 
-          <div className="relative z-10 flex min-h-[100svh] items-end pb-16 pt-28 max-md:pb-24 max-md:pt-32 md:pb-20 lg:pb-24">
-            <div className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
-              <div className="max-w-xl lg:max-w-2xl">
-                <HeroEyebrow text="UK Logistics & HGV Transport" className="mb-8 max-md:mb-12" />
+            <div className="relative z-10 flex max-md:min-h-0 max-md:flex-1 items-end pb-4 pt-20 md:min-h-[100svh] md:pb-20 md:pt-28 lg:pb-24">
+              <div className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+                <div className="max-w-xl lg:max-w-2xl">
+                  <HeroEyebrow text="UK Logistics & HGV Transport" className="mb-8 max-md:mb-6" />
 
-                <h1 className="gipa-hero-title text-[44px] text-white md:text-[60px] lg:text-[76px]">
-                  Dependable
-                  <br />
-                  <span className="gipa-hero-accent">HGV Logistics</span>
-                  <br />
-                  Across the UK
-                </h1>
+                  <h1 className="gipa-hero-title text-[44px] text-white md:text-[60px] lg:text-[76px]">
+                    Dependable
+                    <br />
+                    <span className="gipa-hero-accent">HGV Logistics</span>
+                  </h1>
 
-                <p className="mt-10 max-w-md text-base leading-relaxed text-white max-md:mt-14 lg:mt-12 lg:text-lg">
-                  Professional HGV transport across England, Scotland, Wales and Northern Ireland.
-                </p>
+                  <p className="mt-10 max-w-md text-base leading-relaxed text-white max-md:mt-8 lg:mt-12 lg:text-lg">
+                    Professional HGV transport across England, Scotland, Wales and Northern Ireland.
+                  </p>
 
-                <div className="mt-12 max-md:mt-16 lg:mt-14">
-                  <Link
-                    href="/contact"
-                    className="gipa-btn-primary w-full sm:w-auto">
-                    Get a Quote
-                    <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
-                  </Link>
+                  <div className="mt-12 max-md:mt-10 lg:mt-14">
+                    <Link
+                      href="/contact"
+                      className="gipa-btn-primary w-full sm:w-auto">
+                      Get a Quote
+                      <ChevronRight className="gipa-btn-icon" aria-hidden="true" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section
-          aria-label="Company figures"
-          className="border-y border-[color:var(--gipa-card-border)] bg-[color:var(--gipa-cream)]">
-          <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 sm:grid-cols-3">
-            {heroStats.map((stat, index) =>
-            <div
-              key={stat.label}
-              className={`flex items-baseline gap-4 px-6 py-5 md:px-8 lg:px-12 ${
-                index > 0 ? "border-t border-[color:var(--gipa-card-border)] sm:border-t-0 sm:border-l" : ""
-              }`}>
-              <p className="font-display text-2xl font-bold text-[#1C1C1C] lg:text-[1.75rem]">
-                {stat.value}
-              </p>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  {stat.label}
-                </p>
-                <p className="mt-0.5 text-[11px] font-medium text-slate-400">
-                  {stat.note}
-                </p>
-              </div>
+          <section
+            aria-label="Company figures"
+            className="max-md:shrink-0 border-y border-[color:var(--gipa-card-border)] bg-[color:var(--gipa-cream)] max-md:border-t-0">
+            <div className="mx-auto grid w-full max-w-[1400px] grid-cols-3 gap-2 sm:grid-cols-3">
+              {heroStats.map((stat, index) => (
+                <div
+                  key={stat.title}
+                  className={cn(
+                    "px-3 py-3 text-center sm:flex sm:items-baseline sm:gap-4 sm:px-6 sm:py-5 sm:text-left md:px-8 lg:px-12",
+                    index > 0 && "sm:border-l sm:border-[color:var(--gipa-card-border)]",
+                  )}
+                >
+                  <div className="sm:hidden">
+                    <p className="font-display text-base font-bold leading-tight text-[#1C1C1C]">
+                      {stat.title}
+                    </p>
+                    {stat.label && stat.note ? (
+                      <div className="mt-1">
+                        <p className="text-[10px] uppercase leading-tight tracking-wider text-slate-500">
+                          {stat.label}
+                        </p>
+                        <p className="text-[10px] uppercase leading-tight tracking-wider text-slate-500">
+                          {stat.note}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="mt-1 text-[10px] uppercase leading-tight tracking-wider text-slate-500">
+                        {stat.sub}
+                      </p>
+                    )}
+                  </div>
+
+                  <p className="hidden font-display text-2xl font-bold text-[#1C1C1C] sm:block lg:text-[1.75rem]">
+                    {stat.title}
+                  </p>
+                  <div className="hidden sm:block">
+                    {stat.label && stat.note ? (
+                      <>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                          {stat.label}
+                        </p>
+                        <p className="mt-0.5 text-[11px] font-medium text-slate-400">
+                          {stat.note}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                        {stat.sub}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-            )}
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Services section */}
         <section
@@ -371,11 +453,11 @@ const Index = () => {
 
           <div className="h-1 w-full bg-[#F5C518]" aria-hidden="true" />
 
-          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-7xl px-6 pt-12 pb-10 md:py-20 lg:px-8 lg:py-32">
             {/* Section heading — fade + upward reveal */}
             <div
               ref={sectionHeadingRef}
-              className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-24"
+              className="mb-8 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end lg:mb-16"
               style={{
                 opacity: servicesRevealed ? 1 : 0,
                 transform: servicesRevealed ? "translateY(0)" : "translateY(28px)",
@@ -402,109 +484,141 @@ const Index = () => {
               </p>
             </div>
 
-            <div
-              ref={servicesTrackRef}
-              className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain scroll-px-6 scroll-smooth pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:grid md:grid-cols-12 md:gap-4 md:overflow-visible md:overscroll-auto md:scroll-px-0 md:pb-0 lg:gap-5 [&::-webkit-scrollbar]:hidden"
-              aria-label="Our services"
-            >
-              {services?.map((service, index) => {
-                const staggerDelay = index * 100;
-                return (
-                  <article
-                    key={service?.name}
-                    ref={(el) => { cardRefs.current[index] = el; }}
-                    className={`gipa-card group relative w-[86vw] shrink-0 snap-start overflow-hidden bg-white md:w-auto md:min-w-0 md:shrink md:snap-align-none ${service?.wide ? "md:col-span-7" : "md:col-span-5"}`}
-                    style={{
-                      opacity: servicesRevealed ? 1 : 0,
-                      transform: servicesRevealed ? "translateY(0)" : "translateY(32px)",
-                      transition: `opacity 700ms ease ${staggerDelay}ms, transform 700ms ease ${staggerDelay}ms`
-                    }}>
-
-                    {/* Image container with wipe reveal */}
-                    <div
-                      className="relative overflow-hidden"
+            <div>
+              <div
+                ref={servicesTrackRef}
+                className="flex snap-x snap-mandatory gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain overscroll-y-none touch-pan-x scroll-px-6 scroll-smooth pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:grid md:grid-cols-12 md:gap-4 md:overflow-visible md:overscroll-auto md:scroll-px-0 md:touch-auto md:pb-0 lg:gap-5 [&::-webkit-scrollbar]:hidden"
+                aria-label="Our services"
+              >
+                {services?.map((service, index) => {
+                  const staggerDelay = index * 100;
+                  return (
+                    <article
+                      key={service?.name}
+                      ref={(el) => { cardRefs.current[index] = el; }}
+                      className={`gipa-card group relative w-[86vw] shrink-0 snap-start overflow-hidden bg-white md:w-auto md:min-w-0 md:shrink md:snap-align-none ${service?.wide ? "md:col-span-7" : "md:col-span-5"}`}
                       style={{
-                        height: service?.wide ?
-                          "clamp(250px, calc(35vw - 10px), 410px)" :
-                          "clamp(210px, calc(28vw - 10px), 330px)"
+                        opacity: servicesRevealed ? 1 : 0,
+                        transform: servicesRevealed ? "translateY(0)" : "translateY(32px)",
+                        transition: `opacity 700ms ease ${staggerDelay}ms, transform 700ms ease ${staggerDelay}ms`
                       }}>
 
-                      {/* Image wrapper — starts scaled up, scales to 1 on reveal */}
+                      {/* Image container with wipe reveal */}
                       <div
-                        ref={(el) => { imageScaleRefs.current[index] = el; }}
-                        data-idx={index}
-                        className="absolute inset-0"
-                        style={{
-                          transform: servicesRevealed ? "scale(1)" : "scale(1.12)",
-                          transition: "transform 1600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-                        }}>
-                        <Image
-                          src={service?.image}
-                          alt={service?.alt}
-                          fill
-                          sizes={
-                            service?.wide ?
-                              "(max-width: 768px) 100vw, 58vw" :
-                              "(max-width: 768px) 100vw, 42vw"
-                          }
-                          className="object-cover transition-transform [transition-duration:1200ms] ease-out group-hover:scale-[1.06]" />
+                        className={cn(
+                          "relative overflow-hidden",
+                          "max-md:h-[clamp(210px,calc(28vw-10px),330px)]",
+                          service?.wide
+                            ? "md:h-[clamp(250px,calc(35vw-10px),410px)]"
+                            : "md:h-[clamp(210px,calc(28vw-10px),330px)]",
+                        )}
+                      >
+
+                        {/* Image wrapper — starts scaled up, scales to 1 on reveal */}
+                        <div
+                          ref={(el) => { imageScaleRefs.current[index] = el; }}
+                          data-idx={index}
+                          className="absolute inset-0"
+                          style={{
+                            transform: servicesRevealed ? "scale(1)" : "scale(1.12)",
+                            transition: "transform 1600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                          }}>
+                          <Image
+                            src={service?.image}
+                            alt={service?.alt}
+                            fill
+                            sizes={
+                              service?.wide ?
+                                "(max-width: 768px) 100vw, 58vw" :
+                                "(max-width: 768px) 100vw, 42vw"
+                            }
+                            className="object-cover transition-transform [transition-duration:1200ms] ease-out md:group-hover:scale-[1.06]" />
+                        </div>
+
+                        {/* Wipe overlay — slides out to the left on reveal */}
+                        <div
+                          ref={(el) => { imageWipeRefs.current[index] = el; }}
+                          className="absolute inset-0 z-20 bg-[color:var(--gipa-cream)]"
+                          style={{
+                            transform: servicesRevealed ? "translateX(101%)" : "translateX(0)",
+                            transition: "transform 1200ms cubic-bezier(0.77, 0, 0.175, 1)"
+                          }} />
+
+                        {/* Gradient overlay */}
+                        <div
+                          className="absolute inset-0 z-[1]"
+                          style={{
+                            background:
+                              "linear-gradient(to top, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.22) 55%, transparent 100%)"
+                          }} />
+
+                        <div className="absolute left-5 top-5 z-10">
+                          <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
+                            {service?.tag}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-5 right-5 z-10 font-display text-[4rem] font-bold leading-none text-white/25">
+                          {service?.number}
+                        </div>
                       </div>
 
-                      {/* Wipe overlay — slides out to the left on reveal */}
-                      <div
-                        ref={(el) => { imageWipeRefs.current[index] = el; }}
-                        className="absolute inset-0 z-20 bg-[color:var(--gipa-cream)]"
-                        style={{
-                          transform: servicesRevealed ? "translateX(101%)" : "translateX(0)",
-                          transition: "transform 1200ms cubic-bezier(0.77, 0, 0.175, 1)"
-                        }} />
+                      <div className="px-7 pt-7 pb-3 lg:px-8 lg:pt-8 lg:pb-3">
+                        <span
+                          className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
+                          aria-hidden="true" />
 
-                      {/* Gradient overlay */}
-                      <div
-                        className="absolute inset-0 z-[1]"
-                        style={{
-                          background:
-                            "linear-gradient(to top, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.22) 55%, transparent 100%)"
-                        }} />
+                        <h3
+                          className={`mb-3 font-bold leading-snug tracking-tight text-[#1C1C1C] ${service?.wide ?
+                            "text-xl lg:text-2xl" : "text-xl"}`}>
 
-                      <div className="absolute left-5 top-5 z-10">
-                        <span className="rounded-sm bg-[#F5C518] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1C1C1C]">
-                          {service?.tag}
-                        </span>
+                          {service?.name}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-[#1C1C1C]/65">
+                          {service?.description}
+                        </p>
+                        {/* Learn More — hidden by default, slides in on card hover (desktop only) */}
+                        <div className="max-h-0 overflow-hidden transition-[max-height,margin] duration-500 ease-out max-md:mt-0 md:group-hover:mt-4 md:group-hover:max-h-10">
+                          <Link
+                            href={service?.href}
+                            className="inline-flex translate-x-[-110%] items-center gap-0 text-xs font-bold uppercase tracking-widest text-[#C48A00] opacity-0 transition-all duration-500 ease-out md:group-hover:translate-x-0 md:group-hover:gap-3 md:group-hover:opacity-100">
+                            <span className="block h-[1.5px] w-8 bg-[#F5C518] transition-all duration-500 ease-out md:group-hover:w-10" />
+                            Learn More
+                            <ChevronRight className="gipa-btn-icon" />
+                          </Link>
+                        </div>
                       </div>
-                      <div className="absolute bottom-5 right-5 z-10 font-display text-[4rem] font-bold leading-none text-white/25">
-                        {service?.number}
-                      </div>
-                    </div>
+                    </article>
+                  );
+                })}
+              </div>
 
-                    <div className="px-7 pt-7 pb-3 lg:px-8 lg:pt-8 lg:pb-3">
-                      <span
-                        className="mb-4 block h-[3px] w-12 bg-[#F5C518]"
-                        aria-hidden="true" />
-
-                      <h3
-                        className={`mb-3 font-bold leading-snug tracking-tight text-[#1C1C1C] ${service?.wide ?
-                          "text-xl lg:text-2xl" : "text-xl"}`}>
-
-                        {service?.name}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-[#1C1C1C]/65">
-                        {service?.description}
-                      </p>
-                      {/* Learn More — hidden by default, slides in on card hover */}
-                      <div className="max-h-0 overflow-hidden transition-[max-height,margin] duration-500 ease-out group-hover:mt-4 group-hover:max-h-10">
-                        <Link
-                          href={service?.href}
-                          className="inline-flex translate-x-[-110%] items-center gap-0 text-xs font-bold uppercase tracking-widest text-[#C48A00] opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:gap-3 group-hover:opacity-100">
-                          <span className="block h-[1.5px] w-8 bg-[#F5C518] transition-all duration-500 ease-out group-hover:w-10" />
-                          Learn More
-                          <ChevronRight className="gipa-btn-icon" />
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
+              <div
+                className="mt-4 flex justify-center gap-2 md:hidden"
+                role="tablist"
+                aria-label="Service slides"
+              >
+                {services.map((service, index) => (
+                  <button
+                    key={service.name}
+                    type="button"
+                    role="tab"
+                    aria-label={`Go to service ${index + 1}`}
+                    aria-current={activeServiceIndex === index ? "true" : undefined}
+                    onClick={() => goToService(index)}
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center p-2"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "block h-0.5 rounded-full transition-[width,background-color] duration-300 ease-out",
+                        activeServiceIndex === index
+                          ? "w-6 bg-[#F5C518]"
+                          : "w-2 bg-[#1C1C1C]/20",
+                      )}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </section>

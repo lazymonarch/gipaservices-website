@@ -16,6 +16,7 @@ import Layout from "@/components/Layout";
 import HeroEyebrow from "@/components/HeroEyebrow";
 import { mediaUrl } from "@/lib/media";
 import CvUploadDropzone from "@/components/CvUploadDropzone";
+import { GlowSubmitButton } from "@/components/GlowSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -749,20 +750,14 @@ const WarehouseOperativeApplication = () => {
                 </label>
               </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="gipa-btn-primary mt-8 w-full disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:shadow-none sm:w-auto"
+              <GlowSubmitButton
+                submitting={submitting}
+                submittingLabel="Submitting..."
+                className="mt-8 w-full sm:w-auto"
+                icon={<ArrowRight className="gipa-btn-icon" strokeWidth={2.5} aria-hidden="true" />}
               >
-                {submitting ? (
-                  "Submitting..."
-                ) : (
-                  <>
-                    Submit Application
-                    <ArrowRight className="gipa-btn-icon" strokeWidth={2.5} aria-hidden="true" />
-                  </>
-                )}
-              </button>
+                Submit Application
+              </GlowSubmitButton>
 
               <input type="hidden" name="phone" value={e164Phone} />
               <input type="hidden" name="rightToWork" value={rightToWork} />
