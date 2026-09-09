@@ -1,0 +1,21 @@
+---
+description: GIPA Level 1 admin security rules
+alwaysApply: true
+---
+
+# Security Rules
+
+- All `/admin` routes must be protected server-side.
+- Every mutation and sensitive CV access must perform server-side authorization.
+- Never trust role/permission values from the browser.
+- ADMIN and STAFF roles are distinct.
+- Permanent deletion is ADMIN-only and archive-gated.
+- Use secure server-side sessions and secure cookies in production.
+- Passwords must be strongly hashed; never store plaintext passwords.
+- Login must have brute-force/rate-limit protection.
+- Protect against IDOR, privilege escalation, CSRF where applicable, XSS, injection, session attacks, mass assignment, and information leakage.
+- Never expose WorkDrive credentials to the browser.
+- CV access must be authorized and mediated server-side.
+- Do not use dangerouslySetInnerHTML for untrusted content.
+- Do not log passwords, tokens, CV contents, or unnecessary PII.
+- Minimize PII in audit records.

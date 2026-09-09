@@ -1,0 +1,19 @@
+---
+description: GIPA Level 1 database and Prisma rules
+alwaysApply: true
+---
+
+# Database Rules
+
+- Use Prisma and the existing PostgreSQL database.
+- Preserve existing public models as source-of-truth submission data.
+- New admin metadata models must not duplicate applicant PII.
+- Use NOT NULL, UNIQUE, foreign keys, indexes, enums, and sensible defaults wherever appropriate.
+- DriverApplicationAdmin.driverApplicationId must be UNIQUE and required.
+- WarehouseApplicationAdmin.warehouseApplicationId must be UNIQUE and required.
+- ContactAdmin.contactId must be UNIQUE and required.
+- A successfully persisted application must have exactly one admin metadata record.
+- Application + corresponding admin metadata must be created atomically in a PostgreSQL transaction.
+- Do not apply destructive production migrations automatically.
+- Verify migration state and backup/recovery assumptions before production changes.
+- AuditLog must survive permanent deletion of application/contact records.

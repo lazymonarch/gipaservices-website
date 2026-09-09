@@ -1,0 +1,18 @@
+---
+description: GIPA Level 1 admin portal architecture guardrails
+alwaysApply: true
+---
+
+# Admin Architecture Rules
+
+- Treat `docs/ADMIN_PORTAL_MASTER_SPEC.md` as the authoritative Level 1 specification.
+- The admin portal is part of the existing GIPA Next.js application at `/admin`.
+- Use the same PostgreSQL database.
+- Preserve existing public application/contact functionality.
+- Do not create a separate admin codebase or database for Level 1.
+- Do not merge DriverApplication and WarehouseOperativeApplication.
+- Do not duplicate applicant PII into admin metadata.
+- Existing public UUID `id` values are the identity used by admin metadata FKs.
+- Admin metadata must use explicit 1:1 relationships with unique foreign keys.
+- Work phase-by-phase. Do not implement future phases without approval.
+- If the repository conflicts with the specification, stop and report the conflict rather than silently redesigning.

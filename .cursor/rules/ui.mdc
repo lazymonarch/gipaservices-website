@@ -1,0 +1,16 @@
+---
+description: GIPA Level 1 admin UI rules
+alwaysApply: true
+---
+
+# Admin UI Rules
+
+- Build the admin UI as an internal operations dashboard, not a marketing page.
+- Reuse the existing GIPA design language and shadcn/Radix/Tailwind components where practical.
+- Keep Level 1 focused and operational.
+- Required areas: login, dashboard, applications, applicant detail, contacts, contact detail.
+- Support loading, empty, error, confirmation, and success states.
+- Use accessible labels, focus states, keyboard navigation, and responsive layouts.
+- Applicant PII is read-only in Level 1.
+- Do not expose applicant IP addresses to STAFF.
+- Do not introduce advanced analytics, Kanban, interview scheduling, exports, or email composition in Level 1.
